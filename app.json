@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "crazystack",
+    "slug": "crazystack",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
