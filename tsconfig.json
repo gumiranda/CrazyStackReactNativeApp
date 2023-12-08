@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "jsx":"react-native",
+    "baseUrl": "src",
+    "allowJs":true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@/*": ["*"] // resolve all modules prefixed with `@/` from `src` directory
+    }
+  },
+  "extends": "expo/tsconfig.base"
+}
