@@ -48,7 +48,7 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <View style={styles.container}>
-        <Text>cccc FALA DEVDOIDO Open up App.js to start working on your app!</Text>
+        <Text>eee FAdddLA DEVDOIDO Open up App.js to start working on your app!</Text>
         <StatusBar style="auto" />
         <Test />
       </View>
