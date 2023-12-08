@@ -5,8 +5,11 @@
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
-    "and": "cd android && gradlew.bat clean && cd .. && react-native run-android",
-    "ios": "expo run:ios",
+    "ac": "yarn c && react-native run-android",
+    "i": "yarn c && yarn && cd ios && pod install && yarn ios",
+    "and": "react-native run-android",
+    "ios-expo": "expo run:ios",
+    "ios": "react-native run-ios --simulator='iPhone 15'",
     "generate": "yarn plop --plopfile ./generators/plopfile.js",
     "c":"react-native clean-project-auto",
     "adb": "cd android/app/build/outputs/apk/release && adb install -r app-release.apk",
