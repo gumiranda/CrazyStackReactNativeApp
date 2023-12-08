@@ -1,3 +1,9 @@
+import Arrow from "@/assets/arrow.svg";
+
 export const Test = () => {
-  return <></>;
+  return (
+    <>
+      <Arrow />
+    </>
+  );
 };
