@@ -5,13 +5,18 @@
   "scripts": {
     "start": "expo start --dev-client",
     "android": "expo run:android",
+    "and": "cd android && gradlew.bat clean && cd .. && react-native run-android",
     "ios": "expo run:ios",
+    "generate": "yarn plop --plopfile ./generators/plopfile.js",
+    "c":"react-native clean-project-auto",
+    "adb": "cd android/app/build/outputs/apk/release && adb install -r app-release.apk",
+    "apk": "rm -rf android/app/build && yarn install && cd android && ./gradlew clean && ./gradlew assembleRelease",
     "reverse": " adb reverse tcp:9090 tcp:9090",
     "web": "expo start --web"
   },
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
-    "@react-native-async-storage/async-storage": "^1.21.0",
+    "@react-native-async-storage/async-storage": "1.18.2",
     "@types/react": "~18.2.14",
     "expo": "~49.0.15",
     "expo-splash-screen": "~0.20.5",
@@ -19,7 +24,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.72.6",
-    "react-native-svg": "^14.1.0",
+    "react-native-svg": "13.9.0",
     "react-native-web": "~0.19.6",
     "typescript": "^5.1.3",
     "url": "^0.11.3"
@@ -43,6 +48,7 @@
     "jest-expo": "^49.0.0",
     "plop": "^4.0.0",
     "prettier": "^3.1.0",
+    "react-native-clean-project": "^4.0.3",
     "react-native-svg-transformer": "^1.1.0",
     "reactotron-react-native": "^5.0.3"
   },

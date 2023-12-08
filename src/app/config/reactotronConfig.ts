@@ -1,14 +1,15 @@
+import { NativeModules, Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NativeModules } from "react-native";
-import Reactotron from "reactotron-react-native";
 import url from "url";
+import Reactotron from "reactotron-react-native";
 const { hostname } = url.parse(NativeModules.SourceCode.scriptURL);
+
 declare global {
   export interface Console {
     tron: any;
   }
 }
-if (__DEV__) {
+if (__DEV__ && Platform.OS !== "web") {
   const tron = Reactotron.setAsyncStorageHandler(AsyncStorage)
     .configure({
       host: hostname,
