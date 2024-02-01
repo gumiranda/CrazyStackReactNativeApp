@@ -16,6 +16,11 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import {
+  Spartan_400Regular,
+  Spartan_500Medium,
+  Spartan_700Bold,
+} from "@expo-google-fonts/spartan";
 export default function App() {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -26,6 +31,9 @@ export default function App() {
     Poppins_400Regular,
     Poppins_500Medium,
     Poppins_700Bold,
+    Spartan_400Regular,
+    Spartan_500Medium,
+    Spartan_700Bold,
   });
   useEffect(() => {
     async function init() {
@@ -48,9 +56,11 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <View style={styles.container}>
-        <Text>eee FAdddLA DEVDOIDO Open up App.js to start working on your app!</Text>
+        <Text style={{ fontFamily: "Spartan_700Bold", fontSize: 58, color: "#7159c1" }}>
+          belezix
+        </Text>
         <StatusBar style="auto" />
-        <Test />
+        {/* <Test /> */}
       </View>
     </GestureHandlerRootView>
   );
