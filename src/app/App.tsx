@@ -24,6 +24,23 @@ import {
   Spartan_800ExtraBold,
 } from "@expo-google-fonts/spartan";
 import { UiProvider, useUi } from "./providers";
+import appMetrics from "@/shared/libs/functions/metrics";
+import { darken, lighten } from "polished";
+const colors = {
+  primary: {
+    500: "#9f7aea",
+    600: "#5f38e0",
+  },
+  secondary: {
+    400: lighten(0.1, "#2e2e2e"),
+    500: "#2e2e2e",
+    600: "#212121",
+  },
+  tertiary: {
+    500: "#04D361",
+    600: darken(0.1, "#04D361"),
+  },
+};
 export default function App() {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -69,47 +86,74 @@ export default function App() {
 const Page = () => {
   const { setLoading, setDialog, setIsOpen, isOpen } = useUi();
   return (
-    <View style={styles.container}>
-      <Text style={{ fontFamily: "Spartan_700Bold", fontSize: 58, color: "#7159c1" }}>
+    <Test style={styles.container}>
+      <Text
+        style={{
+          fontFamily: "Spartan_700Bold",
+          fontSize: 58,
+          color: "#fff",
+          position: "absolute",
+          top: appMetrics.NAV_HEIGHT,
+        }}
+      >
         belezix
       </Text>
-      <TouchableOpacity
-        onPress={() => {
-          setLoading((prev) => !prev);
-          setTimeout(() => {
+      <View style={styles.box}>
+        <Text style={styles.title}>Bem-vindo(a) ao Belezix</Text>
+        <Text style={styles.subtitle}>
+          {"Agende horários em salões de beleza. \nComece já a explorar!"}
+        </Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
             setLoading((prev) => !prev);
-          }, 3000);
-        }}
-      >
-        <Text style={{ fontFamily: "Spartan_700Bold", fontSize: 12, color: "#7159c1" }}>
-          TESTANDO LOADING
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={{ marginTop: 20 }}
-        onPress={() => {
-          setDialog({
-            mainButton: "ok",
-            colorScheme: "default",
-            isOpen,
-            setIsOpen,
-            title: "Testando",
-            dismissButton: "Cancelar",
-            onPress: () => {
-              console.tron.log("Testando dialog");
-            },
-            body: "Testando dialog",
-          });
-          setIsOpen(true);
-        }}
-      >
-        <Text style={{ fontFamily: "Spartan_700Bold", fontSize: 12, color: "#7159c1" }}>
-          TESTANDO DIALOG
-        </Text>
-      </TouchableOpacity>
+            setTimeout(() => {
+              setLoading((prev) => !prev);
+            }, 3000);
+          }}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+              fontFamily: "Spartan_700Bold",
+              fontSize: 12,
+              color: "#fff",
+            }}
+          >
+            ENTRAR
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button2}
+          onPress={() => {
+            setDialog({
+              mainButton: "ok",
+              colorScheme: "default",
+              isOpen,
+              setIsOpen,
+              title: "Testando",
+              dismissButton: "Cancelar",
+              onPress: () => {
+                console.tron.log("Testando dialog");
+              },
+              body: "Testando dialog",
+            });
+            setIsOpen(true);
+          }}
+        >
+          <Text
+            style={{
+              fontFamily: "Spartan_700Bold",
+              fontSize: 12,
+              color: "#fff",
+            }}
+          >
+            CADASTRAR MEU NEGÓCIO
+          </Text>
+        </TouchableOpacity>
+      </View>
       <StatusBar style="auto" />
-      {/* <Test /> */}
-    </View>
+    </Test>
   );
 };
 const styles = StyleSheet.create({
@@ -117,6 +161,42 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+    justifyContent: "flex-end",
+    padding: appMetrics.PADDING,
+  },
+  subtitle: {
+    color: "white",
+    textAlign: "center",
+    fontSize: appMetrics.FONT_SIZE,
+    fontFamily: "Spartan_400Regular",
+    marginVertical: 12,
+  },
+  title: {
+    fontFamily: "Spartan_700Bold",
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    fontSize: appMetrics.FONT_SIZE_TITLE,
+  },
+  button: {
+    marginTop: 15,
+    width: appMetrics.SCREEN_WIDTH * 0.9,
+    alignSelf: "center",
+    backgroundColor: colors.tertiary[600],
+    alignItems: "center",
     justifyContent: "center",
+    height: 40,
+  },
+  button2: {
+    marginTop: 15,
+    width: appMetrics.SCREEN_WIDTH * 0.9,
+    alignSelf: "center",
+    backgroundColor: colors.primary[600],
+    alignItems: "center",
+    justifyContent: "center",
+    height: 40,
+  },
+  box: {
+    marginBottom: appMetrics.PADDING * 1,
   },
 });
