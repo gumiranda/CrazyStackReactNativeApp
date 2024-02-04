@@ -8,6 +8,9 @@
     ],
     "web":{
       "bundler":"metro"
+    },
+    "packagerOpts": {
+      "config": "metro.config.js"
     }
   }
 }
