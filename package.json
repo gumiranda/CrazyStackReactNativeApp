@@ -9,6 +9,7 @@
     "i": "yarn c && yarn && cd ios && pod install && yarn ios",
     "and": "react-native run-android",
     "ios-expo": "expo run:ios",
+    "bundle": "rm -rf android/app/build && yarn install && cd android && ./gradlew clean && ./gradlew bundleRelease",
     "ios": "react-native run-ios --simulator='iPhone 15'",
     "generate": "yarn plop --plopfile ./generators/plopfile.js",
     "c": "react-native clean-project-auto",
@@ -68,4 +69,4 @@
     "reactotron-react-native": "^5.0.3"
   },
   "private": true
-}
+};

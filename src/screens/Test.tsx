@@ -1,5 +1,5 @@
 //import Arrow from "@/assets/arrow.svg";
-import Splash from "@/assets/splash.png";
+import Splash from "@/assets/splash.jpg";
 import appMetrics from "@/shared/libs/functions/metrics";
 import { useEffect } from "react";
 import { ImageBackground } from "react-native";
