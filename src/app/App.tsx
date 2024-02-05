@@ -2,7 +2,7 @@ import "./config/reactotronConfig";
 import React, { useCallback, useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Test } from "@/screens/Test";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts, Inter_400Regular, Inter_500Medium } from "@expo-google-fonts/inter";
@@ -25,22 +25,10 @@ import {
 } from "@expo-google-fonts/spartan";
 import { UiProvider, useUi } from "./providers";
 import appMetrics from "@/shared/libs/functions/metrics";
-import { darken, lighten } from "polished";
-const colors = {
-  primary: {
-    500: "#9f7aea",
-    600: "#5f38e0",
-  },
-  secondary: {
-    400: lighten(0.1, "#2e2e2e"),
-    500: "#2e2e2e",
-    600: "#212121",
-  },
-  tertiary: {
-    500: "#04D361",
-    600: darken(0.1, "#04D361"),
-  },
-};
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
+import { RFValue } from "react-native-responsive-fontsize";
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -87,17 +75,7 @@ const Page = () => {
   const { setLoading, setDialog, setIsOpen, isOpen } = useUi();
   return (
     <Test style={styles.container}>
-      <Text
-        style={{
-          fontFamily: "Spartan_700Bold",
-          fontSize: 58,
-          color: "#fff",
-          position: "absolute",
-          top: appMetrics.NAV_HEIGHT,
-        }}
-      >
-        belezix
-      </Text>
+      <Text style={styles.bigLogo}>belezix</Text>
       <View style={styles.box}>
         <Text style={styles.title}>Bem-vindo(a) ao Belezix</Text>
         <Text style={styles.subtitle}>
@@ -112,16 +90,7 @@ const Page = () => {
             }, 3000);
           }}
         >
-          <Text
-            style={{
-              textAlign: "center",
-              fontFamily: "Spartan_700Bold",
-              fontSize: 12,
-              color: "#fff",
-            }}
-          >
-            ENTRAR
-          </Text>
+          <Text style={styles.textButton}>ENTRAR</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button2}
@@ -141,48 +110,58 @@ const Page = () => {
             setIsOpen(true);
           }}
         >
-          <Text
-            style={{
-              fontFamily: "Spartan_700Bold",
-              fontSize: 12,
-              color: "#fff",
-            }}
-          >
-            CADASTRAR MEU NEGÓCIO
-          </Text>
+          <Text style={styles.textButton}>CADASTRAR MEU NEGÓCIO</Text>
         </TouchableOpacity>
       </View>
       <StatusBar style="auto" />
     </Test>
   );
 };
-const styles = StyleSheet.create({
+const styles = DynamicStyleSheet.create((theme) => ({
+  textButton: {
+    textAlign: "center",
+    fontFamily: fonts.primary_700,
+    fontSize: RFValue(12),
+    color: theme.colors.white,
+    textShadowColor: theme.colors.grey[800],
+    textShadowOffset: { width: 1.25, height: 1.25 },
+    textShadowRadius: 2.5,
+  },
+  bigLogo: {
+    fontFamily: fonts.primary_700,
+    fontSize: RFValue(58),
+    color: theme.colors.white,
+    position: "absolute",
+    top: getStatusBarHeight() + 36,
+  },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-end",
     padding: appMetrics.PADDING,
   },
   subtitle: {
-    color: "white",
+    color: theme.colors.white,
     textAlign: "center",
     fontSize: appMetrics.FONT_SIZE,
-    fontFamily: "Spartan_400Regular",
+    fontFamily: fonts.primary_400,
     marginVertical: 12,
   },
   title: {
-    fontFamily: "Spartan_700Bold",
-    color: "white",
+    fontFamily: fonts.primary_700,
+    color: theme.colors.white,
     fontWeight: "bold",
     textAlign: "center",
-    fontSize: appMetrics.FONT_SIZE_TITLE,
+    fontSize: RFValue(appMetrics.FONT_SIZE_TITLE),
+    textShadowColor: theme.colors.grey[800],
+    textShadowOffset: { width: 2.5, height: 2.5 },
+    textShadowRadius: 5,
   },
   button: {
     marginTop: 15,
     width: appMetrics.SCREEN_WIDTH * 0.9,
     alignSelf: "center",
-    backgroundColor: colors.tertiary[600],
+    backgroundColor: theme.colors.tertiary[500],
     alignItems: "center",
     justifyContent: "center",
     height: 40,
@@ -191,7 +170,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     width: appMetrics.SCREEN_WIDTH * 0.9,
     alignSelf: "center",
-    backgroundColor: colors.primary[600],
+    backgroundColor: theme.colors.primary[600],
     alignItems: "center",
     justifyContent: "center",
     height: 40,
@@ -199,4 +178,4 @@ const styles = StyleSheet.create({
   box: {
     marginBottom: appMetrics.PADDING * 1,
   },
-});
+}));
