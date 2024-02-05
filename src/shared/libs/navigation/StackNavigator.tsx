@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { routesWithoutHeader, stackRoutes } from "./Routes";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View } from "react-native";
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
 const Stack = createNativeStackNavigator();
 const headerConfig = ({ navigation, route, options, back }) => {
   if (routesWithoutHeader.includes(route.name)) {
@@ -12,7 +13,9 @@ const headerConfig = ({ navigation, route, options, back }) => {
   }
   const insets = useSafeAreaInsets();
   const title = getHeaderTitle(options, route.name);
-  return <View style={{ height: 10 }}></View>;
+  return (
+    <View style={{ height: getStatusBarHeight(), backgroundColor: "transparent" }}></View>
+  );
 };
 export const StackNavigator = () => {
   return (
