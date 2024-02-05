@@ -21,7 +21,7 @@ import {
   Spartan_800ExtraBold,
 } from "@expo-google-fonts/spartan";
 import { UiProvider } from "./providers";
-import { Initial } from "@/screens/Initial";
+import MainNavigator from "@/shared/libs/navigation/MainNavigator";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -60,7 +60,7 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <UiProvider>
-        <Initial />
+        <MainNavigator />
       </UiProvider>
     </GestureHandlerRootView>
   );
