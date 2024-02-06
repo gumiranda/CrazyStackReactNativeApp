@@ -8,6 +8,7 @@ export const darkTheme = {
 
 export const lightTheme = {
   dark: false,
+  //colors: darkColors,
   colors: lightColors,
   // Add more style definitions for the light theme
 };

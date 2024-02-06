@@ -1,5 +1,5 @@
 import React from "react";
-import { FormControlGroup } from "@/shared/ui/organisms";
+import { FormControlGroup } from "../../organisms";
 
 export const Form = ({
   formState,

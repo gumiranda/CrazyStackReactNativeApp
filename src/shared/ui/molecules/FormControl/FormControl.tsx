@@ -3,7 +3,7 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 import { useTheme } from "@react-navigation/native";
 import { Controller } from "react-hook-form";
 import { DynamicStyleSheet } from "@/shared/libs/utils";
-import { Input, MaterialIcon, PasswordInput, TextAtom, TextInput } from "../..";
+import { Input, MaterialIcon, PasswordInput, TextAtom, TextInput } from "../../atoms";
 
 export const FormControl = ({
   control,

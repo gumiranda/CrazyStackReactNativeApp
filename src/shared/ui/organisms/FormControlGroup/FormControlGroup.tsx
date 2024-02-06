@@ -1,5 +1,5 @@
 import React from "react";
-import { FormControl } from "../..";
+import { FormControl } from "../../molecules";
 
 export const FormControlGroup = ({
   formControls = [],
