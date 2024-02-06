@@ -8,9 +8,11 @@ import { StatusBar } from "expo-status-bar";
 import { Text, TouchableOpacity, View } from "react-native";
 import { FullImageBackground } from "@/shared/ui";
 import Splash from "@/assets/splash.jpg";
+import { useNavigation } from "@react-navigation/native";
 
 export const Initial = () => {
-  const { setLoading, setDialog, setIsOpen, isOpen } = useUi();
+  const navigation = useNavigation();
+  const { setDialog, setIsOpen, isOpen } = useUi();
   return (
     <FullImageBackground style={styles.container} source={Splash}>
       <Text style={styles.bigLogo}>belezix</Text>
@@ -22,10 +24,7 @@ export const Initial = () => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            setLoading((prev) => !prev);
-            setTimeout(() => {
-              setLoading((prev) => !prev);
-            }, 3000);
+            navigation.navigate("SignInPage");
           }}
         >
           <Text style={styles.textButton}>ENTRAR</Text>
