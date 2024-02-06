@@ -94,7 +94,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     fontSize: 14,
     textAlign: "left",
     alignSelf: "flex-start",
-    marginBottom: 4,
+    marginBottom: 8,
   },
   inputView: { position: "relative", width: "100%" },
   input: {

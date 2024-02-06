@@ -96,7 +96,7 @@ export const darkColors = {
     200: "#FFBFBF",
     300: "#FFA8A8",
     400: "#FF7A7A",
-    500: "#DC1637",
+    500: "#FFA9A9",
     600: "#A21725",
     700: "#7A0E1C",
     800: "#660A18",

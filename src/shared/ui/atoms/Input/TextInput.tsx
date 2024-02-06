@@ -8,7 +8,6 @@ const TextInputAux = ({ style = null, ...rest }, ref) => {
 const styles = DynamicStyleSheet.create(() => ({
   input: {
     fontSize: 16,
-    fontWeight: "500",
     paddingLeft: 48,
     paddingRight: 12,
     height: 48,

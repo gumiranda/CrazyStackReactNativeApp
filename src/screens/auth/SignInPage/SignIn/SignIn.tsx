@@ -19,8 +19,9 @@ export const SignIn = ({ title, subtitle }) => {
 
 const styles = DynamicStyleSheet.create((theme) => ({
   container: {
-    backgroundColor: theme.colors.background_secondary,
+    backgroundColor: theme.colors.background,
     paddingVertical: 0,
     paddingHorizontal: 24,
+    height: "100%",
   },
 }));
