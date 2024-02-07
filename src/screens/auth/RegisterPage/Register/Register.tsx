@@ -9,7 +9,7 @@ import { RegisterFormStep1 } from "@/features/signup/by-email/ui/RegisterFormSte
 import { DynamicStyleSheet } from "@/shared/libs/utils";
 import { useSignUp } from "@/app/providers";
 
-export const Register = ({ title, subtitle }) => {
+export const Register = ({ title, subtitle, name, role }) => {
   const [step, setStep] = useState(1);
   const navigation = useNavigation();
   const { setEmail, setName, setPhone } = useSignUp();
@@ -24,9 +24,16 @@ export const Register = ({ title, subtitle }) => {
   const renderStep = () => {
     switch (step) {
       case 1:
-        return <RegisterFormStep1 nextStep={nextStep} goToLogin={goToLogin} />;
+        return (
+          <RegisterFormStep1
+            nextStep={nextStep}
+            goToLogin={goToLogin}
+            name={name}
+            role={role}
+          />
+        );
       case 2:
-        return <RegisterFormStep2 goToLogin={goToLogin} />;
+        return <RegisterFormStep2 goToLogin={goToLogin} role={role} />;
       default:
         return null;
     }

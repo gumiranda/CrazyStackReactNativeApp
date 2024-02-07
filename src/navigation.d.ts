@@ -3,7 +3,10 @@ export declare global {
     interface RootParamList {
       SignInPage: undefined;
       Initial: undefined;
-      RegisterPage: undefined;
+      RegisterPage: {
+        name: string;
+        role: string;
+      };
     }
   }
 }

@@ -9,7 +9,7 @@ import {
   useSignUpStep2ByEmailLib,
 } from "./step2-signup-by-email.lib";
 import { api, saveAccessToken } from "@/shared/api";
-export const useSignUpByEmail = ({ goToLogin = () => {}, nextStep = () => {} }) => {
+export const useSignUpByEmail = ({ goToLogin = () => {}, nextStep = () => {}, role }) => {
   const { setLoading } = useUi();
   const { setEmail, email, setName, name, phone, setPhone } = useSignUp();
   const step1FormProps = useSignUpStep1ByEmailLib({ email, name, phone });
@@ -32,7 +32,7 @@ export const useSignUpByEmail = ({ goToLogin = () => {}, nextStep = () => {} }) 
         name,
         phoneNumber: phone,
         coord: {},
-        role: "client",
+        role,
       });
 
       if (response.status === 200) {

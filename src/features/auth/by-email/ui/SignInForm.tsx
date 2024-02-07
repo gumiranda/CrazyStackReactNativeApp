@@ -48,7 +48,7 @@ export const SignInForm = ({ children = null, navigation }) => {
     defaultFormControl: false,
   };
   function handleNewAccount() {
-    navigation.navigate("RegisterPage");
+    navigation.navigate("RegisterPage", { name: "Nome completo", role: "client" });
   }
   const footerProps = {
     handleSignIn: handleSubmit(signIn),

@@ -5,8 +5,8 @@ import { SignUpFooterStep } from "./SignUpFooterStep";
 import { View } from "react-native";
 import { DynamicStyleSheet } from "@/shared/libs/utils";
 
-export const RegisterFormStep2 = ({ goToLogin }) => {
-  const { step2FormProps, step2Submit } = useSignUpByEmail({ goToLogin });
+export const RegisterFormStep2 = ({ goToLogin, role }) => {
+  const { step2FormProps, step2Submit } = useSignUpByEmail({ goToLogin, role });
   const { control, handleSubmit, formState, setFocus } = step2FormProps;
 
   const formProps = {

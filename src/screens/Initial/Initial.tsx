@@ -3,7 +3,6 @@ import appMetrics from "@/shared/libs/functions/metrics";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import { RFValue } from "react-native-responsive-fontsize";
-import { useUi } from "@/app/providers";
 import { StatusBar } from "expo-status-bar";
 import { Text, TouchableOpacity, View } from "react-native";
 import { FullImageBackground } from "@/shared/ui";
@@ -12,7 +11,12 @@ import { useNavigation } from "@react-navigation/native";
 
 export const Initial = () => {
   const navigation = useNavigation();
-  const { setDialog, setIsOpen, isOpen } = useUi();
+  function handleNewAccount() {
+    navigation.navigate("RegisterPage", {
+      name: "Nome do estabelecimento",
+      role: "owner",
+    });
+  }
   return (
     <FullImageBackground style={styles.container} source={Splash}>
       <Text style={styles.bigLogo}>belezix</Text>
@@ -29,24 +33,7 @@ export const Initial = () => {
         >
           <Text style={styles.textButton}>ENTRAR</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button2}
-          onPress={() => {
-            setDialog({
-              mainButton: "ok",
-              colorScheme: "default",
-              isOpen,
-              setIsOpen,
-              title: "Testando",
-              dismissButton: "Cancelar",
-              onPress: () => {
-                console.tron.log("Testando dialog");
-              },
-              body: "Testando dialog",
-            });
-            setIsOpen(true);
-          }}
-        >
+        <TouchableOpacity style={styles.button2} onPress={handleNewAccount}>
           <Text style={styles.textButton}>CADASTRAR MEU NEGÓCIO</Text>
         </TouchableOpacity>
       </View>

@@ -12,7 +12,7 @@ export type SubmitSignUpByEmailHandler = SubmitHandler<SignUpStep1ByEmailFormDat
 
 export const signUpStep1ByEmailSchema = yup.object().shape({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
-  name: yup.string().required("Nome completo é obrigatório"),
+  name: yup.string().required("Nome é obrigatório"),
   phone: yup
     .string()
     .required("Telefone é obrigatório")
