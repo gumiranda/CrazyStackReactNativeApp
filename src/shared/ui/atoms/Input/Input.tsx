@@ -46,7 +46,7 @@ const BaseInput_ = (
           type="Feather"
           name={iconName}
           size={24}
-          color={isFocused || isFilled ? theme.colors.primary[500] : theme.colors.text}
+          color={isFocused || isFilled ? theme.colors.text : theme.colors.text}
         />
       </View>
       <TextInput
@@ -73,13 +73,13 @@ const styles = DynamicStyleSheet.create((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 1,
-    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[500],
+    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[800],
     borderRadius: 4,
   },
-  isFocused: { borderBottomWidth: 2, borderBottomColor: theme.colors.primary[500] },
+  isFocused: { borderBottomWidth: 2, borderBottomColor: theme.colors.text },
   inputText: {
     flex: 1,
-    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[500],
+    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[800],
     color: theme.colors.text,
     fontFamily: fonts.secondary_500,
     fontSize: RFValue(15),

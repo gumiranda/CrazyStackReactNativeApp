@@ -49,6 +49,7 @@ const styles = DynamicStyleSheet.create(() => ({
     padding: 19,
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 8,
   },
   title: {
     fontFamily: fonts.secondary_600,

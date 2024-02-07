@@ -39,8 +39,8 @@ const PasswordInput_ = ({ iconName, value, onBlur, ...rest }: Props, ref) => {
         handleInputFocus={handleInputFocus}
         autoCorrect={false}
         placeholderTextColor={theme.colors.text}
-        secureTextEntry={isPasswordVisible}
         {...rest}
+        secureTextEntry={isPasswordVisible}
       />
       <BorderlessButton onPress={handlePasswordVisibilityChange}>
         <View style={[styles.iconContainer, isFocused ? styles.isFocused : {}]}>
@@ -68,7 +68,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 2,
-    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[500],
+    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[800],
   },
-  isFocused: { borderBottomWidth: 2, borderBottomColor: theme.colors.primary },
+  isFocused: { borderBottomWidth: 2, borderBottomColor: theme.colors.text },
 }));
