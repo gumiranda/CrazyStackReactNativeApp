@@ -11,6 +11,7 @@ export interface ButtonProps extends RectButtonProps {
   enabled?: boolean;
   onPress: () => void;
   backgroundColor: string;
+  style?: any;
 }
 export const Button = ({
   title,
@@ -19,6 +20,7 @@ export const Button = ({
   onPress,
   enabled = true,
   loading = false,
+  style,
 }: ButtonProps) => {
   const theme = useTheme();
   return (
@@ -28,7 +30,7 @@ export const Button = ({
       style={[
         { opacity: enabled === false || loading === true ? 0.5 : 1 },
         styles.container,
-        { backgroundColor },
+        { backgroundColor, ...style },
       ]}
     >
       {loading ? (

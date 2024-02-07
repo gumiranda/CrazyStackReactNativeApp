@@ -11,7 +11,6 @@ interface Props extends TextInputProps {
 const Input_ = ({ iconName, value, onBlur, ...props }: Props, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
-  const theme = useTheme();
   function handleInputFocus() {
     setIsFocused(true);
   }
@@ -23,6 +22,25 @@ const Input_ = ({ iconName, value, onBlur, ...props }: Props, ref) => {
   }
   return (
     <View style={styles.container}>
+      <BaseInput
+        ref={ref}
+        isFocused={isFocused}
+        iconName={iconName}
+        isFilled={isFilled}
+        handleInputBlur={handleInputBlur}
+        handleInputFocus={handleInputFocus}
+        {...props}
+      />
+    </View>
+  );
+};
+const BaseInput_ = (
+  { isFocused, iconName, isFilled, handleInputFocus, handleInputBlur, ...props },
+  ref
+) => {
+  const theme = useTheme();
+  return (
+    <>
       <View style={[styles.iconContainer, isFocused ? styles.isFocused : {}]}>
         <MaterialIcon
           type="Feather"
@@ -39,9 +57,10 @@ const Input_ = ({ iconName, value, onBlur, ...props }: Props, ref) => {
         {...props}
         onBlur={handleInputBlur}
       />
-    </View>
+    </>
   );
 };
+export const BaseInput = forwardRef(BaseInput_);
 export const Input = forwardRef(Input_);
 const styles = DynamicStyleSheet.create((theme) => ({
   container: {
@@ -54,13 +73,13 @@ const styles = DynamicStyleSheet.create((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 1,
-    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[600],
+    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[500],
     borderRadius: 4,
   },
   isFocused: { borderBottomWidth: 2, borderBottomColor: theme.colors.primary[500] },
   inputText: {
     flex: 1,
-    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[600],
+    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[500],
     color: theme.colors.text,
     fontFamily: fonts.secondary_500,
     fontSize: RFValue(15),

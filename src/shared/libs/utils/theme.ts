@@ -3,15 +3,11 @@ import { darkColors, lightColors } from "./colors";
 export const darkTheme = {
   dark: true,
   colors: darkColors,
-  // Add more style definitions for the dark theme
 };
-
+const testDark = true;
 export const lightTheme = {
-  //  dark: true,
-  //colors: darkColors,
-  dark: false,
-  colors: lightColors,
-  // Add more style definitions for the light theme
+  dark: testDark,
+  colors: testDark ? darkColors : lightColors,
 };
 export const getNativeTheme = () => {
   return Appearance.getColorScheme();

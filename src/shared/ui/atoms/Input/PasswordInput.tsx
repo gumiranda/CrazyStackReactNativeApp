@@ -1,9 +1,9 @@
 import React, { forwardRef, useState } from "react";
-import { View, TextInput, TextInputProps } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import { View, TextInputProps } from "react-native";
 import { BorderlessButton } from "react-native-gesture-handler";
-import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
+import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
 import { MaterialIcon } from "../MaterialIcon";
+import { BaseInput } from "./Input";
 
 interface Props extends TextInputProps {
   iconName: string;
@@ -30,23 +30,17 @@ const PasswordInput_ = ({ iconName, value, onBlur, ...rest }: Props, ref) => {
   }
   return (
     <View style={styles.container}>
-      <View style={[styles.iconContainer, isFocused ? styles.isFocused : {}]}>
-        <MaterialIcon
-          type="Feather"
-          name={iconName}
-          size={24}
-          color={isFocused || isFilled ? theme.colors.primary[500] : theme.colors.text}
-        />
-      </View>
-      <TextInput
+      <BaseInput
         ref={ref}
-        style={[styles.inputText, isFocused ? styles.isFocused : {}]}
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
+        isFocused={isFocused}
+        iconName={iconName}
+        isFilled={isFilled}
+        handleInputBlur={handleInputBlur}
+        handleInputFocus={handleInputFocus}
         autoCorrect={false}
         placeholderTextColor={theme.colors.text}
-        {...rest}
         secureTextEntry={isPasswordVisible}
+        {...rest}
       />
       <BorderlessButton onPress={handlePasswordVisibilityChange}>
         <View style={[styles.iconContainer, isFocused ? styles.isFocused : {}]}>
@@ -74,16 +68,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 2,
-    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[600],
+    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[500],
   },
   isFocused: { borderBottomWidth: 2, borderBottomColor: theme.colors.primary },
-  inputText: {
-    flex: 1,
-    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[600],
-    color: theme.colors.text,
-    fontFamily: fonts.secondary_500,
-    fontSize: RFValue(15),
-    paddingVertical: 0,
-    paddingHorizontal: 23,
-  },
 }));

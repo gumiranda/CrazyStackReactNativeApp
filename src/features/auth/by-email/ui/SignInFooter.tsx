@@ -21,6 +21,7 @@ export const SignInFooter = ({ handleSignIn, isLogging, handleNewAccount }) => {
         backgroundColor={theme.colors.tertiary[300]}
         title="Criar conta gratuita"
         onPress={handleNewAccount}
+        style={{ marginTop: 12 }}
       />
     </View>
   );
