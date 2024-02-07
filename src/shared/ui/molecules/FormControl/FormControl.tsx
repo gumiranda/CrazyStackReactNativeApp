@@ -34,6 +34,7 @@ export const FormControl = ({
                   {...extraProps}
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
+                  defaultValue={value}
                   value={value}
                   ref={ref}
                   style={styles.input}
@@ -47,6 +48,7 @@ export const FormControl = ({
                   onBlur={onBlur}
                   iconName={iconName}
                   onChangeText={(value) => onChange(value)}
+                  defaultValue={value}
                   value={value}
                   ref={ref}
                 />
@@ -59,6 +61,7 @@ export const FormControl = ({
                 onBlur={onBlur}
                 iconName={iconName}
                 onChangeText={(value) => onChange(value)}
+                defaultValue={value}
                 value={value}
                 ref={ref}
               />
