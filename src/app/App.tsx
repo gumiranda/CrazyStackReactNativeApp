@@ -20,7 +20,7 @@ import {
   Spartan_600SemiBold,
   Spartan_800ExtraBold,
 } from "@expo-google-fonts/spartan";
-import { UiProvider } from "./providers";
+import { SignUpProvider, UiProvider } from "./providers";
 import MainNavigator from "@/shared/libs/navigation/MainNavigator";
 
 export default function App() {
@@ -60,7 +60,9 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <UiProvider>
-        <MainNavigator />
+        <SignUpProvider>
+          <MainNavigator />
+        </SignUpProvider>
       </UiProvider>
     </GestureHandlerRootView>
   );
