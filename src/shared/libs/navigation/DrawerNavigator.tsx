@@ -55,7 +55,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     borderRightColor: theme.colors.primary[500],
   },
   title: {
-    fontFamily: fonts.primary_700,
+    fontFamily: fonts.primary_500,
     fontSize: RFValue(18),
     color: theme.colors.primary[500],
     marginLeft: 16,
