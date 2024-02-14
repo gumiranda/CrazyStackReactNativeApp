@@ -22,12 +22,14 @@ export const useAuthByEmail = () => {
 
       const accessToken = response?.data?.accessToken;
       const refreshToken = response?.data?.refreshToken;
-      await saveToken({ type: "authorization", token: accessToken });
-      await saveToken({ type: "refreshtoken", token: refreshToken });
-      await setItemInAsyncStorage("user", response?.data?.user);
+      await Promise.all([
+        saveToken({ type: "authorization", token: accessToken }),
+        saveToken({ type: "refreshtoken", token: refreshToken }),
+        setItemInAsyncStorage("user", response?.data?.user),
+      ]);
 
       setUser(response?.data?.user);
-      navigation.navigate("HomePage", { user: response?.data?.user });
+      navigation.navigate("HomePage");
     } catch (error) {
       // Lide com erros de autenticação aqui
       console.error("Erro de autenticação:", error);

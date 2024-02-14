@@ -8,7 +8,7 @@ import React, {
   useState,
   useMemo,
   useContext,
-  useEffect,
+  useLayoutEffect,
 } from "react";
 
 type AuthProviderProps = {
@@ -18,32 +18,37 @@ const AuthContext = createContext({} as any);
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState(null);
-  const logout = () => {
+  const [verifyIsAuthenticated, setVerifyIsAuthenticated] = useState(false);
+  const logout = async () => {
     setUser(null);
-    setItemInAsyncStorage("user", null);
-    setItemInAsyncStorage("authorization", null);
-    setItemInAsyncStorage("refreshtoken", null);
+    await Promise.all([
+      setItemInAsyncStorage("user", null),
+      setItemInAsyncStorage("authorization", null),
+      setItemInAsyncStorage("refreshtoken", null),
+    ]);
+    setVerifyIsAuthenticated(false);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     async function init() {
       const currentUser = await getItemFromAsyncStorage("user");
       if (currentUser) {
         setUser(currentUser);
       }
+      setVerifyIsAuthenticated(true);
     }
-    if (!user) {
+    if (!user && !verifyIsAuthenticated) {
       init();
     }
-  }, [user]);
-  console.tron.log({ user });
+  }, [user, verifyIsAuthenticated]);
   const contextValue = useMemo(
     () => ({
       user,
       setUser,
       logout,
+      verifyIsAuthenticated,
     }),
-    [user]
+    [user, verifyIsAuthenticated]
   );
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }

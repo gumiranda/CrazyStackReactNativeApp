@@ -6,6 +6,7 @@ import { routesWithoutHeader, stackRoutes } from "./Routes";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View } from "react-native";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { useAuth } from "@/app/providers";
 const Stack = createNativeStackNavigator();
 const headerConfig = ({ navigation, route, options, back }) => {
   if (routesWithoutHeader.includes(route.name)) {
@@ -18,9 +19,11 @@ const headerConfig = ({ navigation, route, options, back }) => {
   );
 };
 export const StackNavigator = () => {
+  const { user, verifyIsAuthenticated } = useAuth();
+  if (!verifyIsAuthenticated) return null;
   return (
     <Stack.Navigator
-      initialRouteName="Initial"
+      initialRouteName={user ? "HomePage" : "Initial"}
       screenOptions={{
         header: headerConfig,
       }}

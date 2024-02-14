@@ -3,12 +3,7 @@ import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import { View, Text } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const HomePage = ({
-  route: {
-    params: { user },
-  },
-}) => {
-  console.tron.log({ user });
+export const HomePage = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Home</Text>
