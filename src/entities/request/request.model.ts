@@ -107,35 +107,26 @@ class Request {
       message: this.props.message,
       active: this.props.active,
       value: false,
-      initDateFormatted: subHours(new Date(this.props.initDate), 3).toLocaleDateString(
-        "pt-BR",
-        {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        }
-      ),
-      endDateFormatted: subHours(new Date(this.props.endDate), 3).toLocaleDateString(
-        "pt-BR",
-        {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        }
-      ),
-      date: startOfDay(subHours(new Date(this.props.initDate), 3)).toISOString(),
-      datePickerSelected: subHours(new Date(this.props.initDate), 3).toLocaleDateString(
-        "pt-BR",
-        {
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        }
-      ),
+      initDateFormatted: new Date(this.props.initDate).toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      endDateFormatted: new Date(this.props.endDate).toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      date: startOfDay(new Date(this.props.initDate)).toISOString(),
+      datePickerSelected: new Date(this.props.initDate).toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      }),
       createdAt: new Date(this.props.createdAt).toLocaleDateString("pt-BR", {
         day: "2-digit",
         month: "2-digit",

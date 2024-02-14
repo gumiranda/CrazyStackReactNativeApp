@@ -24,7 +24,6 @@ export const useGetInfiniteRequests = (
   return useInfiniteQuery({
     queryKey: ["requestsInfinite", params],
     queryFn: ({ pageParam = 1, queryKey }: any) => {
-      console.tron.log({ pageParam, queryKey });
       return getInfiniteRequests(pageParam, queryKey?.[1]);
     },
     ...options,

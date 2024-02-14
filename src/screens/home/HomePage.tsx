@@ -101,8 +101,8 @@ export const HomePage = () => {
           events={
             requestList?.map?.((request) => {
               const title = `${request?.professionalName ?? "Profissional"} - ${request?.name ?? "Cliente"}`;
-              const start = addHours(new Date(request?.initDate), 3);
-              const end = addHours(new Date(request?.endDate), 3);
+              const start = new Date(request?.initDate);
+              const end = new Date(request?.endDate);
               return { ...request, title, start, end };
             }) ?? []
           }
