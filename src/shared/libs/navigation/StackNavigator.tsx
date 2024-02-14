@@ -9,6 +9,8 @@ import { BackButton, MaterialIcon, TextAtom } from "@/shared/ui";
 import { DynamicStyleSheet, fonts, useTheme } from "../utils";
 import { RFValue } from "react-native-responsive-fontsize";
 import { CommonActions } from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 const Stack = createNativeStackNavigator();
 const headerConfig = ({ navigation, route, options }) => {
   const { user, verifyIsAuthenticated } = useAuth();
@@ -18,6 +20,7 @@ const headerConfig = ({ navigation, route, options }) => {
   }
   const theme = useTheme();
   const title = getHeaderTitle(options, route.name);
+  const insets = useSafeAreaInsets();
   const canGoBack = navigation.canGoBack();
   const goToBack = () => {
     if (canGoBack) {
@@ -32,7 +35,7 @@ const headerConfig = ({ navigation, route, options }) => {
     );
   };
   return (
-    <View style={styles.container}>
+    <View style={[{ paddingTop: insets.top }, styles.container]}>
       {canGoBack && <BackButton onPress={goToBack} />}
       {!canGoBack && (
         <TouchableOpacity
@@ -90,7 +93,6 @@ const styles = DynamicStyleSheet.create((theme) => ({
     marginLeft: 16,
   },
   container: {
-    paddingTop: 10,
     paddingBottom: 8,
     paddingHorizontal: 16,
     flexDirection: "row",
