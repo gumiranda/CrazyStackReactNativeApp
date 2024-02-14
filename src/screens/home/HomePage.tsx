@@ -1,12 +1,30 @@
+import { useAuth, useUi } from "@/app/providers";
 import appMetrics from "@/shared/libs/functions/metrics";
-import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
+import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
+import { Button } from "@/shared/ui";
 import { View, Text } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
 export const HomePage = () => {
+  const { setLoading } = useUi();
+  const { user, logout } = useAuth();
+  const theme = useTheme();
+  console.tron.log({ user });
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Home</Text>
+      <Button
+        title={"Sair"}
+        color={theme.colors.primary[500]}
+        onPress={async () => {
+          setLoading(true);
+          await logout();
+          setLoading(false);
+        }}
+        backgroundColor={theme.colors.background}
+      >
+        Sair
+      </Button>
     </View>
   );
 };
@@ -15,6 +33,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: theme.colors.background,
   },
   title: {
     fontFamily: fonts.primary_700,
