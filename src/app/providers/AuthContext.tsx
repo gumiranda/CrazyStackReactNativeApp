@@ -1,3 +1,4 @@
+import { saveToken } from "@/shared/api";
 import {
   getItemFromAsyncStorage,
   setItemInAsyncStorage,
@@ -31,10 +32,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   useLayoutEffect(() => {
     async function init() {
-      const currentUser = await getItemFromAsyncStorage("user");
+      const [currentUser, accessToken, refreshToken] = await Promise.all([
+        getItemFromAsyncStorage("user"),
+        getItemFromAsyncStorage("authorization"),
+        getItemFromAsyncStorage("refreshtoken"),
+      ]);
       if (currentUser) {
         setUser(currentUser);
       }
+      saveToken({ type: "authorization", token: accessToken, persist: false });
+      saveToken({ type: "refreshtoken", token: refreshToken, persist: false });
       setVerifyIsAuthenticated(true);
     }
     if (!user && !verifyIsAuthenticated) {

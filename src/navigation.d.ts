@@ -4,6 +4,7 @@ export declare global {
       SignInPage: undefined;
       Initial: undefined;
       HomePage: undefined;
+      MyRequestsDetailsOwner: any;
       RegisterPage: {
         name: string;
         role: string;

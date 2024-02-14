@@ -25,8 +25,8 @@ export const useAuthByEmail = () => {
       const accessToken = response?.data?.accessToken;
       const refreshToken = response?.data?.refreshToken;
       await Promise.all([
-        saveToken({ type: "authorization", token: accessToken }),
-        saveToken({ type: "refreshtoken", token: refreshToken }),
+        saveToken({ type: "authorization", token: accessToken, persist: true }),
+        saveToken({ type: "refreshtoken", token: refreshToken, persist: true }),
         setItemInAsyncStorage("user", response?.data?.user),
       ]);
 
