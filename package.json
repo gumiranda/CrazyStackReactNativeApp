@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start-expo": "expo start --dev-client",
+    "start": "expo start --dev-client",
     "android": "expo run:android",
     "ac": "yarn c && react-native run-android",
     "i": "yarn c && yarn && cd ios && pod install && yarn ios",
@@ -16,7 +16,7 @@
     "adb": "cd android/app/build/outputs/apk/release && adb install -r app-release.apk",
     "apk": "rm -rf android/app/build && yarn install && cd android && ./gradlew clean && ./gradlew assembleRelease",
     "reverse": " adb reverse tcp:9090 tcp:9090",
-    "start": "npx react-native start --reset-cache",
+    "start1": "npx react-native start --reset-cache",
     "web": "expo start --web"
   },
   "dependencies": {
@@ -36,6 +36,7 @@
     "@types/react": "~18.2.45",
     "axios": "^1.6.7",
     "expo": "~50.0.2",
+    "expo-dev-client": "~3.3.8",
     "expo-splash-screen": "~0.26.4",
     "expo-status-bar": "~1.11.1",
     "polished": "^4.3.1",

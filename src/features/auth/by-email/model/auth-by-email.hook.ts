@@ -1,11 +1,12 @@
 import { useAuth, useUi } from "@/app/providers";
 import { useNavigation } from "@react-navigation/native";
 import { AuthByEmailFormData, useAuthByEmailLib } from "./auth-by-email.lib";
-import { api, saveAccessToken } from "@/shared/api";
+import { api, saveToken } from "@/shared/api";
+import { setItemInAsyncStorage } from "@/shared/libs/functions/storage";
 export const useAuthByEmail = () => {
   const navigation = useNavigation();
   const { setLoading } = useUi();
-  const { dispatchUser } = useAuth();
+  const { setUser } = useAuth();
   const { control, handleSubmit, formState, setFocus } = useAuthByEmailLib();
 
   const signIn = async (values: AuthByEmailFormData) => {
@@ -19,16 +20,17 @@ export const useAuthByEmail = () => {
         passwordConfirmation: values.password,
       });
 
-      const accessToken = response.data.accessToken;
+      const accessToken = response?.data?.accessToken;
+      const refreshToken = response?.data?.refreshToken;
+      await saveToken({ type: "authorization", token: accessToken });
+      await saveToken({ type: "refreshtoken", token: refreshToken });
+      await setItemInAsyncStorage("user", response?.data?.user);
 
-      // Configure o token de acesso nos cabeçalhos
-      saveAccessToken(accessToken);
-
-      // Navegue para a página desejada após a autenticação
-      navigation.navigate("CarListPage");
+      setUser(response?.data?.user);
+      navigation.navigate("HomePage", { user: response?.data?.user });
     } catch (error) {
       // Lide com erros de autenticação aqui
-      console.error('Erro de autenticação:', error);
+      console.error("Erro de autenticação:", error);
     } finally {
       setLoading(false);
     }
