@@ -1,12 +1,10 @@
-import { useAuth, useUi } from "@/app/providers";
+import { useUi } from "@/app/providers";
 import appMetrics from "@/shared/libs/functions/metrics";
-import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
-import { Button } from "@/shared/ui";
-import { ScrollView, Text, View } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
+import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
+import { ScrollView, View } from "react-native";
 import { Calendar } from "react-native-big-calendar";
 import CalendarStrip from "react-native-calendar-strip";
-import { addDays, addHours } from "date-fns";
+import { addDays } from "date-fns";
 import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useRequestInfiniteList } from "@/features/request/list/requestInfiniteList.hook";
@@ -14,17 +12,13 @@ import { useRequestInfiniteList } from "@/features/request/list/requestInfiniteL
 export const HomePage = () => {
   const navigation = useNavigation();
   const { setLoading } = useUi();
-  const { user } = useAuth();
   const theme = useTheme();
   const datesBlacklist = [];
   const {
     isFetching,
-    error,
     data: fetchData,
     fetchNextPage,
     hasNextPage,
-    deleteSelectedAction,
-    loading,
     selectedDate,
     setSelectedDate,
   } = useRequestInfiniteList();
