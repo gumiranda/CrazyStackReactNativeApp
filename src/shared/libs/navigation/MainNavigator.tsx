@@ -1,11 +1,11 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { StackNavigator } from "./StackNavigator";
+import { DrawerNavigator } from "./DrawerNavigator";
 
 function MainNavigator() {
   return (
     <NavigationContainer>
-      <StackNavigator />
+      <DrawerNavigator />
     </NavigationContainer>
   );
 }

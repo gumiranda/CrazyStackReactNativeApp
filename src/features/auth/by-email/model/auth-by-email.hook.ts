@@ -3,6 +3,8 @@ import { useNavigation } from "@react-navigation/native";
 import { AuthByEmailFormData, useAuthByEmailLib } from "./auth-by-email.lib";
 import { api, saveToken } from "@/shared/api";
 import { setItemInAsyncStorage } from "@/shared/libs/functions/storage";
+import { CommonActions } from "@react-navigation/native";
+
 export const useAuthByEmail = () => {
   const navigation = useNavigation();
   const { setLoading } = useUi();
@@ -29,7 +31,12 @@ export const useAuthByEmail = () => {
       ]);
 
       setUser(response?.data?.user);
-      navigation.navigate("HomePage");
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "HomePage" }],
+        })
+      );
     } catch (error) {
       // Lide com erros de autenticação aqui
       console.error("Erro de autenticação:", error);

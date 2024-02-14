@@ -26,3 +26,11 @@ export const stackRoutes = [
   },
 ];
 export const routesWithoutHeader = ["Initial", "SignInPage", "RegisterPage"];
+export const drawerRoutes = [
+  {
+    name: "HomePage",
+    component: HomePage,
+    title: "Início",
+  },
+  { name: "Logout", component: null, title: "Sair" },
+];
