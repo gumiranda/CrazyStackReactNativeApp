@@ -26,7 +26,7 @@ export const Stepper = ({ steps, nextStep, activeStep, onStepPress }) => {
         />
       </RetangleBorded>
       <ScrollView contentContainerStyle={{ paddingVertical: 0, paddingHorizontal: 16 }}>
-        <TextAtom>STEP {activeStep}</TextAtom>
+        {steps[activeStep]?.component || null}
       </ScrollView>
       <Button
         style={styles.button}
