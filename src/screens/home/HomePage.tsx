@@ -1,35 +1,28 @@
-import { useUi } from "@/app/providers";
 import appMetrics from "@/shared/libs/functions/metrics";
 import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
 import { ScrollView, View } from "react-native";
 import { Calendar } from "react-native-big-calendar";
 import CalendarStrip from "react-native-calendar-strip";
 import { addDays } from "date-fns";
-import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { useRequestInfiniteList } from "@/features/request/list/requestInfiniteList.hook";
+import { useRequestInfiniteList } from "@/entities/request";
 import { Button, Footer } from "@/shared/ui";
 import { StatusBar } from "expo-status-bar";
+import { useInfiniteFullList } from "@/shared/libs/hooks";
 
 export const HomePage = () => {
   const navigation = useNavigation();
-  const { setLoading } = useUi();
   const theme = useTheme();
   const datesBlacklist = [];
   const {
     isFetching,
-    data: fetchData,
+    requestList,
     fetchNextPage,
     hasNextPage,
     selectedDate,
     setSelectedDate,
   } = useRequestInfiniteList();
-  const requestList =
-    fetchData?.pages
-      ?.map?.((page: any) => page?.requests)
-      ?.reduce?.((a: any, b: any) => a.concat(b)) ??
-    fetchData ??
-    [];
+  useInfiniteFullList({ fetchNextPage, hasNextPage, isFetching });
   const datesWhitelist = [
     {
       start: addDays(new Date(), -365) as any,
@@ -45,14 +38,7 @@ export const HomePage = () => {
       },
     });
   };
-  useEffect(() => {
-    fetchNextPage();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasNextPage]);
-  useEffect(() => {
-    setLoading(isFetching);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFetching]);
+
   const buttonProps = {
     backgroundColor: theme.colors.primary[500],
     color: theme.colors.white,

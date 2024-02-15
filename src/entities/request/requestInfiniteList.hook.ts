@@ -1,4 +1,3 @@
-"use client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/shared/api";
 import { CommonActions, useNavigation } from "@react-navigation/native";
@@ -91,6 +90,12 @@ export const useRequestInfiniteList = () => {
     },
     retry: 3,
   } as any);
+  const requestList =
+    data?.pages
+      ?.map?.((page: any) => page?.requests)
+      ?.reduce?.((a: any, b: any) => a.concat(b)) ??
+    data ??
+    [];
   return {
     deleteSelectedAction,
     isFetching,
@@ -104,5 +109,6 @@ export const useRequestInfiniteList = () => {
     loading,
     selectedDate,
     setSelectedDate,
+    requestList,
   };
 };

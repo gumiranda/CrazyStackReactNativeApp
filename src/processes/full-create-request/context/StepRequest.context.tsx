@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-"use client";
-import { createContext, useEffect, useContext, ReactNode, useState } from "react";
-import { api } from "@/shared/api";
-import { useUi } from "@/app/providers";
+
+import { createContext, useContext, ReactNode, useState } from "react";
+import { useClientUserList, useOwnerList } from "@/processes/full-create-request/hooks";
 
 type StepRequestProviderProps = {
   children: ReactNode;
@@ -11,11 +10,13 @@ type StepRequestContextData = any;
 const StepRequestContext = createContext({} as StepRequestContextData);
 
 export function StepRequestProvider({ children }: StepRequestProviderProps) {
-  const { showModal, setLoading } = useUi();
   const [request, setRequest] = useState<any>({});
-  console.log({ request });
+  const { userList } = useClientUserList();
+  const { ownerList } = useOwnerList();
   return (
-    <StepRequestContext.Provider value={{ request, setRequest }}>
+    <StepRequestContext.Provider
+      value={{ request, setRequest, clients: userList, owners: ownerList }}
+    >
       {children}
     </StepRequestContext.Provider>
   );

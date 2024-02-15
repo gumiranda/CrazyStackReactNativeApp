@@ -1,27 +1,22 @@
-"use client";
 import { Stepper } from "@/shared/ui";
 import { StepClient } from "./steps/StepClient";
 import { StepServiceProfessional } from "./steps/StepServiceProfessional";
-import { StepRequestProvider } from "./context/StepRequest.context";
+import { StepRequestProvider, useStepRequest } from "./context/StepRequest.context";
 import { StepDate } from "./steps/StepDate";
-import { StepSuccess } from "./steps/StepSuccess";
+// import { StepSuccess } from "./steps/StepSuccess";
 import { useSteps } from "@/shared/ui/templates/Stepper/useSteps.hook";
-import { useNavigation, useTheme } from "@react-navigation/native";
-import { useUi } from "@/app/providers";
 
-export const FullCreateRequest = (props) => {
+export const FullCreateRequest = () => {
   return (
     <>
       <StepRequestProvider>
-        <FullCreateRequestForm {...props} />
+        <FullCreateRequestForm />
       </StepRequestProvider>
     </>
   );
 };
-export const FullCreateRequestForm = ({ clients, owners }) => {
-  const navigation = useNavigation();
-  const { setLoading } = useUi();
-  const theme = useTheme();
+export const FullCreateRequestForm = () => {
+  const { owners, clients } = useStepRequest();
   const stepProps = useSteps();
   const { nextStep, activeStep, onStepPress } = stepProps;
 

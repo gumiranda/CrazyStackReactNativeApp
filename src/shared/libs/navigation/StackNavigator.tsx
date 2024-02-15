@@ -58,6 +58,7 @@ const headerConfig = ({ navigation, route, options }) => {
     </View>
   );
 };
+
 export const StackNavigator = () => {
   const { user, verifyIsAuthenticated } = useAuth();
   if (!verifyIsAuthenticated) return null;
