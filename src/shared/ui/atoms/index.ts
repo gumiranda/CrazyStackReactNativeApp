@@ -7,3 +7,4 @@ export * from "./Input";
 export * from "./MaterialIcon";
 export * from "./Button";
 export * from "./BackButton";
+export * from "./Footer";

@@ -8,6 +8,7 @@ import { addDays } from "date-fns";
 import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useRequestInfiniteList } from "@/features/request/list/requestInfiniteList.hook";
+import { Button, Footer } from "@/shared/ui";
 
 export const HomePage = () => {
   const navigation = useNavigation();
@@ -51,8 +52,15 @@ export const HomePage = () => {
     setLoading(isFetching);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching]);
+  const buttonProps = {
+    backgroundColor: theme.colors.primary[500],
+    color: theme.colors.white,
+    title: "NOVO AGENDAMENTO",
+    onPress: () => {},
+    isFetching,
+  };
   return (
-    <>
+    <View style={styles.container}>
       <View style={{ zIndex: 2 }}>
         <CalendarStrip
           scrollable
@@ -79,7 +87,7 @@ export const HomePage = () => {
           datesBlacklist={datesBlacklist}
         />
       </View>
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.scrollview}>
         <Calendar
           date={selectedDate}
           onChangeDate={() => {}}
@@ -102,13 +110,20 @@ export const HomePage = () => {
           height={appMetrics.SCREEN_HEIGHT / 1.2}
         />
       </ScrollView>
-    </>
+      <Footer style={styles.footer}>
+        <Button {...buttonProps} />
+      </Footer>
+    </View>
   );
 };
 const styles = DynamicStyleSheet.create((theme) => ({
-  container: {
+  scrollview: {
     backgroundColor: theme.colors.background,
     marginTop: -100,
     zIndex: 1,
   },
+  container: {
+    flex: 1,
+  },
+  footer: { paddingTop: 10 },
 }));
