@@ -57,7 +57,9 @@ export const HomePage = () => {
     backgroundColor: theme.colors.primary[500],
     color: theme.colors.white,
     title: "NOVO AGENDAMENTO",
-    onPress: () => {},
+    onPress: () => {
+      navigation.navigate("CreateRequestOwner");
+    },
     isFetching,
   };
   return (

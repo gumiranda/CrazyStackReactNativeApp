@@ -96,7 +96,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
   },
   subtitle: {
     fontFamily: fonts.primary_700,
-    fontSize: RFValue(28),
+    fontSize: RFValue(18),
     color: theme.colors.primary[500],
     marginLeft: 16,
     marginTop: 5,
