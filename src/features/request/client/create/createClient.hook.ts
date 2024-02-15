@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useUi } from "@/app/providers";
 import {
   CreateClientFormData,
   SubmitCreateClientHandler,
@@ -7,17 +6,16 @@ import {
 } from "./createClient.lib";
 import { api } from "@/shared/api";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigation } from "@react-navigation/native";
 import { useUsersSelect } from "@/features/user/userList.hook";
+import { useUi } from "@/app/providers";
 
 export const useCreateClient = ({ userList }) => {
-  const navigation = useNavigation();
   const { showModal } = useUi();
   const { userSelected, handleChangeUserSelected, users } = useUsersSelect({
     role: "client",
     userList,
   });
-  const createClient = createClientMutation(showModal, navigation);
+  const createClient = createClientMutation(showModal, null);
   const { handleSubmit, formState, ...formProps } = useCreateClientLib();
   const handleCreateClient: SubmitCreateClientHandler = async (
     values: CreateClientFormData
@@ -54,13 +52,14 @@ export function createClientMutation(showModal: Function, navigation) {
           });
           return;
         }
-        showModal({
-          content:
-            "Cliente criada com sucesso, você será redirecionado para a lista de clientes",
-          title: "Sucesso",
-          type: "success",
-        });
+
         if (navigation) {
+          showModal({
+            content:
+              "Cliente criada com sucesso, você será redirecionado para a lista de clientes",
+            title: "Sucesso",
+            type: "success",
+          });
           navigation.navigate("HomePage");
         }
         return data;

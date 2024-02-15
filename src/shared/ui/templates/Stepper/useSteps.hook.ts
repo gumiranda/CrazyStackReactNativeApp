@@ -5,7 +5,7 @@ export const useSteps = () => {
   const onStepPress = (newStep: number) => {
     //if (newStep - 1 === step || newStep < step) {
     if (newStep < activeStep) {
-      setActiveStep(newStep);
+      //setActiveStep(newStep);
     }
   };
   const nextStep = () => {
