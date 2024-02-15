@@ -2,6 +2,7 @@ import { useUi } from "@/app/providers";
 import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
 import { ScrollView, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { RentalPeriod } from "./RentalPeriod";
 
 export const MyRequestsDetailsOwner = ({
   route: {
@@ -13,13 +14,18 @@ export const MyRequestsDetailsOwner = ({
   const theme = useTheme();
   console.tron.log({ item });
   return (
-    <>
-      <ScrollView style={styles.container}></ScrollView>
-    </>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={{ paddingVertical: 0, paddingHorizontal: 16 }}>
+        <RentalPeriod initDate={item?.initDateFormatted} endDate={item.endDateHour} />
+      </ScrollView>
+    </View>
   );
 };
 const styles = DynamicStyleSheet.create((theme) => ({
   container: {
     backgroundColor: theme.colors.background,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
 }));

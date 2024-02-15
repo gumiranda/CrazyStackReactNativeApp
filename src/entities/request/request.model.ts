@@ -17,6 +17,8 @@ export type RequestProps = {
   endDate: string;
   initDateFormatted: string;
   endDateFormatted: string;
+  initDateHour: string;
+  endDateHour: string;
   datePickerSelected?: string;
   date: string;
   haveRecurrence: boolean;
@@ -76,6 +78,12 @@ class Request {
   get endDateFormatted(): string {
     return this.props.endDateFormatted;
   }
+  get initDateHour(): string {
+    return this.props.initDateHour;
+  }
+  get endDateHour(): string {
+    return this.props.endDateHour;
+  }
   get datePickerSelected(): string | undefined {
     return this.props.datePickerSelected;
   }
@@ -118,6 +126,14 @@ class Request {
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      initDateHour: new Date(this.props.initDate).toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      endDateHour: new Date(this.props.endDate).toLocaleTimeString("pt-BR", {
         hour: "2-digit",
         minute: "2-digit",
       }),
