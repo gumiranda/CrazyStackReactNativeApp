@@ -2,7 +2,7 @@ import { useUi } from "@/app/providers";
 import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
 import { ScrollView, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { RentalPeriod } from "./RentalPeriod";
+import { RentalPeriod } from "./components/RentalPeriod";
 import { StatusBar } from "expo-status-bar";
 
 export const MyRequestsDetailsOwner = ({
