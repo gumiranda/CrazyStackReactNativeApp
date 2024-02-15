@@ -31,7 +31,7 @@ export const Dialog = ({
           text: mainButton,
           onPress: () => {
             setIsOpen(false);
-            onPress();
+            onPress?.();
           },
           style: colorScheme ? colorScheme : "default",
         },

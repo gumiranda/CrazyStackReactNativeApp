@@ -55,12 +55,7 @@ export const FullCreateRequestForm = () => {
   ];
   return (
     <>
-      <Stepper
-        activeStep={activeStep}
-        steps={steps}
-        nextStep={nextStep}
-        onStepPress={onStepPress}
-      />
+      <Stepper activeStep={activeStep} steps={steps} onStepPress={onStepPress} />
     </>
   );
 };

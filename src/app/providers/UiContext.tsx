@@ -10,6 +10,10 @@ export function UiProvider({ children }: UiProviderProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [dialog, setDialog] = useState(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const showModal = (props) => {
+    setDialog(props);
+    setIsOpen(true);
+  };
   const contextValue = useMemo(
     () => ({
       loading,
@@ -18,6 +22,7 @@ export function UiProvider({ children }: UiProviderProps) {
       dialog,
       isOpen,
       setIsOpen,
+      showModal,
     }),
     [loading, isOpen, dialog]
   );

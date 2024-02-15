@@ -1,13 +1,11 @@
-import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
-import { ScrollView, View } from "react-native";
+import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
+import { View } from "react-native";
 import appMetrics from "@/shared/libs/functions/metrics";
-import { Button, RetangleBorded, TextAtom } from "../../atoms";
+import { RetangleBorded, TextAtom } from "../../atoms";
 import { StepView } from "../../molecules";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const Stepper = ({ steps, nextStep, activeStep, onStepPress }) => {
-  const theme = useTheme();
-
+export const Stepper = ({ steps, activeStep, onStepPress }) => {
   return (
     <View style={styles.container}>
       <RetangleBorded style={styles.image}>
@@ -25,16 +23,7 @@ export const Stepper = ({ steps, nextStep, activeStep, onStepPress }) => {
           stepCount={steps?.length}
         />
       </RetangleBorded>
-      <ScrollView contentContainerStyle={{ paddingVertical: 0, paddingHorizontal: 16 }}>
-        {steps[activeStep]?.component || null}
-      </ScrollView>
-      <Button
-        style={styles.button}
-        onPress={() => nextStep()}
-        title={steps[activeStep]?.buttonTitle || "PRÓXIMO"}
-        backgroundColor={theme.colors.tertiary[300]}
-        color={theme.colors.black}
-      />
+      {steps[activeStep]?.component || null}
     </View>
   );
 };
