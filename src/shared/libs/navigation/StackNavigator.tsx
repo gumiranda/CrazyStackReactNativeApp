@@ -52,7 +52,9 @@ const headerConfig = ({ navigation, route, options }) => {
         </TouchableOpacity>
       )}
 
-      <TextAtom style={styles.title}>{title === "Início" ? "belezix" : title}</TextAtom>
+      <TextAtom style={title === "Início" ? styles.title : styles.subtitle}>
+        {title === "Início" ? "belezix" : title}
+      </TextAtom>
     </View>
   );
 };
@@ -91,6 +93,13 @@ const styles = DynamicStyleSheet.create((theme) => ({
     fontSize: RFValue(38),
     color: theme.colors.primary[500],
     marginLeft: 16,
+  },
+  subtitle: {
+    fontFamily: fonts.primary_700,
+    fontSize: RFValue(28),
+    color: theme.colors.primary[500],
+    marginLeft: 16,
+    marginTop: 5,
   },
   container: {
     paddingBottom: 8,

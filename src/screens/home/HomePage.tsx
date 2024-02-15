@@ -28,7 +28,6 @@ export const HomePage = () => {
       ?.reduce?.((a: any, b: any) => a.concat(b)) ??
     fetchData ??
     [];
-  console.tron.log({ requestList });
   const datesWhitelist = [
     {
       start: addDays(new Date(), -365) as any,

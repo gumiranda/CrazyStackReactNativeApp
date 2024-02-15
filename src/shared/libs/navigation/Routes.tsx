@@ -2,6 +2,7 @@ import { Initial } from "@/screens/Initial";
 import { RegisterPage } from "@/screens/auth/RegisterPage";
 import { SignInPage } from "@/screens/auth/SignInPage";
 import { HomePage } from "@/screens/home";
+import { MyRequestsDetailsOwner } from "@/screens/requests/MyRequestsDetailsOwner";
 
 export const stackRoutes = [
   {
@@ -23,6 +24,11 @@ export const stackRoutes = [
     name: "HomePage",
     component: HomePage,
     title: "Início",
+  },
+  {
+    name: "MyRequestsDetailsOwner",
+    component: MyRequestsDetailsOwner,
+    title: "Detalhes",
   },
 ];
 export const routesWithoutHeader = ["Initial", "SignInPage", "RegisterPage"];

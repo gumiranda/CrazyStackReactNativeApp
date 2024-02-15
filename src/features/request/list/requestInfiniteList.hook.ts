@@ -34,14 +34,8 @@ export const useRequestInfiniteList = () => {
         },
       ],
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedDate]);
-  console.tron.log({
-    a: {
-      initDate: startOfDay(new Date(selectedDate)),
-      endDate: endOfDay(new Date(selectedDate)),
-    },
-    selectedDate,
-  });
   const {
     data,
     error,
