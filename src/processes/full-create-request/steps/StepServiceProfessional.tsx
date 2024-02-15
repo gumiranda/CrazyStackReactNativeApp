@@ -1,6 +1,9 @@
 import { useUsersSelect } from "@/features/user/userList.hook";
 import { useServicesSelect } from "@/features/service/serviceList.hook";
 import { useStepRequest } from "../context/StepRequest.context";
+import { View, Text } from "react-native";
+import { Select } from "@/shared/ui";
+import { useState } from "react";
 export const StepServiceProfessional = ({
   ownerSelected,
   ownerSelectedUserId,
@@ -57,6 +60,27 @@ export const StepServiceProfessional = ({
           Carregar mais
         </option>
       </Select> */}
+      <MyComponent />
     </>
+  );
+};
+const MyComponent = () => {
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const options = [
+    { value: 1, label: "Option 1" },
+    { value: 2, label: "Option 2" },
+    { value: 3, label: "Option 3" },
+  ];
+
+  const handleSelect = (option) => {
+    setSelectedOption(option);
+  };
+
+  return (
+    <View>
+      <Text>Selected Option: {selectedOption ? selectedOption.label : "None"}</Text>
+      <Select options={options} onSelect={handleSelect} placeholder="Select an option" />
+    </View>
   );
 };
