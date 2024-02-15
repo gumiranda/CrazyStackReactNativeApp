@@ -2,7 +2,7 @@ import { Initial } from "@/screens/Initial";
 import { RegisterPage } from "@/screens/auth/RegisterPage";
 import { SignInPage } from "@/screens/auth/SignInPage";
 import { HomePage } from "@/screens/home";
-import { MyRequestsDetailsOwner } from "@/screens/requests/MyRequestsDetailsOwner";
+import { MyRequestsDetailsOwner } from "@/screens/request/MyRequestsDetailsOwner";
 
 export const stackRoutes = [
   {
