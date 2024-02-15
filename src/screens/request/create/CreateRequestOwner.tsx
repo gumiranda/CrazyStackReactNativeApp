@@ -1,6 +1,6 @@
 import { useUi } from "@/app/providers";
 import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { Stepper } from "@/shared/ui/templates/Stepper/Stepper";
