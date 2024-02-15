@@ -4,24 +4,14 @@ import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { Stepper } from "@/shared/ui/templates/Stepper/Stepper";
+import { useSteps } from "@/shared/ui/templates/Stepper/useSteps.hook";
+import { FullCreateRequest } from "@/processes/full-create-request/FullCreateRequest";
 
 export const CreateRequestOwner = () => {
-  const navigation = useNavigation();
-  const { setLoading } = useUi();
-  const theme = useTheme();
   return (
     <View style={styles.container}>
-      <Stepper
-        steps={[
-          { title: "Cliente", subtitle: "Nome e telefone" },
-          {
-            title: "Profissional e Serviço",
-            subtitle: "Selecione o prestador e o serviço",
-          },
-          { title: "Data", subtitle: "Selecione dia e horário" },
-        ]}
-      />
       <StatusBar style="auto" />
+      <FullCreateRequest />
     </View>
   );
 };

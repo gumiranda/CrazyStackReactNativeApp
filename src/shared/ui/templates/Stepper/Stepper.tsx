@@ -3,12 +3,10 @@ import { ScrollView, View } from "react-native";
 import appMetrics from "@/shared/libs/functions/metrics";
 import { Button, RetangleBorded, TextAtom } from "../../atoms";
 import { StepView } from "../../molecules";
-import { useSteps } from "./useSteps.hook";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const Stepper = ({ steps }) => {
+export const Stepper = ({ steps, nextStep, activeStep, onStepPress }) => {
   const theme = useTheme();
-  const { step, onStepPress, nextStep } = useSteps();
 
   return (
     <View style={styles.container}>
@@ -16,22 +14,24 @@ export const Stepper = ({ steps }) => {
         <StepView
           header={
             <>
-              <TextAtom style={styles.title}>{steps[step]?.title}</TextAtom>
-              <TextAtom style={styles.subtitle}>{steps[step]?.subtitle}</TextAtom>
+              <TextAtom style={styles.title}>{steps[activeStep]?.title}</TextAtom>
+              <TextAtom style={styles.subtitle}>
+                {steps[activeStep]?.description}
+              </TextAtom>
             </>
           }
-          currentPosition={step}
+          currentPosition={activeStep}
           onStepPress={onStepPress}
           stepCount={steps?.length}
         />
       </RetangleBorded>
       <ScrollView contentContainerStyle={{ paddingVertical: 0, paddingHorizontal: 16 }}>
-        <TextAtom>STEP {step}</TextAtom>
+        <TextAtom>STEP {activeStep}</TextAtom>
       </ScrollView>
       <Button
         style={styles.button}
         onPress={() => nextStep()}
-        title={"PRÓXIMO"}
+        title={steps[activeStep]?.buttonTitle || "PRÓXIMO"}
         backgroundColor={theme.colors.tertiary[300]}
         color={theme.colors.black}
       />

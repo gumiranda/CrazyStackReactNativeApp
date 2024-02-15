@@ -8,7 +8,7 @@ import {
   SignUpStep2ByEmailFormData,
   useSignUpStep2ByEmailLib,
 } from "./step2-signup-by-email.lib";
-import { api, saveAccessToken } from "@/shared/api";
+import { api, saveToken } from "@/shared/api";
 export const useSignUpByEmail = ({ goToLogin = () => {}, nextStep = () => {}, role }) => {
   const { setLoading } = useUi();
   const { setEmail, email, setName, name, phone, setPhone } = useSignUp();
@@ -36,7 +36,11 @@ export const useSignUpByEmail = ({ goToLogin = () => {}, nextStep = () => {}, ro
       });
 
       if (response.status === 200) {
-        saveAccessToken(response?.data?.accessToken);
+        saveToken({
+          type: "authorization",
+          token: response?.data?.accessToken,
+          persist: false,
+        });
         Alert.alert("Parabéns", "Agora é só confirmar o e-mail e fazer o login!");
         goToLogin();
       } else {

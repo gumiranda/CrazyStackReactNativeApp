@@ -1,17 +1,18 @@
 import { useState } from "react";
 
 export const useSteps = () => {
-  const [step, setStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(0);
   const onStepPress = (newStep: number) => {
-    if (newStep - 1 === step || newStep < step) {
-      setStep(newStep);
+    //if (newStep - 1 === step || newStep < step) {
+    if (newStep < activeStep) {
+      setActiveStep(newStep);
     }
   };
   const nextStep = () => {
-    setStep(step + 1);
+    setActiveStep(activeStep + 1);
   };
   const prevStep = () => {
-    setStep(step - 1);
+    setActiveStep(activeStep - 1);
   };
-  return { step, nextStep, prevStep, onStepPress };
+  return { activeStep, nextStep, prevStep, onStepPress };
 };
