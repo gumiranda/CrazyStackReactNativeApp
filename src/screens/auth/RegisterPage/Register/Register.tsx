@@ -59,7 +59,7 @@ export const Register = ({ title, subtitle, name, role }) => {
         }}
       />
       {renderStep()}
-      <StatusBar style={"inverted"} />
+      <StatusBar style={"auto"} />
     </ScrollView>
   );
 };

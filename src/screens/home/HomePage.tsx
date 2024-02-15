@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useRequestInfiniteList } from "@/features/request/list/requestInfiniteList.hook";
 import { Button, Footer } from "@/shared/ui";
+import { StatusBar } from "expo-status-bar";
 
 export const HomePage = () => {
   const navigation = useNavigation();
@@ -113,6 +114,7 @@ export const HomePage = () => {
       <Footer style={styles.footer}>
         <Button {...buttonProps} />
       </Footer>
+      <StatusBar style="auto" />
     </View>
   );
 };

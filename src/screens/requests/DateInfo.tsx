@@ -16,13 +16,13 @@ const styles = DynamicStyleSheet.create((theme) => ({
   dateInfo: {},
   dateTitle: {
     fontFamily: fonts.primary_500,
-    color: theme.colors.text_detail,
+    color: theme.colors.text,
     fontSize: RFValue(10),
     textTransform: "uppercase",
   },
   dateValue: {
     fontFamily: fonts.secondary_500,
-    color: theme.colors.title,
+    color: theme.colors.text,
     fontSize: RFValue(15),
   },
 }));

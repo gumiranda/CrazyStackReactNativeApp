@@ -3,6 +3,7 @@ import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
 import { ScrollView, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { RentalPeriod } from "./RentalPeriod";
+import { StatusBar } from "expo-status-bar";
 
 export const MyRequestsDetailsOwner = ({
   route: {
@@ -18,6 +19,7 @@ export const MyRequestsDetailsOwner = ({
       <ScrollView contentContainerStyle={{ paddingVertical: 0, paddingHorizontal: 16 }}>
         <RentalPeriod initDate={item?.initDateFormatted} endDate={item.endDateHour} />
       </ScrollView>
+      <StatusBar style="auto" />
     </View>
   );
 };
