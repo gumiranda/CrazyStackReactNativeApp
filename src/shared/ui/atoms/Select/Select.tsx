@@ -2,9 +2,9 @@ import { DynamicStyleSheet } from "@/shared/libs/utils";
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Modal } from "react-native";
 
-export const Select = ({ options, onSelect, placeholder }) => {
+export const Select = ({ options, onSelect, placeholder, selectedValue }) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(selectedValue);
 
   const handleSelect = (option) => {
     setSelectedOption(option);
