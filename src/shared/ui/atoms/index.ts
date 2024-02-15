@@ -8,3 +8,4 @@ export * from "./MaterialIcon";
 export * from "./Button";
 export * from "./BackButton";
 export * from "./Footer";
+export * from "./RetangleBorded";

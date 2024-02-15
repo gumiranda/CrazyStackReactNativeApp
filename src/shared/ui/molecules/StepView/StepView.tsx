@@ -11,18 +11,22 @@ type StepViewProps = {
   header?: ReactNode;
   currentPosition: number;
   onStepPress: (position: number) => void;
+  stepCount: number;
 };
 
-export const StepView = ({ header, currentPosition, onStepPress }: StepViewProps) => {
+export const StepView = ({
+  stepCount,
+  header,
+  currentPosition,
+  onStepPress,
+}: StepViewProps) => {
   const { customStyles } = useStepView();
   return (
     <View style={styles.container}>
-      <TextAtom style={styles.title}>Belezix</TextAtom>
-      <TextAtom style={styles.subtitle}>agendamentos online</TextAtom>
       <StepIndicator
         customStyles={customStyles}
         currentPosition={currentPosition}
-        stepCount={4}
+        stepCount={stepCount}
         labels={null}
         onPress={onStepPress}
       />
@@ -34,23 +38,8 @@ export const StepView = ({ header, currentPosition, onStepPress }: StepViewProps
 const styles = DynamicStyleSheet.create((theme) => ({
   container: {
     flex: 1,
-    padding: appMetrics.PADDING,
     width: appMetrics.SCREEN_WIDTH * 0.9,
-    backgroundColor: theme.colors.background,
-  },
-  subtitle: {
-    color: "white",
-    textAlign: "center",
-    fontFamily: fonts.primary_400,
-    fontSize: RFValue(15),
-    marginBottom: 15,
-  },
-  title: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-    fontFamily: fonts.primary_400,
-    fontSize: RFValue(22),
+    marginTop: 16,
   },
   text: {
     color: "white",

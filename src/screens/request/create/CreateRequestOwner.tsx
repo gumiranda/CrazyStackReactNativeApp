@@ -3,6 +3,7 @@ import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
 import { ScrollView, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
+import { Stepper } from "@/shared/ui/templates/Stepper/Stepper";
 
 export const CreateRequestOwner = () => {
   const navigation = useNavigation();
@@ -10,9 +11,16 @@ export const CreateRequestOwner = () => {
   const theme = useTheme();
   return (
     <View style={styles.container}>
-      <ScrollView
-        contentContainerStyle={{ paddingVertical: 0, paddingHorizontal: 16 }}
-      ></ScrollView>
+      <Stepper
+        steps={[
+          { title: "Cliente", subtitle: "Nome e telefone" },
+          {
+            title: "Profissional e Serviço",
+            subtitle: "Selecione o prestador e o serviço",
+          },
+          { title: "Data", subtitle: "Selecione dia e horário" },
+        ]}
+      />
       <StatusBar style="auto" />
     </View>
   );
