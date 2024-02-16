@@ -1,8 +1,17 @@
-import { DynamicStyleSheet } from "@/shared/libs/utils";
+import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Modal } from "react-native";
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
 
-export const Select = ({ options, onSelect, placeholder, selectedValue }) => {
+export const Select = ({
+  options,
+  onSelect,
+  placeholder,
+  selectedValue,
+  keyValue,
+  keyLabel,
+  label,
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState(selectedValue);
 
@@ -14,9 +23,10 @@ export const Select = ({ options, onSelect, placeholder, selectedValue }) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.selectButtonText}>{label}</Text>
       <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.selectButton}>
         <Text style={styles.selectButtonText}>
-          {selectedOption ? selectedOption.label : placeholder}
+          {selectedOption?.[keyLabel] ?? placeholder}
         </Text>
       </TouchableOpacity>
 
@@ -28,15 +38,21 @@ export const Select = ({ options, onSelect, placeholder, selectedValue }) => {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            {options.map((option) => (
+            {options?.map?.((option) => (
               <TouchableOpacity
-                key={option.value}
+                key={option?.[keyValue]}
                 style={styles.option}
                 onPress={() => handleSelect(option)}
               >
-                <Text>{option.label}</Text>
+                <Text style={styles.selectButtonText}>{option?.[keyLabel]}</Text>
               </TouchableOpacity>
             ))}
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => handleSelect("loadMore")}
+            >
+              <Text style={styles.selectButtonText}>Carregar mais...</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -47,6 +63,8 @@ export const Select = ({ options, onSelect, placeholder, selectedValue }) => {
 const styles = DynamicStyleSheet.create((theme) => ({
   container: {
     flex: 1,
+    marginHorizontal: 10,
+    marginVertical: 5,
   },
   selectButton: {
     padding: 10,
@@ -56,10 +74,12 @@ const styles = DynamicStyleSheet.create((theme) => ({
   },
   selectButtonText: {
     fontSize: 16,
+    fontFamily: fonts.primary_400,
   },
   modalContainer: {
     flex: 1,
     backgroundColor: theme.colors.background,
+    marginTop: getStatusBarHeight() + 200,
   },
   modalContent: {
     backgroundColor: theme.colors.background,

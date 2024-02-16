@@ -1,34 +1,49 @@
 import { useUsersSelect } from "@/features/user/userList.hook";
-import { useServicesSelect } from "@/features/service/serviceList.hook";
 import { useStepRequest } from "../context/StepRequest.context";
 import { View, Text } from "react-native";
 import { Button, Select } from "@/shared/ui";
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useServicesSelect } from "@/entities/service/serviceList.hook";
+import { SubmitHandler, Controller, useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 export const StepServiceProfessional = ({
   ownerSelected,
   ownerSelectedUserId,
   nextStep,
 }) => {
-  // const { setRequest } = useStepRequest();
+  console.tron.log({ ownerSelected, ownerSelectedUserId });
+  const { setRequest } = useStepRequest();
 
-  // const { userSelected, handleChangeUserSelected, users } = useUsersSelect({
-  //   ownerSelected,
-  // });
-  // const { serviceSelected, handleChangeServiceSelected, services } = useServicesSelect({
-  //   ownerSelected: ownerSelectedUserId,
-  //   userSelected,
-  //   users,
-  // });
-  // const onSubmit = () => {
-  //   const payload = {
-  //     serviceId: serviceSelected,
-  //     professionalId: userSelected,
-  //     services,
-  //   };
-  //   setRequest((prev) => ({ ...prev, ...payload, users }));
-  //   nextStep();
-  // };
+  const { userSelected, handleChangeUserSelected, users } = useUsersSelect({
+    ownerSelected,
+  });
+  const { serviceSelected, handleChangeServiceSelected, services } = useServicesSelect({
+    ownerSelected: ownerSelectedUserId,
+    userSelected,
+    users,
+  });
+  console.tron.log({ users, userSelected, serviceSelected, services });
+  const onSubmit = () => {
+    const payload = {
+      serviceId: serviceSelected,
+      professionalId: userSelected,
+      services,
+    };
+    setRequest((prev) => ({ ...prev, ...payload, users }));
+    nextStep();
+  };
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<YupSchema>({
+    mode: "onBlur",
+    resolver: yupResolver(genericSelectSchema),
+    defaultValues: {
+      selectedOption: "",
+    },
+  });
   return (
     <>
       {/* <Select
@@ -61,75 +76,55 @@ export const StepServiceProfessional = ({
           Carregar mais
         </option>
       </Select> */}
-      <MyComponentHookForm />
+      <View style={{ marginTop: 20 }} />
+      <MyComponentHookForm
+        list={users}
+        keyValue={"_id"}
+        keyLabel={"name"}
+        defaultValue={userSelected}
+        placeholder={"Selecione um profissional"}
+        control={control}
+        errors={errors}
+        name={"selectedOption"}
+        label={"Profissional prestador"}
+      />
     </>
   );
 };
-const MyComponent = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const options = [
-    { value: 1, label: "Option 1" },
-    { value: 2, label: "Option 2" },
-    { value: 3, label: "Option 3" },
-  ];
-
-  const handleSelect = (option) => {
-    setSelectedOption(option);
-  };
-
-  return (
-    <View>
-      <Text>Selected Option: {selectedOption ? selectedOption.label : "None"}</Text>
-      <Select
-        selectedValue={""}
-        options={options}
-        onSelect={handleSelect}
-        placeholder="Select an option"
-      />
-    </View>
-  );
-};
-const MyComponentHookForm = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
-
-  const options = [
-    { value: "option1", label: "Option 1" },
-    { value: "option2", label: "Option 2" },
-    { value: "option3", label: "Option 3" },
-  ];
-
+const MyComponentHookForm = ({
+  control,
+  list,
+  defaultValue,
+  placeholder,
+  keyValue,
+  keyLabel,
+  errors,
+  name,
+  label,
+}) => {
   return (
     <View>
       <Controller
         control={control}
-        name="selectedOption"
-        defaultValue=""
+        name={name}
+        defaultValue={defaultValue}
         render={({ field: { onChange, value } }) => (
           <Select
-            options={options}
+            options={list}
             onSelect={onChange}
-            placeholder="Select an option"
+            placeholder={placeholder}
             selectedValue={value}
+            keyValue={keyValue}
+            keyLabel={keyLabel}
+            label={label}
           />
         )}
       />
-      {/* {errors.selectedOption && <Text>Error: {errors.selectedOption.message}</Text>} */}
-
-      <Button
-        onPress={handleSubmit(onSubmit)}
-        title="Submit"
-        color={"#fff"}
-        backgroundColor={"#000"}
-      />
+      {errors[name] && <Text>Error: {errors[name].message}</Text>}
     </View>
   );
 };
+export const genericSelectSchema = yup.object({
+  selectedOption: yup.string().required("Campo obrigatório"),
+});
+export type YupSchema = yup.InferType<typeof genericSelectSchema>;

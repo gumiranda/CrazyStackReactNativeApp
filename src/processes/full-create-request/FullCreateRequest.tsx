@@ -32,8 +32,8 @@ export const FullCreateRequestForm = () => {
       component: (
         <StepServiceProfessional
           nextStep={nextStep}
-          ownerSelected={owners?.owners?.[0]?._id}
-          ownerSelectedUserId={owners?.owners?.[0]?.createdById}
+          ownerSelected={owners?.[0]?._id}
+          ownerSelectedUserId={owners?.[0]?.createdById}
         />
       ),
     },

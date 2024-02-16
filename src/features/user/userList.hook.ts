@@ -11,16 +11,14 @@ export const useUsersSelect = ({
   ownerSelected = null,
   role = "professional",
 }: UserFormProps) => {
-  console.log(userList);
   const [page, setPage] = useState(1);
   const [users, setUsers] = useState(userList?.users ?? []);
   const [userSelected, setUserSelected] = useState<string>(
     //currentUser?.usersId ??
     userList?.users?.[0]?._id ?? ""
   );
-  const handleChangeUserSelected = (event: any) => {
-    event.preventDefault();
-    setUserSelected(event.target.value);
+  const handleChangeUserSelected = (value: any) => {
+    setUserSelected(value);
   };
   const fetchUsersPaginated = useCallback(async () => {
     if (userList && userList?.totalCount > users?.length && page > 1) {

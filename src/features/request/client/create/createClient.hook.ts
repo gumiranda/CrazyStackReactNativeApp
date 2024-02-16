@@ -6,15 +6,11 @@ import {
 } from "./createClient.lib";
 import { api } from "@/shared/api";
 import { useMutation } from "@tanstack/react-query";
-import { useUsersSelect } from "@/features/user/userList.hook";
 import { useUi } from "@/app/providers";
 
 export const useCreateClient = ({ userList }) => {
   const { showModal } = useUi();
-  const { userSelected, handleChangeUserSelected, users } = useUsersSelect({
-    role: "client",
-    userList,
-  });
+
   const createClient = createClientMutation(showModal, null);
   const { handleSubmit, formState, ...formProps } = useCreateClientLib();
   const handleCreateClient: SubmitCreateClientHandler = async (
@@ -22,16 +18,13 @@ export const useCreateClient = ({ userList }) => {
   ) => {
     await createClient.mutateAsync({
       ...values,
-      userId: userSelected ?? users?.[0]?._id,
+      userId: userList?.[0]?._id,
     });
   };
   return {
     formState,
     handleSubmit,
     handleCreateClient,
-    userSelected,
-    handleChangeUserSelected,
-    users,
     createClient,
     ...formProps,
   };
