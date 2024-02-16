@@ -85,11 +85,12 @@ const styles = DynamicStyleSheet.create((theme) => ({
     marginVertical: 8,
     fontSize: 16,
     fontFamily: fonts.primary_400,
+    color: theme.colors.text,
   },
   modalContainer: {
     flex: 1,
     backgroundColor: theme.colors.background,
-    marginTop: getStatusBarHeight() + 200,
+    marginTop: getStatusBarHeight(),
   },
   modalHeader: {
     flexDirection: "row",
