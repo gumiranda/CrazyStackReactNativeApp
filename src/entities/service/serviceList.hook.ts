@@ -27,8 +27,8 @@ export const useServicesSelect = ({
       serviceList?.services?.[0]?._id ??
       ""
   );
-  const handleChangeServiceSelected = (value: any) => {
-    setServiceSelected(value);
+  const handleChangeServiceSelected = (option: any) => {
+    setServiceSelected(option?._id);
   };
   useEffect(() => {
     if (userSelected && users?.length > 0) {

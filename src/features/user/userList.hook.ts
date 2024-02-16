@@ -17,8 +17,8 @@ export const useUsersSelect = ({
     //currentUser?.usersId ??
     userList?.users?.[0]?._id ?? ""
   );
-  const handleChangeUserSelected = (value: any) => {
-    setUserSelected(value);
+  const handleChangeUserSelected = (option: any) => {
+    setUserSelected(option?._id);
   };
   const fetchUsersPaginated = useCallback(async () => {
     if (userList && userList?.totalCount > users?.length && page > 1) {

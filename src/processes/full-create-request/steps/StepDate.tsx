@@ -1,11 +1,12 @@
-//  import { useStepRequest } from "../context/StepRequest.context";
 // import { useEffect, useState } from "react";
 // import { useTimeAvailable } from "@/features/appointment/timeAvailable.hook";
 // import { addMinutes } from "date-fns";
 
-export const StepDate = ({ currentOwner, nextStep }) => {
-  // const { request, setRequest } = useStepRequest() || {};
+import { useStepRequest } from "../context/StepRequest.context";
 
+export const StepDate = ({ currentOwner, nextStep }) => {
+  const { request, setRequest } = useStepRequest() || {};
+  console.tron.log({ request });
   // const [dateSelected, setDateSelected] = useState(null);
   // const { timeAvailable, timeSelected, handleChangeTimeSelected } = useTimeAvailable({
   //   ownerId: currentOwner?._id,

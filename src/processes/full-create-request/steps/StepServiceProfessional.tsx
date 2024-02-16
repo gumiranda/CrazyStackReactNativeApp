@@ -1,18 +1,21 @@
 import { useUsersSelect } from "@/features/user/userList.hook";
 import { useStepRequest } from "../context/StepRequest.context";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { Button, Select } from "@/shared/ui";
 import { useState } from "react";
 import { useServicesSelect } from "@/entities/service/serviceList.hook";
 import { SubmitHandler, Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useStepServiceProfessional } from "./StepServiceProfessional.lib";
+import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
+import appMetrics from "@/shared/libs/functions/metrics";
 export const StepServiceProfessional = ({
   ownerSelected,
   ownerSelectedUserId,
   nextStep,
 }) => {
-  console.tron.log({ ownerSelected, ownerSelectedUserId });
+  const theme = useTheme();
   const { setRequest } = useStepRequest();
 
   const { userSelected, handleChangeUserSelected, users } = useUsersSelect({
@@ -23,7 +26,6 @@ export const StepServiceProfessional = ({
     userSelected,
     users,
   });
-  console.tron.log({ users, userSelected, serviceSelected, services });
   const onSubmit = () => {
     const payload = {
       serviceId: serviceSelected,
@@ -37,56 +39,42 @@ export const StepServiceProfessional = ({
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<YupSchema>({
-    mode: "onBlur",
-    resolver: yupResolver(genericSelectSchema),
-    defaultValues: {
-      selectedOption: "",
-    },
-  });
+  } = useStepServiceProfessional();
+
   return (
     <>
-      {/* <Select
-        bg="gray.100"
-        labelColor="black"
-        name="userList"
-        label="Profissional prestador"
-        list={users}
-        value={userSelected}
-        onChange={handleChangeUserSelected}
-        keyValue="_id"
-        keyLabel="name"
-      >
-        <option style={{ backgroundColor: "#7159c1" }} value="loadMore">
-          Carregar mais
-        </option>
-      </Select>
-      <Select
-        bg="gray.100"
-        labelColor="black"
-        name="serviceList"
-        label="Serviço"
-        list={services}
-        value={serviceSelected}
-        onChange={handleChangeServiceSelected}
-        keyValue="_id"
-        keyLabel="name"
-      >
-        <option style={{ backgroundColor: "#7159c1" }} value="loadMore">
-          Carregar mais
-        </option>
-      </Select> */}
-      <View style={{ marginTop: 20 }} />
-      <MyComponentHookForm
-        list={users}
-        keyValue={"_id"}
-        keyLabel={"name"}
-        defaultValue={userSelected}
-        placeholder={"Selecione um profissional"}
-        control={control}
-        errors={errors}
-        name={"selectedOption"}
-        label={"Profissional prestador"}
+      <ScrollView style={styles.container}>
+        <MyComponentHookForm
+          list={users}
+          keyValue={"_id"}
+          keyLabel={"name"}
+          defaultValue={userSelected}
+          placeholder={"Selecione um profissional"}
+          control={control}
+          errors={errors}
+          name={"userList"}
+          label={"Profissional prestador"}
+          extraOnChange={handleChangeUserSelected}
+        />
+        <MyComponentHookForm
+          list={services}
+          keyValue={"_id"}
+          keyLabel={"name"}
+          defaultValue={serviceSelected}
+          placeholder={"Selecione um Serviço"}
+          control={control}
+          errors={errors}
+          name={"serviceList"}
+          label={"Serviço"}
+          extraOnChange={handleChangeServiceSelected}
+        />
+      </ScrollView>
+      <Button
+        style={styles.button}
+        onPress={handleSubmit(onSubmit)}
+        title={"PRÓXIMO"}
+        backgroundColor={theme.colors.tertiary[300]}
+        color={theme.colors.black}
       />
     </>
   );
@@ -101,9 +89,10 @@ const MyComponentHookForm = ({
   errors,
   name,
   label,
+  extraOnChange,
 }) => {
   return (
-    <View>
+    <View style={styles.containerSelect}>
       <Controller
         control={control}
         name={name}
@@ -117,14 +106,30 @@ const MyComponentHookForm = ({
             keyValue={keyValue}
             keyLabel={keyLabel}
             label={label}
+            extraOnChange={extraOnChange}
           />
         )}
       />
-      {errors[name] && <Text>Error: {errors[name].message}</Text>}
+      {errors[name] && <Text style={styles.errorMessage}>{errors[name].message}</Text>}
     </View>
   );
 };
-export const genericSelectSchema = yup.object({
-  selectedOption: yup.string().required("Campo obrigatório"),
-});
-export type YupSchema = yup.InferType<typeof genericSelectSchema>;
+const styles = DynamicStyleSheet.create((theme) => ({
+  container: {
+    flex: 1,
+  },
+  button: {
+    width: appMetrics.SCREEN_WIDTH * 0.9,
+    alignSelf: "center",
+  },
+  errorMessage: {
+    color: theme.colors.error[500],
+    fontSize: 14,
+    textAlign: "left",
+    alignSelf: "flex-start",
+    marginBottom: 8,
+  },
+  containerSelect: {
+    marginHorizontal: 16,
+  },
+}));

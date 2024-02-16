@@ -1,12 +1,6 @@
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { View, Text, TouchableOpacity, Modal } from "react-native";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { Ionicons } from "@expo/vector-icons"; // Importe o ícone do Expo
 
@@ -18,11 +12,16 @@ export const Select = ({
   keyValue,
   keyLabel,
   label,
+  extraOnChange,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState(selectedValue);
 
   const handleSelect = (option) => {
+    extraOnChange?.(option);
+    if (option?.[keyValue] === "loadMore") {
+      return;
+    }
     setSelectedOption(option);
     onSelect(option);
     setModalVisible(false);
@@ -61,7 +60,7 @@ export const Select = ({
             ))}
             <TouchableOpacity
               style={styles.option}
-              onPress={() => handleSelect("loadMore")}
+              onPress={() => handleSelect({ [keyValue]: "loadMore" })}
             >
               <Text style={styles.selectButtonText}>Carregar mais...</Text>
             </TouchableOpacity>
@@ -74,8 +73,6 @@ export const Select = ({
 
 const styles = DynamicStyleSheet.create((theme) => ({
   container: {
-    flex: 1,
-    marginHorizontal: 10,
     marginVertical: 5,
   },
   selectButton: {
