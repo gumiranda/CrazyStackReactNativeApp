@@ -1,15 +1,12 @@
 import { useUsersSelect } from "@/features/user/userList.hook";
 import { useStepRequest } from "../context/StepRequest.context";
-import { View, Text, ScrollView } from "react-native";
-import { Button, Select } from "@/shared/ui";
-import { useState } from "react";
+import { ScrollView } from "react-native";
+import { Button, SelectHookForm } from "@/shared/ui";
 import { useServicesSelect } from "@/entities/service/serviceList.hook";
-import { SubmitHandler, Controller, useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useStepServiceProfessional } from "./StepServiceProfessional.lib";
 import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
 import appMetrics from "@/shared/libs/functions/metrics";
+
 export const StepServiceProfessional = ({
   ownerSelected,
   ownerSelectedUserId,
@@ -44,7 +41,7 @@ export const StepServiceProfessional = ({
   return (
     <>
       <ScrollView style={styles.container}>
-        <MyComponentHookForm
+        <SelectHookForm
           list={users}
           keyValue={"_id"}
           keyLabel={"name"}
@@ -56,7 +53,7 @@ export const StepServiceProfessional = ({
           label={"Profissional prestador"}
           extraOnChange={handleChangeUserSelected}
         />
-        <MyComponentHookForm
+        <SelectHookForm
           list={services}
           keyValue={"_id"}
           keyLabel={"name"}
@@ -79,57 +76,13 @@ export const StepServiceProfessional = ({
     </>
   );
 };
-const MyComponentHookForm = ({
-  control,
-  list,
-  defaultValue,
-  placeholder,
-  keyValue,
-  keyLabel,
-  errors,
-  name,
-  label,
-  extraOnChange,
-}) => {
-  return (
-    <View style={styles.containerSelect}>
-      <Controller
-        control={control}
-        name={name}
-        defaultValue={defaultValue}
-        render={({ field: { onChange, value } }) => (
-          <Select
-            options={list}
-            onSelect={onChange}
-            placeholder={placeholder}
-            selectedValue={value}
-            keyValue={keyValue}
-            keyLabel={keyLabel}
-            label={label}
-            extraOnChange={extraOnChange}
-          />
-        )}
-      />
-      {errors[name] && <Text style={styles.errorMessage}>{errors[name].message}</Text>}
-    </View>
-  );
-};
-const styles = DynamicStyleSheet.create((theme) => ({
+
+const styles = DynamicStyleSheet.create(() => ({
   container: {
     flex: 1,
   },
   button: {
     width: appMetrics.SCREEN_WIDTH * 0.9,
     alignSelf: "center",
-  },
-  errorMessage: {
-    color: theme.colors.error[500],
-    fontSize: 14,
-    textAlign: "left",
-    alignSelf: "flex-start",
-    marginBottom: 8,
-  },
-  containerSelect: {
-    marginHorizontal: 16,
   },
 }));
