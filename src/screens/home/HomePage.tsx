@@ -9,6 +9,8 @@ import { useRequestInfiniteList } from "@/entities/request";
 import { Button, Footer } from "@/shared/ui";
 import { StatusBar } from "expo-status-bar";
 import { useInfiniteFullList } from "@/shared/libs/hooks";
+import { useEffect } from "react";
+import { useUi } from "@/app/providers";
 
 export const HomePage = () => {
   const navigation = useNavigation();
@@ -22,7 +24,12 @@ export const HomePage = () => {
     selectedDate,
     setSelectedDate,
   } = useRequestInfiniteList();
-  useInfiniteFullList({ fetchNextPage, hasNextPage, isFetching });
+  useInfiniteFullList({ fetchNextPage, hasNextPage });
+  const { setLoading } = useUi();
+  useEffect(() => {
+    setLoading(isFetching);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFetching]);
   const datesWhitelist = [
     {
       start: addDays(new Date(), -365) as any,

@@ -5,6 +5,6 @@ export const useClientUserList = () => {
   const { isFetching, userList, fetchNextPage, hasNextPage } = useUserInfiniteList({
     defaultParams: { role: "client" },
   });
-  useInfiniteFullList({ fetchNextPage, hasNextPage, isFetching });
-  return { userList };
+  useInfiniteFullList({ fetchNextPage, hasNextPage });
+  return { userList, isFetching };
 };

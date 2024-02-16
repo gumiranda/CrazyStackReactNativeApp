@@ -5,6 +5,6 @@ export const useOwnerList = () => {
   const { isFetching, ownerList, fetchNextPage, hasNextPage } = useOwnerInfiniteList({
     defaultParams: {},
   });
-  useInfiniteFullList({ fetchNextPage, hasNextPage, isFetching });
-  return { ownerList };
+  useInfiniteFullList({ fetchNextPage, hasNextPage });
+  return { ownerList, isFetching };
 };
