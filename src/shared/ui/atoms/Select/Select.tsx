@@ -1,7 +1,14 @@
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Modal } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Modal,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { Ionicons } from "@expo/vector-icons"; // Importe o ícone do Expo
 
 export const Select = ({
   options,
@@ -37,6 +44,11 @@ export const Select = ({
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalContainer}>
+          <View style={styles.modalHeader}>
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <Ionicons name="close" size={24} color="black" />
+            </TouchableOpacity>
+          </View>
           <View style={styles.modalContent}>
             {options?.map?.((option) => (
               <TouchableOpacity
@@ -73,6 +85,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     borderColor: theme.colors.grey[300],
   },
   selectButtonText: {
+    marginVertical: 8,
     fontSize: 16,
     fontFamily: fonts.primary_400,
   },
@@ -80,6 +93,12 @@ const styles = DynamicStyleSheet.create((theme) => ({
     flex: 1,
     backgroundColor: theme.colors.background,
     marginTop: getStatusBarHeight() + 200,
+  },
+  modalHeader: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    paddingRight: 10,
+    marginTop: 10,
   },
   modalContent: {
     backgroundColor: theme.colors.background,
