@@ -14,16 +14,18 @@ import {
   SelectHookForm,
   generateInterval,
 } from "@/shared/ui";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getPlatformDate } from "@/shared/libs/functions/getPlatformDate";
 import { addMinutes, format } from "date-fns";
 import { useTimeAvailable } from "@/features/appointment/timeAvailable.hook";
 import { useStepDate } from "./StepDate.lib";
+import { createRequestMutation } from "@/features/request/create/createRequest.hook";
 
 export const StepDate = ({ currentOwner, nextStep }) => {
   const { request, setRequest } = useStepRequest() || {};
   const theme = useTheme();
   console.tron.log({ request });
+  const [dateSelectedString, setDateSelectedString] = useState<string | null>(null);
   const [dateSelected, setDateSelected] = useState<DayProps>({} as DayProps);
   const [markedDates, setMarkedDates] = useState<MarkedDateProps>({} as MarkedDateProps);
   const [rentalPeriod, setRentalPeriod] = useState<any>({} as any);
@@ -31,7 +33,7 @@ export const StepDate = ({ currentOwner, nextStep }) => {
     ownerId: currentOwner?._id,
     professionalId: request?.professionalId,
     serviceId: request?.serviceId,
-    date: new Date(dateSelected?.timestamp ?? null).toISOString() ?? null,
+    date: dateSelectedString,
   });
   const currentService = request?.services?.find?.(
     (service) => service?._id === request?.serviceId
@@ -50,7 +52,7 @@ export const StepDate = ({ currentOwner, nextStep }) => {
     professionalId: request?.professionalId,
     ownerId: currentOwner?._id,
     createdForId: currentOwner?.createdById,
-    clientUserId: request?.clientUserId,
+    clientUserId: request?.clientCreated?.userId,
     initDate: timeSelected ?? timeAvailable?.timeAvailable?.[0]?.value,
     endDate: addMinutes(
       new Date(timeSelected ?? timeAvailable?.timeAvailable?.[0]?.value ?? null),
@@ -70,31 +72,27 @@ export const StepDate = ({ currentOwner, nextStep }) => {
     formState: { errors },
   } = useStepDate();
 
-  //  const createRequest = createRequestMutation(showModal, router);
-  // const createRequest = createRequestMutation(() => {}, null);
+  const createRequest = createRequestMutation(() => {}, null);
 
-  // const { register, handleSubmit, formState } = useCreateRequestLib(requestObjectIds);
-  // const handleCreateRequest: SubmitCreateRequestHandler = async (
-  //   values: CreateRequestFormData
-  // ) => {
-  //   setRequest((prev) => ({
-  //     ...prev,
-  //     requestToSend: { ...values, ...requestObjectIds },
-  //     currentService,
-  //   }));
+  const handleCreateRequest = async (values: any) => {
+    setRequest((prev) => ({
+      ...prev,
+      requestToSend: { ...values, ...requestObjectIds },
+      currentService,
+    }));
 
-  //   await createRequest.mutateAsync({
-  //     ...values,
-  //     ...requestObjectIds,
-  //   });
-  // };
-  // useEffect(() => {
-  //   if (createRequest?.data) {
-  //     setRequest((prev) => ({ ...prev, requestCreated: createRequest?.data }));
-  //     nextStep();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [createRequest?.data]);
+    await createRequest.mutateAsync({
+      ...values,
+      ...requestObjectIds,
+    });
+  };
+  useEffect(() => {
+    if (createRequest?.data) {
+      setRequest((prev) => ({ ...prev, requestCreated: createRequest?.data }));
+      nextStep();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [createRequest?.data]);
 
   const handleChangeDate = (date: DayProps) => {
     let start = date;
@@ -104,6 +102,9 @@ export const StepDate = ({ currentOwner, nextStep }) => {
       end = start;
     }
     setDateSelected(end);
+    setDateSelectedString(
+      format(getPlatformDate(new Date(date?.timestamp)), "dd/MM/yyyy")
+    );
     const interval = generateInterval(start, end, theme);
     setMarkedDates(interval);
     const keysInterval = Object.keys(interval);
@@ -116,7 +117,6 @@ export const StepDate = ({ currentOwner, nextStep }) => {
       endFormatted: format(getPlatformDate(new Date(lastDate)), "dd/MM/yyyy"),
     });
   };
-  console.tron.log({ dateSelected: new Date(dateSelected?.timestamp) });
   return (
     <>
       <ScrollView
@@ -176,8 +176,8 @@ export const StepDate = ({ currentOwner, nextStep }) => {
       /> */}
       <Button
         style={styles.button}
-        onPress={() => {}}
-        title={"PRÓXIMO"}
+        onPress={handleSubmit(handleCreateRequest)}
+        title={"CONFIRMAR"}
         backgroundColor={theme.colors.tertiary[300]}
         color={theme.colors.black}
       />

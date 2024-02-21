@@ -13,6 +13,7 @@ export const Select = ({
   keyLabel,
   label,
   extraOnChange,
+  haveLoadMore = true,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState(selectedValue);
@@ -58,12 +59,14 @@ export const Select = ({
                 <Text style={styles.selectButtonText}>{option?.[keyLabel]}</Text>
               </TouchableOpacity>
             ))}
-            <TouchableOpacity
-              style={styles.option}
-              onPress={() => handleSelect({ [keyValue]: "loadMore" })}
-            >
-              <Text style={styles.selectButtonText}>Carregar mais...</Text>
-            </TouchableOpacity>
+            {haveLoadMore === true && (
+              <TouchableOpacity
+                style={styles.option}
+                onPress={() => handleSelect({ [keyValue]: "loadMore" })}
+              >
+                <Text style={styles.selectButtonText}>Carregar mais...</Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       </Modal>
@@ -96,7 +99,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     flexDirection: "row",
     justifyContent: "flex-end",
     paddingRight: 10,
-    marginTop: 10,
+    marginTop: 40,
   },
   modalContent: {
     backgroundColor: theme.colors.background,

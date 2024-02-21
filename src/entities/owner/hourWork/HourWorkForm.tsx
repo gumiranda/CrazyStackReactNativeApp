@@ -151,7 +151,7 @@ export const HourWorks = ({
         isChecked={haveLunchTime1}
         label="Possui horário de almoço?"
         onChange={(e) => {
-          e.preventDefault();
+
           setHaveLunchTime1(e.target.checked);
         }}
       /> */}
@@ -160,7 +160,7 @@ export const HourWorks = ({
         isChecked={haveAlternativeHour}
         label="Possui horário alternativo?"
         onChange={(e) => {
-          e.preventDefault();
+
           setHaveAlternativeHour(e.target.checked);
         }}
       /> */}
@@ -193,7 +193,7 @@ export const HourWorks = ({
             isChecked={haveLunchTime2}
             label="Possui horário de almoço?"
             onChange={(e) => {
-              e.preventDefault();
+
               setHaveLunchTime2(e.target.checked);
             }}
           />
@@ -202,7 +202,7 @@ export const HourWorks = ({
             isChecked={haveAlternativeHour2}
             label="Possui horário alternativo além desse?"
             onChange={(e) => {
-              e.preventDefault();
+
               setHaveAlternativeHour2(e.target.checked);
             }}
           /> */}
@@ -235,7 +235,7 @@ export const HourWorks = ({
                 isChecked={haveLunchTime3}
                 label="Possui horário de almoço desse alternativo?"
                 onChange={(e) => {
-                  e.preventDefault();
+
                   setHaveLunchTime3(e.target.checked);
                 }}
               /> */}

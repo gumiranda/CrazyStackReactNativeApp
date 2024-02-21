@@ -14,6 +14,7 @@ export const SelectHookForm = ({
   name,
   label,
   extraOnChange,
+  haveLoadMore = true,
 }) => {
   return (
     <View style={styles.containerSelect}>
@@ -31,6 +32,7 @@ export const SelectHookForm = ({
             keyLabel={keyLabel}
             label={label}
             extraOnChange={extraOnChange}
+            haveLoadMore={haveLoadMore}
           />
         )}
       />

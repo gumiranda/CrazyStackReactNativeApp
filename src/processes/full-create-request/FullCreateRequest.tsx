@@ -22,11 +22,6 @@ export const FullCreateRequestForm = () => {
 
   const steps = [
     {
-      title: "Data",
-      description: "Selecione dia e horário",
-      component: <StepDate nextStep={nextStep} currentOwner={owners?.owners?.[0]} />,
-    },
-    {
       title: "Cliente",
       description: "Nome e telefone",
       component: <StepClient userList={clients} nextStep={nextStep} />,
@@ -41,6 +36,11 @@ export const FullCreateRequestForm = () => {
           ownerSelectedUserId={owners?.[0]?.createdById}
         />
       ),
+    },
+    {
+      title: "Data",
+      description: "Selecione dia e horário",
+      component: <StepDate nextStep={nextStep} currentOwner={owners?.[0]} />,
     },
     // {
     //   title: "Sucesso",
