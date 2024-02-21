@@ -2,10 +2,24 @@
 // import { useTimeAvailable } from "@/features/appointment/timeAvailable.hook";
 // import { addMinutes } from "date-fns";
 
+import { ScrollView } from "react-native";
 import { useStepRequest } from "../context/StepRequest.context";
+import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
+import appMetrics from "@/shared/libs/functions/metrics";
+import {
+  Button,
+  Calendar,
+  DayProps,
+  MarkedDateProps,
+  generateInterval,
+} from "@/shared/ui";
+import { useState } from "react";
+import { getPlatformDate } from "@/shared/libs/functions/getPlatformDate";
+import { format } from "date-fns";
 
 export const StepDate = ({ currentOwner, nextStep }) => {
   const { request, setRequest } = useStepRequest() || {};
+  const theme = useTheme();
   console.tron.log({ request });
   // const [dateSelected, setDateSelected] = useState(null);
   // const { timeAvailable, timeSelected, handleChangeTimeSelected } = useTimeAvailable({
@@ -70,8 +84,43 @@ export const StepDate = ({ currentOwner, nextStep }) => {
   //   }
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [createRequest?.data]);
+  const [selectedDate, setSelectedDate] = useState<DayProps>({} as DayProps);
+  const [markedDates, setMarkedDates] = useState<MarkedDateProps>({} as MarkedDateProps);
+  const [rentalPeriod, setRentalPeriod] = useState<any>({} as any);
+  const handleChangeDate = (date: DayProps) => {
+    let start = date;
+    let end = date;
+    if (start.timestamp > end.timestamp) {
+      start = end;
+      end = start;
+    }
+    setSelectedDate(end);
+    const interval = generateInterval(start, end, theme);
+    setMarkedDates(interval);
+    const keysInterval = Object.keys(interval);
+    const firstDate = keysInterval?.[0];
+    const lastDate = keysInterval?.[keysInterval?.length - 1];
+    setRentalPeriod({
+      start: start.timestamp,
+      end: end.timestamp,
+      startFormatted: format(getPlatformDate(new Date(firstDate)), "dd/MM/yyyy"),
+      endFormatted: format(getPlatformDate(new Date(lastDate)), "dd/MM/yyyy"),
+    });
+  };
+  console.tron.log({ selectedDate: new Date(selectedDate?.timestamp) });
   return (
     <>
+      <ScrollView
+        contentContainerStyle={{
+          paddingBottom: 24,
+          paddingHorizontal: 10,
+          paddingTop: 0,
+          alignItems: "stretch",
+        }}
+        style={styles.content}
+      >
+        <Calendar markedDates={markedDates} onDayPress={handleChangeDate} />
+      </ScrollView>
       {/* <DatePicker
         placeholder="Selecione uma data"
         name="date"
@@ -104,6 +153,28 @@ export const StepDate = ({ currentOwner, nextStep }) => {
         error={formState.errors.message}
         {...register("message")}
       /> */}
+      <Button
+        style={styles.button}
+        onPress={() => {}}
+        title={"PRÓXIMO"}
+        backgroundColor={theme.colors.tertiary[300]}
+        color={theme.colors.black}
+      />
     </>
   );
 };
+const styles = DynamicStyleSheet.create((theme) => ({
+  container: {
+    backgroundColor: theme.colors.white,
+    flex: 1,
+  },
+  button: {
+    width: appMetrics.SCREEN_WIDTH * 0.9,
+    alignSelf: "center",
+  },
+  text: {
+    color: theme.colors.text,
+  },
+  footer: { backgroundColor: theme.colors.white },
+  content: {},
+}));
