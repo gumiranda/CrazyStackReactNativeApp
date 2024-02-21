@@ -11,55 +11,66 @@ import {
   Calendar,
   DayProps,
   MarkedDateProps,
+  SelectHookForm,
   generateInterval,
 } from "@/shared/ui";
 import { useState } from "react";
 import { getPlatformDate } from "@/shared/libs/functions/getPlatformDate";
-import { format } from "date-fns";
+import { addMinutes, format } from "date-fns";
+import { useTimeAvailable } from "@/features/appointment/timeAvailable.hook";
+import { useStepDate } from "./StepDate.lib";
 
 export const StepDate = ({ currentOwner, nextStep }) => {
   const { request, setRequest } = useStepRequest() || {};
   const theme = useTheme();
   console.tron.log({ request });
-  // const [dateSelected, setDateSelected] = useState(null);
-  // const { timeAvailable, timeSelected, handleChangeTimeSelected } = useTimeAvailable({
-  //   ownerId: currentOwner?._id,
-  //   professionalId: request?.professionalId,
-  //   serviceId: request?.serviceId,
-  //   date: dateSelected ?? null,
-  // });
-  // const currentService = request?.services?.find?.(
-  //   (service) => service?._id === request?.serviceId
-  // );
-  // const serviceDuration = currentService?.duration ?? 60;
+  const [dateSelected, setDateSelected] = useState<DayProps>({} as DayProps);
+  const [markedDates, setMarkedDates] = useState<MarkedDateProps>({} as MarkedDateProps);
+  const [rentalPeriod, setRentalPeriod] = useState<any>({} as any);
+  const { timeAvailable, timeSelected, handleChangeTimeSelected } = useTimeAvailable({
+    ownerId: currentOwner?._id,
+    professionalId: request?.professionalId,
+    serviceId: request?.serviceId,
+    date: new Date(dateSelected?.timestamp ?? null).toISOString() ?? null,
+  });
+  const currentService = request?.services?.find?.(
+    (service) => service?._id === request?.serviceId
+  );
+  const serviceDuration = currentService?.duration ?? 60;
 
-  // const requestObjectIds = {
-  //   haveDelivery: false,
-  //   haveRecurrence: false,
-  //   haveFidelity: false,
-  //   haveRide: false,
-  //   type: "service",
-  //   status: 1,
-  //   serviceId: request?.serviceId,
-  //   clientId: request?.clientCreated?._id,
-  //   professionalId: request?.professionalId,
-  //   ownerId: currentOwner?._id,
-  //   createdForId: currentOwner?.createdById,
-  //   clientUserId: request?.clientUserId,
-  //   initDate: timeSelected ?? timeAvailable?.timeAvailable?.[0]?.value,
-  //   endDate: addMinutes(
-  //     new Date(timeSelected ?? timeAvailable?.timeAvailable?.[0]?.value ?? null),
-  //     serviceDuration
-  //   )?.toISOString(),
-  //   duration: serviceDuration,
-  //   serviceName: currentService?.name,
-  //   ownerName: currentOwner?.name,
-  //   clientName: request?.clientCreated?.name,
-  //   professionalName: request?.users?.find?.(
-  //     (user) => user?._id === request?.professionalId
-  //   )?.name,
-  // };
-  // //  const createRequest = createRequestMutation(showModal, router);
+  const requestObjectIds = {
+    haveDelivery: false,
+    haveRecurrence: false,
+    haveFidelity: false,
+    haveRide: false,
+    type: "service",
+    status: 1,
+    serviceId: request?.serviceId,
+    clientId: request?.clientCreated?._id,
+    professionalId: request?.professionalId,
+    ownerId: currentOwner?._id,
+    createdForId: currentOwner?.createdById,
+    clientUserId: request?.clientUserId,
+    initDate: timeSelected ?? timeAvailable?.timeAvailable?.[0]?.value,
+    endDate: addMinutes(
+      new Date(timeSelected ?? timeAvailable?.timeAvailable?.[0]?.value ?? null),
+      serviceDuration
+    )?.toISOString(),
+    duration: serviceDuration,
+    serviceName: currentService?.name,
+    ownerName: currentOwner?.name,
+    clientName: request?.clientCreated?.name,
+    professionalName: request?.users?.find?.(
+      (user) => user?._id === request?.professionalId
+    )?.name,
+  };
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useStepDate();
+
+  //  const createRequest = createRequestMutation(showModal, router);
   // const createRequest = createRequestMutation(() => {}, null);
 
   // const { register, handleSubmit, formState } = useCreateRequestLib(requestObjectIds);
@@ -84,9 +95,7 @@ export const StepDate = ({ currentOwner, nextStep }) => {
   //   }
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [createRequest?.data]);
-  const [selectedDate, setSelectedDate] = useState<DayProps>({} as DayProps);
-  const [markedDates, setMarkedDates] = useState<MarkedDateProps>({} as MarkedDateProps);
-  const [rentalPeriod, setRentalPeriod] = useState<any>({} as any);
+
   const handleChangeDate = (date: DayProps) => {
     let start = date;
     let end = date;
@@ -94,7 +103,7 @@ export const StepDate = ({ currentOwner, nextStep }) => {
       start = end;
       end = start;
     }
-    setSelectedDate(end);
+    setDateSelected(end);
     const interval = generateInterval(start, end, theme);
     setMarkedDates(interval);
     const keysInterval = Object.keys(interval);
@@ -107,7 +116,7 @@ export const StepDate = ({ currentOwner, nextStep }) => {
       endFormatted: format(getPlatformDate(new Date(lastDate)), "dd/MM/yyyy"),
     });
   };
-  console.tron.log({ selectedDate: new Date(selectedDate?.timestamp) });
+  console.tron.log({ dateSelected: new Date(dateSelected?.timestamp) });
   return (
     <>
       <ScrollView
@@ -120,6 +129,18 @@ export const StepDate = ({ currentOwner, nextStep }) => {
         style={styles.content}
       >
         <Calendar markedDates={markedDates} onDayPress={handleChangeDate} />
+        <SelectHookForm
+          list={timeAvailable?.timeAvailable ?? []}
+          keyValue={"value"}
+          keyLabel={"label"}
+          defaultValue={timeSelected}
+          placeholder={"Selecione um horário"}
+          control={control}
+          errors={errors}
+          name={"timeAvailable"}
+          label={"Horário disponível"}
+          extraOnChange={handleChangeTimeSelected}
+        />
       </ScrollView>
       {/* <DatePicker
         placeholder="Selecione uma data"
