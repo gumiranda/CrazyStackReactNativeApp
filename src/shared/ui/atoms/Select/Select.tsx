@@ -1,6 +1,6 @@
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Modal } from "react-native";
+import { View, Text, TouchableOpacity, Modal, ScrollView } from "react-native";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { Ionicons } from "@expo/vector-icons"; // Importe o ícone do Expo
 
@@ -49,7 +49,7 @@ export const Select = ({
               <Ionicons name="close" size={24} color="black" />
             </TouchableOpacity>
           </View>
-          <View style={styles.modalContent}>
+          <ScrollView style={styles.modalContent}>
             {options?.map?.((option) => (
               <TouchableOpacity
                 key={option?.[keyValue]}
@@ -67,7 +67,7 @@ export const Select = ({
                 <Text style={styles.selectButtonText}>Carregar mais...</Text>
               </TouchableOpacity>
             )}
-          </View>
+          </ScrollView>
         </View>
       </Modal>
     </View>

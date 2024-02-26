@@ -140,6 +140,7 @@ export const StepDate = ({ currentOwner, nextStep }) => {
           name={"timeAvailable"}
           label={"Horário disponível"}
           extraOnChange={handleChangeTimeSelected}
+          haveLoadMore={false}
         />
       </ScrollView>
       {/* <DatePicker
