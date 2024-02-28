@@ -20,8 +20,11 @@ import { addMinutes, format } from "date-fns";
 import { useTimeAvailable } from "@/features/appointment/timeAvailable.hook";
 import { useStepDate } from "./StepDate.lib";
 import { createRequestMutation } from "@/features/request/create/createRequest.hook";
+import { useNavigation } from "@react-navigation/native";
 
-export const StepDate = ({ currentOwner, nextStep }) => {
+export const StepDate = ({ currentOwner }) => {
+  const navigation = useNavigation();
+
   const { request, setRequest } = useStepRequest() || {};
   const theme = useTheme();
   console.tron.log({ request });
@@ -86,10 +89,15 @@ export const StepDate = ({ currentOwner, nextStep }) => {
       ...requestObjectIds,
     });
   };
+  const confirmRequest = (createRequest) => {
+    navigation.navigate("ConfirmRequestOwner", {
+      request: { ...request, requestCreated: createRequest },
+    });
+  };
   useEffect(() => {
     if (createRequest?.data) {
       setRequest((prev) => ({ ...prev, requestCreated: createRequest?.data }));
-      nextStep();
+      confirmRequest(createRequest?.data);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [createRequest?.data]);

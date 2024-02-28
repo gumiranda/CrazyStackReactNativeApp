@@ -1,3 +1,4 @@
+import { ConfirmRequestOwner } from "@/processes/full-create-request/steps/ConfirmRequestOwner";
 import { Initial } from "@/screens/Initial";
 import { RegisterPage } from "@/screens/auth/RegisterPage";
 import { SignInPage } from "@/screens/auth/SignInPage";
@@ -35,6 +36,11 @@ export const stackRoutes = [
     name: "CreateRequestOwner",
     component: CreateRequestOwner,
     title: "Novo agendamento",
+  },
+  {
+    name: "ConfirmRequestOwner",
+    component: ConfirmRequestOwner,
+    title: "Confirmar agendamento",
   },
 ];
 export const routesWithoutHeader = ["Initial", "SignInPage", "RegisterPage"];

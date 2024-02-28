@@ -40,7 +40,7 @@ export const FullCreateRequestForm = () => {
     {
       title: "Data",
       description: "Selecione dia e horário",
-      component: <StepDate nextStep={nextStep} currentOwner={owners?.[0]} />,
+      component: <StepDate currentOwner={owners?.[0]} />,
     },
     // {
     //   title: "Sucesso",

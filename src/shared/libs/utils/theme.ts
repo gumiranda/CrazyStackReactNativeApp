@@ -4,7 +4,7 @@ export const darkTheme = {
   dark: true,
   colors: darkColors,
 };
-const testDark = false;
+const testDark = true;
 export const lightTheme = {
   dark: testDark,
   colors: testDark ? darkColors : lightColors,

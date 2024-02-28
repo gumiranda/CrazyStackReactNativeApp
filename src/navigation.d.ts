@@ -10,6 +10,7 @@ export declare global {
         name: string;
         role: string;
       };
+      ConfirmRequestOwner: { request: any };
     }
   }
 }
