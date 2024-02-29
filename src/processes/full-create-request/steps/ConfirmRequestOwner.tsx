@@ -5,8 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import { ScrollView, View } from "react-native";
 import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
 import appMetrics from "@/shared/libs/functions/metrics";
-import { Button, DateDetails, MaterialIcon, TextAtom, ViewField } from "@/shared/ui";
+import { Button, MaterialIcon, TextAtom } from "@/shared/ui";
 import { RFValue } from "react-native-responsive-fontsize";
+import { RequestDetails } from "@/entities/request/components";
 
 const content = "Verifique os dados abaixo para confirmar o agendamento:";
 
@@ -17,7 +18,7 @@ export const ConfirmRequestOwner = ({
     },
   },
 }) => {
-  const { initDate, endDate } = requestCreated;
+  const { initDate } = requestCreated;
   const theme = useTheme();
   const navigation = useNavigation();
   const { showModal } = useUi();
@@ -36,7 +37,6 @@ export const ConfirmRequestOwner = ({
     navigation,
   });
 
-  const duration = `${currentService?.duration} min`;
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
@@ -51,25 +51,7 @@ export const ConfirmRequestOwner = ({
         <TextAtom style={styles.message}>{content}</TextAtom>
 
         {!!requestCreated && (
-          <View>
-            <DateDetails initDate={initDate} endDate={endDate} />
-            <ViewField>
-              <ViewField.Label>Cliente:</ViewField.Label>
-              <ViewField.Description>{clientCreated?.name}</ViewField.Description>
-            </ViewField>
-            <ViewField>
-              <ViewField.Label>Serviço:</ViewField.Label>
-              <ViewField.Description>{currentService?.name}</ViewField.Description>
-            </ViewField>
-            <ViewField>
-              <ViewField.Label>Duração:</ViewField.Label>
-              <ViewField.Description>{duration}</ViewField.Description>
-            </ViewField>
-            <ViewField>
-              <ViewField.Label>Preço:</ViewField.Label>
-              <ViewField.PriceText>{currentService?.price}</ViewField.PriceText>
-            </ViewField>
-          </View>
+          <RequestDetails props={{ requestCreated, currentService, clientCreated }} />
         )}
       </ScrollView>
       <Button
