@@ -2,9 +2,9 @@
 /* eslint-disable react/display-name */
 import { View } from "react-native";
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
-import { TextAtom } from "@/shared/ui";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useMemo } from "react";
+import { TextAtom } from "../..";
 
 export const ViewField = ({ children }) => {
   return <View style={styles.viewField}>{children}</View>;

@@ -22,7 +22,9 @@ export const StepDate = ({ currentOwner }) => {
   const navigation = useNavigation();
   const { request, setRequest } = useStepRequest() || {};
   const theme = useTheme();
-  const [dateSelectedString, setDateSelectedString] = useState<string | null>(null);
+  const [dateSelectedString, setDateSelectedString] = useState<string | null>(
+    format(getPlatformDate(new Date()), "dd/MM/yyyy")
+  );
   const [markedDates, setMarkedDates] = useState<MarkedDateProps>({} as MarkedDateProps);
   const { timeAvailable, timeSelected, handleChangeTimeSelected } = useTimeAvailable({
     ownerId: currentOwner?._id,
