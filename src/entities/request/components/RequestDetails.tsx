@@ -3,7 +3,7 @@ import { DateDetails, ViewField } from "@/shared/ui";
 
 export const RequestDetails = ({ props: { request, service, client } }) => {
   const { initDate, endDate } = request;
-  const duration = `${service?.duration} min`;
+  const duration = `${service?.duration ?? 0} min`;
   return (
     <View>
       <DateDetails initDate={initDate} endDate={endDate} />

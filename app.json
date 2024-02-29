@@ -11,6 +11,9 @@
     },
     "packagerOpts": {
       "config": "metro.config.js"
+    },
+    "experiments": {
+      "baseUrl": "/CrazyStackReactNativeApp"
     }
   }
 }
