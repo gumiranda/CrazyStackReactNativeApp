@@ -1,13 +1,16 @@
 {
   "expo": {
-    "name": "crazystack",
-    "slug": "crazystack",
+    "name": "belezix",
+    "slug": "belezix",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ],
     "web":{
       "bundler":"metro"
+    },
+    "packagerOpts": {
+      "config": "metro.config.js"
     }
   }
 }
