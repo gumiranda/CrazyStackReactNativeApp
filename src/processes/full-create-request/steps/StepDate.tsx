@@ -1,7 +1,3 @@
-// import { useEffect, useState } from "react";
-// import { useTimeAvailable } from "@/features/appointment/timeAvailable.hook";
-// import { addMinutes } from "date-fns";
-
 import { ScrollView } from "react-native";
 import { useStepRequest } from "../context/StepRequest.context";
 import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
@@ -24,14 +20,10 @@ import { useNavigation } from "@react-navigation/native";
 
 export const StepDate = ({ currentOwner }) => {
   const navigation = useNavigation();
-
   const { request, setRequest } = useStepRequest() || {};
   const theme = useTheme();
-  console.tron.log({ request });
   const [dateSelectedString, setDateSelectedString] = useState<string | null>(null);
-  const [dateSelected, setDateSelected] = useState<DayProps>({} as DayProps);
   const [markedDates, setMarkedDates] = useState<MarkedDateProps>({} as MarkedDateProps);
-  const [rentalPeriod, setRentalPeriod] = useState<any>({} as any);
   const { timeAvailable, timeSelected, handleChangeTimeSelected } = useTimeAvailable({
     ownerId: currentOwner?._id,
     professionalId: request?.professionalId,
@@ -109,21 +101,11 @@ export const StepDate = ({ currentOwner }) => {
       start = end;
       end = start;
     }
-    setDateSelected(end);
     setDateSelectedString(
       format(getPlatformDate(new Date(date?.timestamp)), "dd/MM/yyyy")
     );
     const interval = generateInterval(start, end, theme);
     setMarkedDates(interval);
-    const keysInterval = Object.keys(interval);
-    const firstDate = keysInterval?.[0];
-    const lastDate = keysInterval?.[keysInterval?.length - 1];
-    setRentalPeriod({
-      start: start.timestamp,
-      end: end.timestamp,
-      startFormatted: format(getPlatformDate(new Date(firstDate)), "dd/MM/yyyy"),
-      endFormatted: format(getPlatformDate(new Date(lastDate)), "dd/MM/yyyy"),
-    });
   };
   return (
     <>
@@ -151,38 +133,6 @@ export const StepDate = ({ currentOwner }) => {
           haveLoadMore={false}
         />
       </ScrollView>
-      {/* <DatePicker
-        placeholder="Selecione uma data"
-        name="date"
-        label="Data do agendamento"
-        bgColor="gray.100"
-        labelColor="black"
-        onChange={(date: string) => {
-          setDateSelected(date as any);
-        }}
-      />
-      {currentOwner?._id?.length === 24 && timeAvailable?.timeAvailable?.length > 0 && (
-        <Select
-          bg="purple.700"
-          name="timeList"
-          label="Horário disponível"
-          list={timeAvailable?.timeAvailable ?? []}
-          value={timeSelected ?? ""}
-          onChange={handleChangeTimeSelected}
-          keyValue="value"
-          keyLabel="label"
-          labelColor="black"
-          bgColor="gray.100"
-        />
-      )}
-      <FormControl
-        label="Observação"
-        labelColor="black"
-        bgColor="gray.100"
-        bgColorHover="gray.100"
-        error={formState.errors.message}
-        {...register("message")}
-      /> */}
       <Button
         style={styles.button}
         onPress={handleSubmit(handleCreateRequest)}

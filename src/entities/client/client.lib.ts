@@ -1,4 +1,4 @@
-import { getClients, getInfiniteClients } from "./client.api";
+import { getClientById, getClients, getInfiniteClients } from "./client.api";
 import {
   useQuery,
   UseQueryOptions,
@@ -22,6 +22,13 @@ export const useGetInfiniteClients = (
     queryFn: ({ pageParam = 1, queryKey }: any) => {
       return getInfiniteClients(pageParam, queryKey?.[1]);
     },
+    ...options,
+  });
+};
+export const useGetClientById = (id: string, options?: UseQueryOptions) => {
+  return useQuery({
+    queryKey: ["client", id],
+    queryFn: () => getClientById(id),
     ...options,
   });
 };

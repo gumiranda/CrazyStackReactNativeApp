@@ -1,4 +1,3 @@
-"use client";
 import { useState, useEffect, useCallback } from "react";
 import { GetServicesResponse, getServices } from "./service.api";
 import { UserProps } from "../user";

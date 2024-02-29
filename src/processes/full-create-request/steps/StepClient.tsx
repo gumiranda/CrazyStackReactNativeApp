@@ -1,13 +1,3 @@
-// import { useUsersSelect } from "@/features/user/userList.hook";
-// import {
-//   CreateClientFormData,
-//   SubmitCreateClientHandler,
-//   useCreateClientLib,
-// } from "@/features/client/create/createClient.lib";
-// import { useStepRequest } from "../context/StepRequest.context";
-// import { createClientMutation } from "@/features/client/create/createClient.hook";
-// import { useEffect } from "react";
-
 import { ClientForm } from "@/features/request/client/create/ClientForm";
 import { useCreateClient } from "@/features/request/client/create/createClient.hook";
 import { useStepRequest } from "../context/StepRequest.context";
@@ -20,17 +10,8 @@ import appMetrics from "@/shared/libs/functions/metrics";
 export const StepClient = ({ userList, nextStep }) => {
   const theme = useTheme();
   const { setRequest = () => {} } = useStepRequest() || {};
-  const {
-    formState,
-    control,
-    handleSubmit,
-    handleCreateClient,
-    // userSelected,
-    // handleChangeUserSelected,
-    // users,
-    setFocus,
-    createClient,
-  } = useCreateClient({ userList });
+  const { formState, control, handleSubmit, handleCreateClient, setFocus, createClient } =
+    useCreateClient({ userList });
   useEffect(() => {
     if (createClient?.data) {
       setRequest((prev) => ({ ...prev, clientCreated: createClient?.data }));

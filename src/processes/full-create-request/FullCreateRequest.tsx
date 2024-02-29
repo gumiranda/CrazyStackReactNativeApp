@@ -3,7 +3,6 @@ import { StepClient } from "./steps/StepClient";
 import { StepServiceProfessional } from "./steps/StepServiceProfessional";
 import { StepRequestProvider, useStepRequest } from "./context/StepRequest.context";
 import { StepDate } from "./steps/StepDate";
-// import { StepSuccess } from "./steps/StepSuccess";
 import { useSteps } from "@/shared/ui/templates/Stepper/useSteps.hook";
 
 export const FullCreateRequest = () => {
@@ -42,16 +41,6 @@ export const FullCreateRequestForm = () => {
       description: "Selecione dia e horário",
       component: <StepDate currentOwner={owners?.[0]} />,
     },
-    // {
-    //   title: "Sucesso",
-    //   description: "Pedido criado com sucesso",
-    //   component: (
-    //     <StepSuccess
-    //     key={4}
-    //       title={"Confirmar agendamento"}
-    //       content="Verifique os dados e confirme o agendamento clicando no botão abaixo."
-    //   />,
-    // },
   ];
   return (
     <>
