@@ -1,55 +1,42 @@
-import { format, startOfDay } from "date-fns";
-import { ptBR } from "date-fns/locale";
+import { startOfDay } from "date-fns";
 import { useUi } from "@/app/providers";
 import { editRequestMutation } from "@/features/request/edit/editRequest.hook";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, View } from "react-native";
 import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
-import DoneSvg from "@/assets/done.svg";
 import appMetrics from "@/shared/libs/functions/metrics";
-import { Button, MaterialIcon, TextAtom } from "@/shared/ui";
+import { Button, DateDetails, MaterialIcon, TextAtom, ViewField } from "@/shared/ui";
 import { RFValue } from "react-native-responsive-fontsize";
+
 const content = "Verifique os dados abaixo para confirmar o agendamento:";
+
 export const ConfirmRequestOwner = ({
   route: {
-    params: { request },
+    params: {
+      request: { requestCreated, currentService, clientCreated },
+    },
   },
 }) => {
+  const { initDate, endDate } = requestCreated;
   const theme = useTheme();
   const navigation = useNavigation();
   const { showModal } = useUi();
   const confirmAppointment = async () => {
     await editRequest.mutateAsync({
-      ...request?.requestCreated,
-      date: startOfDay(request?.requestCreated.initDate),
+      ...requestCreated,
+      date: startOfDay(initDate),
       status: 1,
     } as any);
   };
   const editRequest = editRequestMutation({
-    currentRequest: request?.requestCreated,
+    currentRequest: requestCreated,
     showModal,
     routeRedirect: "HomePage",
     content: "Agendamento confirmado com sucesso, já pode ser visualizado na agenda.",
     navigation,
   });
-  const initDate = formatDate(new Date(request?.requestCreated?.initDate));
-  //const confirmDate = "  ";
-  const confirmDate = `${format(
-    new Date(request?.requestCreated?.initDate ?? null),
-    "HH:mm",
-    {
-      locale: ptBR,
-    }
-  )} - ${format(new Date(request?.requestCreated?.endDate ?? null), "HH:mm", {
-    locale: ptBR,
-  })}`;
-  const serviceName = `${request?.currentService?.name}`;
-  const priceText = `${request?.currentService?.price?.toLocaleString?.("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  })}`;
-  const duration = `${request?.currentService?.duration} min`;
-  console.tron.log({ requestt: request, initDate, confirmDate });
+
+  const duration = `${currentService?.duration} min`;
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
@@ -63,30 +50,25 @@ export const ConfirmRequestOwner = ({
 
         <TextAtom style={styles.message}>{content}</TextAtom>
 
-        {!!request?.requestCreated && (
+        {!!requestCreated && (
           <View>
-            <TextAtom style={styles.day}>{initDate}</TextAtom>
-            <View>
-              <TextAtom style={styles.confirmDate}>{confirmDate}</TextAtom>
-            </View>
-            <View style={styles.viewField}>
-              <TextAtom style={styles.label}>Cliente:</TextAtom>
-              <TextAtom style={styles.clientName}>
-                {request?.clientCreated?.name}
-              </TextAtom>
-            </View>
-            <View style={styles.viewField}>
-              <TextAtom style={styles.label}>Serviço:</TextAtom>
-              <TextAtom style={styles.clientName}>{serviceName}</TextAtom>
-            </View>
-            <View style={styles.viewField}>
-              <TextAtom style={styles.label}>Duração:</TextAtom>
-              <TextAtom style={styles.clientName}>{duration}</TextAtom>
-            </View>
-            <View style={styles.viewField}>
-              <TextAtom style={styles.label}>Preço:</TextAtom>
-              <TextAtom style={styles.priceText}>{priceText}</TextAtom>
-            </View>
+            <DateDetails initDate={initDate} endDate={endDate} />
+            <ViewField>
+              <ViewField.Label>Cliente:</ViewField.Label>
+              <ViewField.Description>{clientCreated?.name}</ViewField.Description>
+            </ViewField>
+            <ViewField>
+              <ViewField.Label>Serviço:</ViewField.Label>
+              <ViewField.Description>{currentService?.name}</ViewField.Description>
+            </ViewField>
+            <ViewField>
+              <ViewField.Label>Duração:</ViewField.Label>
+              <ViewField.Description>{duration}</ViewField.Description>
+            </ViewField>
+            <ViewField>
+              <ViewField.Label>Preço:</ViewField.Label>
+              <ViewField.PriceText>{currentService?.price}</ViewField.PriceText>
+            </ViewField>
           </View>
         )}
       </ScrollView>
@@ -100,20 +82,6 @@ export const ConfirmRequestOwner = ({
     </View>
   );
 };
-const formatDateHours = (date) => {
-  return new Date(date).toLocaleDateString("pt-BR", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-};
-const formatDate = (date) => {
-  return new Date(date).toLocaleDateString("pt-BR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    weekday: "long",
-  });
-};
 
 const styles = DynamicStyleSheet.create((theme) => ({
   container: {
@@ -125,68 +93,11 @@ const styles = DynamicStyleSheet.create((theme) => ({
     alignSelf: "center",
     marginBottom: 60,
   },
-  day: {
-    color: theme.colors.text,
-    fontSize: RFValue(15),
-    fontFamily: fonts.primary_400,
-    textAlign: "center",
-    marginTop: 3,
-    textTransform: "capitalize",
-  },
-  viewField: {
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    marginVertical: 5,
-  },
-  label: {
-    color: theme.colors.text,
-    fontSize: RFValue(15),
-    fontFamily: fonts.primary_500,
-    textAlign: "center",
-    marginTop: 3,
-  },
-  priceText: {
-    color: theme.colors.tertiary[500],
-    fontSize: RFValue(15),
-    fontFamily: fonts.primary_600,
-    textAlign: "center",
-    marginTop: 3,
-  },
-  clientName: {
-    color: theme.colors.text,
-    fontSize: RFValue(15),
-    fontFamily: fonts.primary_400,
-    textAlign: "center",
-    marginTop: 3,
-  },
-  text: {
-    color: theme.colors.text,
-    fontSize: RFValue(15),
-    fontFamily: fonts.primary_400,
-    textAlign: "center",
-    marginTop: 3,
-  },
-  confirmDate: {
-    color: theme.colors.text,
-    fontSize: RFValue(15),
-    fontFamily: fonts.primary_600,
-    textAlign: "center",
-    marginTop: 12,
-    marginBottom: 25,
-  },
   footer: { backgroundColor: theme.colors.white },
   content: {
     marginHorizontal: 16,
     justifyContent: "center",
     alignItems: "center",
-  },
-  title: {
-    fontSize: RFValue(30),
-    color: theme.colors.text,
-    fontFamily: fonts.secondary_600,
-    marginTop: 10,
-    textAlign: "center",
   },
   message: {
     marginVertical: 40,
