@@ -1,21 +1,19 @@
 import { View } from "react-native";
 import { DateDetails, ViewField } from "@/shared/ui";
 
-export const RequestDetails = ({
-  props: { requestCreated, currentService, clientCreated },
-}) => {
-  const { initDate, endDate } = requestCreated;
-  const duration = `${currentService?.duration} min`;
+export const RequestDetails = ({ props: { request, service, client } }) => {
+  const { initDate, endDate } = request;
+  const duration = `${service?.duration} min`;
   return (
     <View>
       <DateDetails initDate={initDate} endDate={endDate} />
       <ViewField>
         <ViewField.Label>Cliente:</ViewField.Label>
-        <ViewField.Description>{clientCreated?.name}</ViewField.Description>
+        <ViewField.Description>{client?.name}</ViewField.Description>
       </ViewField>
       <ViewField>
         <ViewField.Label>Serviço:</ViewField.Label>
-        <ViewField.Description>{currentService?.name}</ViewField.Description>
+        <ViewField.Description>{service?.name}</ViewField.Description>
       </ViewField>
       <ViewField>
         <ViewField.Label>Duração:</ViewField.Label>
@@ -23,7 +21,7 @@ export const RequestDetails = ({
       </ViewField>
       <ViewField>
         <ViewField.Label>Preço:</ViewField.Label>
-        <ViewField.PriceText>{currentService?.price}</ViewField.PriceText>
+        <ViewField.PriceText>{service?.price}</ViewField.PriceText>
       </ViewField>
     </View>
   );

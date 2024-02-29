@@ -51,7 +51,13 @@ export const ConfirmRequestOwner = ({
         <TextAtom style={styles.message}>{content}</TextAtom>
 
         {!!requestCreated && (
-          <RequestDetails props={{ requestCreated, currentService, clientCreated }} />
+          <RequestDetails
+            props={{
+              request: requestCreated,
+              service: currentService,
+              client: clientCreated,
+            }}
+          />
         )}
       </ScrollView>
       <Button
