@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useMemo } from "react";
-import { TextAtom } from "../..";
+import { TextAtom } from "../../atoms/TextAtom";
 
 export const ViewField = ({ children }) => {
   return <View style={styles.viewField}>{children}</View>;
