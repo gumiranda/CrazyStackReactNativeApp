@@ -8,7 +8,7 @@ export interface SignUpStep2ByEmailFormData {
 }
 export type SubmitSignUpByEmailHandler = SubmitHandler<SignUpStep2ByEmailFormData>;
 
-export const signUpStep2ByEmailSchema = yup.object().shape({
+export const signUpStep2ByEmailSchema = yup.object({
   password: yup
     .string()
     .min(6, "A senha deve ter pelo menos 6 caracteres")
@@ -21,9 +21,10 @@ export const signUpStep2ByEmailSchema = yup.object().shape({
       return this.parent.password === value;
     }),
 });
+export type YupSchema = yup.InferType<typeof signUpStep2ByEmailSchema>;
 
 export const useSignUpStep2ByEmailLib = () => {
-  const formProps = useForm({
+  const formProps = useForm<YupSchema>({
     mode: "onBlur",
     resolver: yupResolver(signUpStep2ByEmailSchema),
     defaultValues: {
