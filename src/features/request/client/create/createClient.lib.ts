@@ -1,7 +1,6 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { mask as masker } from "remask";
 
 export type CreateClientFormData = {
   name: string;
@@ -17,13 +16,8 @@ export const createClientFormSchema = yup.object({
   phone: yup
     .string()
     .required("Telefone é obrigatório")
-    .max(11, "Telefone inválido")
-    .min(11, "Telefone inválido")
-    .test(
-      "phone",
-      "Telefone inválido",
-      (value) => value && masker(value, ["(99) 99999-9999"]).length === 15
-    ),
+    .max(15, "Telefone inválido")
+    .min(15, "Telefone inválido"),
 });
 export type YupSchema = yup.InferType<typeof createClientFormSchema>;
 

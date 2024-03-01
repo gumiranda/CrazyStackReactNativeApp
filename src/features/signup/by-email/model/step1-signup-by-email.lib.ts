@@ -1,7 +1,6 @@
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { mask as masker } from "remask";
 
 export interface SignUpStep1ByEmailFormData {
   email: string;
@@ -10,28 +9,25 @@ export interface SignUpStep1ByEmailFormData {
 }
 export type SubmitSignUpByEmailHandler = SubmitHandler<SignUpStep1ByEmailFormData>;
 
-export const signUpStep1ByEmailSchema = yup.object().shape({
+export const signUpStep1ByEmailSchema = yup.object({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
   name: yup.string().required("Nome é obrigatório"),
   phone: yup
     .string()
     .required("Telefone é obrigatório")
-    .max(11, "Telefone inválido")
-    .min(11, "Telefone inválido")
-    .test(
-      "phone",
-      "Telefone inválido",
-      (value) => value && masker(value, ["(99) 99999-9999"]).length === 15
-    ),
+    .max(15, "Telefone inválido")
+    .min(15, "Telefone inválido"),
 });
+export type YupSchema = yup.InferType<typeof signUpStep1ByEmailSchema>;
 
 export const useSignUpStep1ByEmailLib = (
   defaultValues = { email: "", name: "", phone: "" }
 ) => {
-  const formProps = useForm({
+  const formProps = useForm<YupSchema>({
     mode: "onBlur",
     resolver: yupResolver(signUpStep1ByEmailSchema),
     defaultValues,
   });
+  console.tron.log({ formProps });
   return formProps;
 };

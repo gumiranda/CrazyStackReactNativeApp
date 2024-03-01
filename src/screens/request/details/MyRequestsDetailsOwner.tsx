@@ -16,7 +16,6 @@ export const MyRequestsDetailsOwner = ({
   const navigation = useNavigation();
   const { service, client } = useRequestDetailsOwner({ serviceId, clientId });
   const theme = useTheme();
-  console.tron.log({ item, service });
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 16 }}>

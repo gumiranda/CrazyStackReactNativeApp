@@ -17,6 +17,7 @@ export const Initial = () => {
       role: "owner",
     });
   }
+  console.log("Initial");
   return (
     <FullImageBackground style={styles.container} source={Splash}>
       <Text style={styles.bigLogo}>belezix</Text>
