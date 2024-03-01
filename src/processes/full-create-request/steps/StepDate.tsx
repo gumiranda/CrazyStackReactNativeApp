@@ -8,6 +8,7 @@ import {
   DayProps,
   MarkedDateProps,
   SelectHookForm,
+  ViewField,
   generateInterval,
 } from "@/shared/ui";
 import { useEffect, useState } from "react";
@@ -23,7 +24,7 @@ export const StepDate = ({ currentOwner }) => {
   const { request, setRequest } = useStepRequest() || {};
   const theme = useTheme();
   const [dateSelectedString, setDateSelectedString] = useState<string | null>(
-    format(getPlatformDate(new Date()), "dd/MM/yyyy")
+    format(new Date(), "dd/MM/yyyy")
   );
   const [markedDates, setMarkedDates] = useState<MarkedDateProps>({} as MarkedDateProps);
   const { timeAvailable, timeSelected, handleChangeTimeSelected } = useTimeAvailable({
@@ -121,19 +122,28 @@ export const StepDate = ({ currentOwner }) => {
         style={styles.content}
       >
         <Calendar markedDates={markedDates} onDayPress={handleChangeDate} />
-        <SelectHookForm
-          list={timeAvailable?.timeAvailable ?? []}
-          keyValue={"value"}
-          keyLabel={"label"}
-          defaultValue={timeSelected}
-          placeholder={"Selecione um horário"}
-          control={control}
-          errors={errors}
-          name={"timeAvailable"}
-          label={"Horário disponível"}
-          extraOnChange={handleChangeTimeSelected}
-          haveLoadMore={false}
-        />
+        {timeAvailable?.timeAvailable?.length === 0 && (
+          <ViewField>
+            <ViewField.Description>
+              Não existem horários disponíveis para a data selecionada.
+            </ViewField.Description>
+          </ViewField>
+        )}
+        {timeAvailable?.timeAvailable?.length > 0 && (
+          <SelectHookForm
+            list={timeAvailable?.timeAvailable ?? []}
+            keyValue={"value"}
+            keyLabel={"label"}
+            defaultValue={timeSelected}
+            placeholder={"Selecione um horário"}
+            control={control}
+            errors={errors}
+            name={"timeAvailable"}
+            label={"Horário disponível"}
+            extraOnChange={handleChangeTimeSelected}
+            haveLoadMore={false}
+          />
+        )}
       </ScrollView>
       <Button
         style={styles.button}
