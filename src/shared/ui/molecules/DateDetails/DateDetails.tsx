@@ -27,7 +27,7 @@ export const DateDetails = ({ initDate, endDate }) => {
 };
 
 const styles = DynamicStyleSheet.create((theme) => ({
-  dateDetails: {},
+  dateDetails: { marginTop: 10 },
   date: {
     color: theme.colors.text,
     fontSize: RFValue(15),

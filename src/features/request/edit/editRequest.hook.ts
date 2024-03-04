@@ -125,8 +125,11 @@ export function editRequestMutation({
         if (navigation) {
           navigation.dispatch(
             CommonActions.reset({
-              index: 0,
-              routes: [{ name: routeRedirect }],
+              index: 1,
+              routes: [
+                { name: routeRedirect },
+                { name: "MyRequestsDetailsOwner", params: { item: data } },
+              ],
             })
           );
         }

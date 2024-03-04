@@ -1,11 +1,13 @@
 import { View } from "react-native";
 import { DateDetails, ViewField } from "@/shared/ui";
+import { statusMap } from "../request.model";
 
 export const RequestDetails = ({ props: { request, service, client } }) => {
   const { initDate, endDate } = request;
   const duration = `${service?.duration ?? 0} min`;
   return (
     <View>
+      <ViewField.Label>{statusMap?.[request?.status]}</ViewField.Label>
       <DateDetails initDate={initDate} endDate={endDate} />
       <ViewField>
         <ViewField.Label>Cliente:</ViewField.Label>
