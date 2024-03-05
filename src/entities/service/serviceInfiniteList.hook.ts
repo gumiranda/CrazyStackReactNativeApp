@@ -87,6 +87,12 @@ export const useServiceInfiniteList = ({ defaultParams = {} }) => {
       ?.reduce?.((a: any, b: any) => a.concat(b)) ??
     data ??
     [];
+  const serviceListCount =
+    data?.pages
+      ?.map?.((page: any) => page?.totalCount)
+      ?.reduce?.((a: any, b: any) => a.concat(b)) ??
+    data ??
+    [];
   return {
     deleteSelectedAction,
     isFetching,
@@ -101,5 +107,6 @@ export const useServiceInfiniteList = ({ defaultParams = {} }) => {
     params,
     setParams,
     serviceList,
+    serviceListCount,
   };
 };

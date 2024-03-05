@@ -11,6 +11,7 @@ export const ListService = () => {
   const { user } = useAuth();
   const { showModal } = useUi();
   const result = useListService({ user });
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
