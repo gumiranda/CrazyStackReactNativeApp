@@ -15,7 +15,7 @@ export const FullCreateRequest = () => {
   );
 };
 export const FullCreateRequestForm = () => {
-  const { owners, clients } = useStepRequest();
+  const { owner, clients } = useStepRequest();
   const stepProps = useSteps();
   const { nextStep, activeStep, onStepPress } = stepProps;
 
@@ -31,15 +31,15 @@ export const FullCreateRequestForm = () => {
       component: (
         <StepServiceProfessional
           nextStep={nextStep}
-          ownerSelected={owners?.[0]?._id}
-          ownerSelectedUserId={owners?.[0]?.createdById}
+          ownerSelected={owner?._id}
+          ownerSelectedUserId={owner?.createdById}
         />
       ),
     },
     {
       title: "Data",
       description: "Selecione dia e horário",
-      component: <StepDate currentOwner={owners?.[0]} />,
+      component: <StepDate currentOwner={owner} />,
     },
   ];
   return (

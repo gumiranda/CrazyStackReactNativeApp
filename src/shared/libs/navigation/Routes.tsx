@@ -5,6 +5,7 @@ import { SignInPage } from "@/screens/auth/SignInPage";
 import { HomePage } from "@/screens/home";
 import { CreateRequestOwner } from "@/screens/request/create/CreateRequestOwner";
 import { MyRequestsDetailsOwner } from "@/screens/request/details/MyRequestsDetailsOwner";
+import { ListService } from "@/screens/service/list/ListService";
 
 export const stackRoutes = [
   {
@@ -42,6 +43,11 @@ export const stackRoutes = [
     component: ConfirmRequestOwner,
     title: "Confirmar agendamento",
   },
+  {
+    name: "ListService",
+    component: ListService,
+    title: "Serviços",
+  },
 ];
 export const routesWithoutHeader = ["Initial", "SignInPage", "RegisterPage"];
 export const drawerRoutes = [
@@ -49,6 +55,11 @@ export const drawerRoutes = [
     name: "HomePage",
     component: HomePage,
     title: "Início",
+  },
+  {
+    name: "ListService",
+    component: ListService,
+    title: "Serviços",
   },
   { name: "Logout", component: null, title: "Sair" },
 ];

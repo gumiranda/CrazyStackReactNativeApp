@@ -5,6 +5,7 @@ import { RequestDetails } from "@/entities/request/components";
 import { useRequestDetailsOwner } from "./useRequestDetailsOwner";
 import { Button } from "@/shared/ui";
 import appMetrics from "@/shared/libs/functions/metrics";
+import { useUi } from "@/app/providers";
 
 export const MyRequestsDetailsOwner = ({
   route: {
@@ -13,7 +14,14 @@ export const MyRequestsDetailsOwner = ({
 }) => {
   const { serviceId, clientId } = item;
   const theme = useTheme();
-  const { service, client } = useRequestDetailsOwner({ serviceId, clientId });
+  const { showModal } = useUi();
+  const { service, client, deleteSelectedAction, updateRequest } = useRequestDetailsOwner(
+    {
+      serviceId,
+      clientId,
+      currentRequest: item,
+    }
+  );
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 16 }}>
@@ -34,7 +42,18 @@ export const MyRequestsDetailsOwner = ({
       />
       <Button
         style={styles.buttonError}
-        onPress={() => {}}
+        onPress={() => {
+          showModal({
+            content: "Deseja realmente cancelar o agendamento?",
+            title: "Cancelar agendamento",
+            type: "error",
+            dismissButton: "NÃO",
+            mainButton: "SIM",
+            onPress: () => {
+              deleteSelectedAction(item);
+            },
+          });
+        }}
         title={"CANCELAR"}
         backgroundColor={theme.colors.background}
         color={theme.colors.error[400]}

@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 
 import { createContext, useContext, ReactNode, useState, useEffect } from "react";
-import { useClientUserList, useOwnerList } from "@/processes/full-create-request/hooks";
-import { useUi } from "@/app/providers";
+import { useClientUserList } from "@/processes/full-create-request/hooks";
+import { useAuth, useUi } from "@/app/providers";
+import { useGetOwnerByUserId } from "@/entities/owner/owner.lib";
 
 type StepRequestProviderProps = {
   children: ReactNode;
@@ -12,17 +13,18 @@ const StepRequestContext = createContext({} as StepRequestContextData);
 
 export function StepRequestProvider({ children }: StepRequestProviderProps) {
   const [request, setRequest] = useState<any>({});
+  const { user } = useAuth();
   const { userList, isFetching: isFetchingClientUser } = useClientUserList();
-  const { ownerList, isFetching: isFetchingOwner } = useOwnerList();
+  const { data: owner } = useGetOwnerByUserId(user?._id);
   const { setLoading } = useUi();
-  const isFetching = isFetchingClientUser || isFetchingOwner;
+  const isFetching = isFetchingClientUser;
   useEffect(() => {
     setLoading(isFetching);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFetching]);
   return (
     <StepRequestContext.Provider
-      value={{ request, setRequest, clients: userList, owners: ownerList }}
+      value={{ request, setRequest, clients: userList, owner }}
     >
       {children}
     </StepRequestContext.Provider>
