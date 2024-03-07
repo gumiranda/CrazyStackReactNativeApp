@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { useStepRequest } from "../context/StepRequest.context";
+import { useCreateRequest } from "../context/CreateRequest.context";
 import { createRequestMutation } from "@/features/request/create/createRequest.hook";
 import { useNavigation } from "@react-navigation/native";
 import { SelectDate } from "@/features/request/select";
 
 export const StepDate = ({ currentOwner }) => {
   const navigation = useNavigation();
-  const { request, setRequest } = useStepRequest() || {};
+  const { request, setRequest } = useCreateRequest() || {};
 
   const createRequest = createRequestMutation(() => {}, null);
 

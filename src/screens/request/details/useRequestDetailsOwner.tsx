@@ -29,9 +29,6 @@ export const useRequestDetailsOwner = ({ serviceId, clientId, currentRequest }) 
   };
   const updateRequest = async (newRequest: any) => {
     await editRequest.mutateAsync(newRequest as any);
-    // if (newRequest.status === 4) {
-    //   deleteSelectedAction(newRequest);
-    // }
   };
   const deleteSelectedAction = async (item: any) => {
     deleteRequest.mutateAsync([item] as any);

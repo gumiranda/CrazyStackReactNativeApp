@@ -1,1 +1,1 @@
-export * from "./ReSchedulePage";
+export * from "./ReScheduleServiceProfessional";

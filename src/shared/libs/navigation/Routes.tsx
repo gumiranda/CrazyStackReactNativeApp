@@ -1,10 +1,12 @@
-import { ConfirmRequestOwner } from "@/processes/full-create-request/steps/ConfirmRequestOwner";
+import { ConfirmRequestOwner } from "@/processes/request/ConfirmRequestOwner";
 import { Initial } from "@/screens/Initial";
 import { RegisterPage } from "@/screens/auth/RegisterPage";
 import { SignInPage } from "@/screens/auth/SignInPage";
 import { HomePage } from "@/screens/home";
 import { CreateRequestOwner } from "@/screens/request/create/CreateRequestOwner";
 import { MyRequestsDetailsOwner } from "@/screens/request/details/MyRequestsDetailsOwner";
+import { ReScheduleServiceProfessional } from "@/screens/request/edit";
+import { ReScheduleDate } from "@/screens/request/edit/ReScheduleDate";
 import { ListService } from "@/screens/service/list/ListService";
 
 export const stackRoutes = [

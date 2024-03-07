@@ -5,17 +5,18 @@ export type UserFormProps = {
   currentUser?: UserProps;
   ownerSelected?: string | null;
   role?: string;
+  userDefaultSelected?: string | null;
 };
 export const useUsersSelect = ({
   userList = null,
   ownerSelected = null,
   role = "professional",
+  userDefaultSelected = null,
 }: UserFormProps) => {
   const [page, setPage] = useState(1);
   const [users, setUsers] = useState(userList?.users ?? []);
   const [userSelected, setUserSelected] = useState<string>(
-    //currentUser?.usersId ??
-    userList?.users?.[0]?._id ?? ""
+    userDefaultSelected ?? userList?.users?.[0]?._id ?? ""
   );
   const handleChangeUserSelected = (option: any) => {
     setUserSelected(option?._id);

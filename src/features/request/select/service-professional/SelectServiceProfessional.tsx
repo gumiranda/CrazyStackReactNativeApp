@@ -1,4 +1,3 @@
-import { useUsersSelect } from "@/features/user/userList.hook";
 import { ScrollView } from "react-native";
 import { Button, SelectHookForm } from "@/shared/ui";
 import { useServicesSelect } from "@/entities/service/serviceList.hook";
@@ -7,16 +6,14 @@ import appMetrics from "@/shared/libs/functions/metrics";
 import { useStepServiceProfessional } from "./SelectServiceProfessional.lib";
 
 export const ServiceProfessionalSelect = ({
-  ownerSelected,
   ownerSelectedUserId,
   externalOnSubmit,
   buttonTitle = "PRÓXIMO",
+  propsProfessional,
 }) => {
   const theme = useTheme();
-
-  const { userSelected, handleChangeUserSelected, users } = useUsersSelect({
-    ownerSelected,
-  });
+  console.tron.log({ propsProfessional });
+  const { userSelected, handleChangeUserSelected, users } = propsProfessional || {};
   const { serviceSelected, handleChangeServiceSelected, services } = useServicesSelect({
     ownerSelected: ownerSelectedUserId,
     userSelected,

@@ -5,23 +5,25 @@ import { RequestDetails } from "@/entities/request/components";
 import { useRequestDetailsOwner } from "./useRequestDetailsOwner";
 import { Button } from "@/shared/ui";
 import appMetrics from "@/shared/libs/functions/metrics";
-import { useUi } from "@/app/providers";
+import { useAuth, useUi } from "@/app/providers";
+import { useNavigation } from "@react-navigation/native";
 
 export const MyRequestsDetailsOwner = ({
   route: {
     params: { item },
   },
 }) => {
+  const navigation = useNavigation();
+  const { user } = useAuth();
   const { serviceId, clientId } = item;
   const theme = useTheme();
   const { showModal } = useUi();
-  const { service, client, deleteSelectedAction, updateRequest } = useRequestDetailsOwner(
-    {
-      serviceId,
-      clientId,
-      currentRequest: item,
-    }
-  );
+  const { service, client, deleteSelectedAction } = useRequestDetailsOwner({
+    serviceId,
+    clientId,
+    currentRequest: item,
+  });
+  console.tron.log({ item, user });
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 16 }}>
@@ -35,7 +37,9 @@ export const MyRequestsDetailsOwner = ({
       </ScrollView>
       <Button
         style={styles.button}
-        onPress={() => {}}
+        onPress={() => {
+          navigation.navigate("ReScheduleServiceProfessional", { item, user, client });
+        }}
         title={"REAGENDAR"}
         backgroundColor={theme.colors.background}
         color={theme.colors.primary[400]}

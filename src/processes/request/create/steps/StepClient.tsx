@@ -1,15 +1,15 @@
 import { ClientForm } from "@/features/request/client/create/ClientForm";
 import { useCreateClient } from "@/features/request/client/create/createClient.hook";
-import { useStepRequest } from "../context/StepRequest.context";
 import { useEffect } from "react";
 import { ScrollView } from "react-native";
 import { Button } from "@/shared/ui";
 import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
 import appMetrics from "@/shared/libs/functions/metrics";
+import { useCreateRequest } from "../context/CreateRequest.context";
 
 export const StepClient = ({ userList, nextStep }) => {
   const theme = useTheme();
-  const { setRequest = () => {} } = useStepRequest() || {};
+  const { setRequest = () => {} } = useCreateRequest() || {};
   const { formState, control, handleSubmit, handleCreateClient, setFocus, createClient } =
     useCreateClient({ userList });
   useEffect(() => {
