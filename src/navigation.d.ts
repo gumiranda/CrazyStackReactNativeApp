@@ -5,8 +5,7 @@ export declare global {
       Initial: undefined;
       HomePage: undefined;
       MyRequestsDetailsOwner: any;
-      ReScheduleDate: any;
-      ReScheduleServiceProfessional: { item: any; user: any; client: any };
+      EditRequest: any;
       CreateRequestOwner: undefined;
       RegisterPage: {
         name: string;

@@ -38,7 +38,7 @@ export const MyRequestsDetailsOwner = ({
       <Button
         style={styles.button}
         onPress={() => {
-          navigation.navigate("ReScheduleServiceProfessional", { item, user, client });
+          navigation.navigate("EditRequest", { item, user, client });
         }}
         title={"REAGENDAR"}
         backgroundColor={theme.colors.background}
