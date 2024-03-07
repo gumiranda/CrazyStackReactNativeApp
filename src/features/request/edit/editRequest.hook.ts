@@ -92,13 +92,13 @@ export const useEditRequest = (props: EditRequestFormProps) => {
 export function editRequestMutation({
   currentRequest,
   showModal,
-  navigation,
+  navigation = null,
   content,
   routeRedirect,
 }: {
   currentRequest: RequestProps;
   showModal: Function;
-  navigation: any;
+  navigation?: any;
   content: string;
   routeRedirect: string;
 }) {

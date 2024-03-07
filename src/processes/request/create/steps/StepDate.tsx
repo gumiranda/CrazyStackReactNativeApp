@@ -21,7 +21,7 @@ export const StepDate = ({ currentOwner }) => {
   };
   const confirmRequest = (createRequest) => {
     navigation.navigate("ConfirmRequestOwner", {
-      request: { ...request, requestCreated: createRequest },
+      request: { ...request, requestCreated: createRequest, newStatus: 1 },
     });
   };
   useEffect(() => {

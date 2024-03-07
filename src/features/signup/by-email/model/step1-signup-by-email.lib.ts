@@ -28,6 +28,5 @@ export const useSignUpStep1ByEmailLib = (
     resolver: yupResolver(signUpStep1ByEmailSchema),
     defaultValues,
   });
-  console.tron.log({ formProps });
   return formProps;
 };

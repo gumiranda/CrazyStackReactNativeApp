@@ -23,7 +23,6 @@ export const MyRequestsDetailsOwner = ({
     clientId,
     currentRequest: item,
   });
-  console.tron.log({ item, user });
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={{ paddingVertical: 10, paddingHorizontal: 16 }}>

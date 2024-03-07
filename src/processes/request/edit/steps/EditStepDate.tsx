@@ -16,7 +16,6 @@ export const EditStepDate = ({ currentOwner }) => {
     showModal,
     routeRedirect: "HomePage",
     content: "Agendamento confirmado com sucesso, já pode ser visualizado na agenda.",
-    navigation,
   });
 
   const handleEditRequest = async ({ requestToSend, currentService }) => {
@@ -29,12 +28,12 @@ export const EditStepDate = ({ currentOwner }) => {
     await editRequest.mutateAsync({
       ...requestToSend,
       date: startOfDay(requestToSend?.initDate),
-      status: 6,
+      status: 5,
     } as any);
   };
   const confirmRequest = (payload) => {
     navigation.navigate("ConfirmRequestOwner", {
-      request: { ...request, requestCreated: payload },
+      request: { ...request, requestCreated: payload, newStatus: 7 },
     });
   };
   useEffect(() => {
