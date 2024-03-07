@@ -5,7 +5,7 @@ export const genericSelectSchema = yup.object({
   timeAvailable: yup.object().required("Campo obrigatório"),
 });
 export type YupSchema = yup.InferType<typeof genericSelectSchema>;
-export const useStepDate = () => {
+export const useSelectDate = () => {
   const formProps = useForm<YupSchema>({
     mode: "onBlur",
     resolver: yupResolver(genericSelectSchema),

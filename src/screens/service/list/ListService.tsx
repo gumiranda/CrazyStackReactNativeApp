@@ -5,23 +5,33 @@ import { StatusBar } from "expo-status-bar";
 import { useAuth, useUi } from "@/app/providers";
 import { FlashList } from "@shopify/flash-list";
 import { useListService } from "./useListService.hook";
+import { TextAtom } from "@/shared/ui";
 
 export const ListService = () => {
   const theme = useTheme();
   const { user } = useAuth();
   const { showModal } = useUi();
-  const result = useListService({ user });
-
-  return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-    </View>
-  );
+  const { serviceListCount, serviceList } = useListService({ user });
+  if (serviceList?.length > 0) {
+    return (
+      <>
+        {serviceList?.length > 0 && (
+          <FlashList
+            data={serviceList}
+            renderItem={({ item }: any) => <TextAtom>{item?.name}</TextAtom>}
+            estimatedItemSize={200}
+          />
+        )}
+        <StatusBar style="auto" />
+      </>
+    );
+  }
+  return null;
 };
 const styles = DynamicStyleSheet.create((theme) => ({
   container: {
     backgroundColor: theme.colors.background,
-    flex: 1,
+    flexGrow: 1,
     alignItems: "center",
     justifyContent: "center",
   },
