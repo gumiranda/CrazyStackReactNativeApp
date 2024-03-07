@@ -1,7 +1,7 @@
 import { ServiceProfessionalSelect } from "@/features/request/select";
 import { useEditRequest } from "../context/EditRequest.context";
 
-export const StepServiceProfessional = ({ ownerSelectedUserId, nextStep }) => {
+export const EditStepServiceProfessional = ({ ownerSelectedUserId, nextStep }) => {
   const { setRequest, propsProfessional } = useEditRequest();
 
   const onSubmit = (payload) => {

@@ -1,8 +1,8 @@
 import { Stepper } from "@/shared/ui";
-import { StepServiceProfessional } from "./steps/StepServiceProfessional";
 import { EditStepDate } from "./steps/EditStepDate";
 import { useSteps } from "@/shared/ui/templates/Stepper/useSteps.hook";
 import { EditRequestProvider, useEditRequest } from "./context/EditRequest.context";
+import { EditStepServiceProfessional } from "./steps/EditStepServiceProfessional";
 
 export const EditRequest = ({ route: { params } }) => {
   return (
@@ -23,7 +23,7 @@ export const EditRequestForm = () => {
       title: "Profissional e Serviço",
       description: "Selecione o prestador e o serviço",
       component: (
-        <StepServiceProfessional
+        <EditStepServiceProfessional
           nextStep={nextStep}
           ownerSelectedUserId={owner?.createdById}
         />

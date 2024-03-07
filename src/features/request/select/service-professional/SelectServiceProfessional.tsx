@@ -12,7 +12,6 @@ export const ServiceProfessionalSelect = ({
   propsProfessional,
 }) => {
   const theme = useTheme();
-  console.tron.log({ propsProfessional });
   const { userSelected, handleChangeUserSelected, users } = propsProfessional || {};
   const { serviceSelected, handleChangeServiceSelected, services } = useServicesSelect({
     ownerSelected: ownerSelectedUserId,

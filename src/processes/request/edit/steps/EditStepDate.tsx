@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { SelectDate } from "@/features/request/select";
 import { editRequestMutation } from "@/features/request/edit/editRequest.hook";
 import { useUi } from "@/app/providers";
+import { startOfDay } from "date-fns";
 
 export const EditStepDate = ({ currentOwner }) => {
   const navigation = useNavigation();
@@ -25,7 +26,11 @@ export const EditStepDate = ({ currentOwner }) => {
       currentService,
     }));
 
-    await editRequest.mutateAsync(requestToSend);
+    await editRequest.mutateAsync({
+      ...requestToSend,
+      date: startOfDay(requestToSend?.initDate),
+      status: 6,
+    } as any);
   };
   const confirmRequest = (payload) => {
     navigation.navigate("ConfirmRequestOwner", {
