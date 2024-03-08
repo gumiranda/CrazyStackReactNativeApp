@@ -34,7 +34,11 @@ export const useAuthByEmail = () => {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{ name: "HomePage" }],
+          routes: [
+            {
+              name: response?.data?.user?.role === "owner" ? "HomePage" : "HomeClient",
+            },
+          ],
         })
       );
     } catch (error) {

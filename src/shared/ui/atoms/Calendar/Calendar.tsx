@@ -17,22 +17,22 @@ export const Calendar = ({ markedDates, onDayPress }: CalendarProps) => {
         />
       )}
       headerStyle={{
-        backgroundColor: theme.colors.white,
+        backgroundColor: theme.colors.background,
         borderBottomWidth: 0.5,
-        borderBottomColor: theme.colors.black,
+        borderBottomColor: theme.colors.text,
         paddingBottom: 0,
         marginBottom: 1,
       }}
       theme={{
-        backgroundColor: theme.colors.white,
-        calendarBackground: theme.colors.white,
+        backgroundColor: theme.colors.background,
+        calendarBackground: theme.colors.background,
         textSectionTitleColor: theme.colors.primary[500],
         textSectionTitleDisabledColor: theme.colors.tertiary[500],
         selectedDayBackgroundColor: theme.colors.primary[500],
-        selectedDayTextColor: theme.colors.white,
+        selectedDayTextColor: theme.colors.background,
         todayBackgroundColor: theme.colors.primary[300],
-        todayButtonTextColor: theme.colors.white,
-        todayTextColor: theme.colors.white,
+        todayButtonTextColor: theme.colors.background,
+        todayTextColor: theme.colors.background,
         textDayFontFamily: fonts.primary_400,
         dayTextColor: theme.colors.primary[500],
         textDisabledColor: theme.colors.grey[500],

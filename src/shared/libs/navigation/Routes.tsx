@@ -4,6 +4,7 @@ import { Initial } from "@/screens/Initial";
 import { RegisterPage } from "@/screens/auth/RegisterPage";
 import { SignInPage } from "@/screens/auth/SignInPage";
 import { HomePage } from "@/screens/home";
+import { HomeClient } from "@/screens/home/HomeClient";
 import { CreateRequestOwner } from "@/screens/request/create/CreateRequestOwner";
 import { MyRequestsDetailsOwner } from "@/screens/request/details/MyRequestsDetailsOwner";
 
@@ -54,6 +55,11 @@ export const stackRoutes = [
     name: "ListService",
     component: ListService,
     title: "Serviços",
+  },
+  {
+    name: "HomeClient",
+    component: HomeClient,
+    title: "Belezix",
   },
 ];
 export const routesWithoutHeader = ["Initial", "SignInPage", "RegisterPage"];

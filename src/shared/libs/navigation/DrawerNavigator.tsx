@@ -12,7 +12,7 @@ const DrawerNav = createDrawerNavigator();
 
 const DrawerContent = ({ navigation }) => {
   const insets = useSafeAreaInsets();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   return (
     <View style={[{ paddingTop: insets.top }, styles.drawer]}>
       {drawerRoutes?.map?.((route, index) => {
@@ -23,6 +23,9 @@ const DrawerContent = ({ navigation }) => {
               if (route?.name === "Logout") {
                 await logout();
                 navigation.closeDrawer();
+                return;
+              }
+              if (user?.role === "client") {
                 return;
               }
               navigation.navigate(route?.name);
