@@ -36,3 +36,5 @@ yarn-error.*
 package-lock.json
 yarn.lock
 .env
+android/app/gradle.properties
+android/app/gustavo.keystore
