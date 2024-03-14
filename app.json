@@ -9,6 +9,9 @@
     "web": {
       "bundler": "metro"
     },
+    "packagerOpts": {
+      "config": "metro.config.js"
+    },
     "android": {
       "package": "br.com.crazystack"
     },
