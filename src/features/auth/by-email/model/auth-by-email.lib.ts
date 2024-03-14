@@ -8,13 +8,14 @@ export interface AuthByEmailFormData {
 }
 export type SubmitAuthByEmailHandler = SubmitHandler<AuthByEmailFormData>;
 
-export const authByEmailSchema = yup.object().shape({
+export const authByEmailSchema = yup.object({
   email: yup.string().email("Email inválido").required("Email é obrigatório"),
   password: yup.string().required("Senha é obrigatória"),
 });
+export type YupSchema = yup.InferType<typeof authByEmailSchema>;
 
 export const useAuthByEmailLib = () => {
-  const formProps = useForm({
+  const formProps = useForm<YupSchema>({
     mode: "onBlur",
     resolver: yupResolver(authByEmailSchema),
     defaultValues: {

@@ -1,9 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
-import { GetServicesResponse, getServices } from "./service.api";
+import { getServices } from "./service.api";
 import { UserProps } from "../user";
 import { ServiceProps } from "./service.model";
 export type UserFormProps = {
-  serviceList?: GetServicesResponse;
   currentUser?: UserProps;
   currentService?: ServiceProps;
   ownerSelected?: string | null;
@@ -12,19 +11,16 @@ export type UserFormProps = {
 };
 
 export const useServicesSelect = ({
-  serviceList,
   currentUser,
   userSelected = null,
   ownerSelected = null,
   users = [],
 }: UserFormProps) => {
   const [page, setPage] = useState(1);
-  const [services, setServices] = useState<ServiceProps[]>(serviceList?.services ?? []);
+  const [services, setServices] = useState<ServiceProps[]>([]);
   const [serviceSelected, setServiceSelected] = useState(
     services?.find?.((service) => currentUser?.serviceIds?.includes?.(service?._id))
-      ?._id ??
-      serviceList?.services?.[0]?._id ??
-      ""
+      ?._id ?? ""
   );
   const handleChangeServiceSelected = (option: any) => {
     setServiceSelected(option?._id);
@@ -38,7 +34,7 @@ export const useServicesSelect = ({
     }
   }, [userSelected]);
   const fetchServicesPaginated = useCallback(async () => {
-    if (serviceList && serviceList?.totalCount > services?.length && page > 1) {
+    if (page > 0) {
       const params = {};
       if (ownerSelected) {
         Object.assign(params, { createdById: ownerSelected });
@@ -61,7 +57,7 @@ export const useServicesSelect = ({
           services?.[0]?._id ??
           ""
       );
-    } else if (!serviceList && ownerSelected) {
+    } else if (ownerSelected) {
       const data = await getServices(page, {
         createdById: ownerSelected,
       });
@@ -90,11 +86,8 @@ export const useServicesSelect = ({
           ""
       );
     }
-  }, [currentUser?.serviceIds, ownerSelected, page, serviceList, services]);
+  }, [currentUser?.serviceIds, ownerSelected, page, services]);
 
-  useEffect(() => {
-    setServices(serviceList?.services ?? []);
-  }, [serviceList?.services]);
   useEffect(() => {
     if (serviceSelected === "loadMore") {
       setPage((prev) => prev + 1);

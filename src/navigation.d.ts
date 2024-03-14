@@ -5,6 +5,7 @@ export declare global {
       Initial: undefined;
       HomePage: undefined;
       MyRequestsDetailsOwner: any;
+      EditRequest: any;
       CreateRequestOwner: undefined;
       RegisterPage: {
         name: string;

@@ -5,7 +5,7 @@ import { RFValue } from "react-native-responsive-fontsize";
 import { useMemo } from "react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { TextAtom } from "../..";
+import { TextAtom } from "../../atoms/TextAtom";
 
 export const DateDetails = ({ initDate, endDate }) => {
   const dateFormatted = useMemo(() => formatDate(new Date(initDate)), [initDate]);
@@ -27,7 +27,7 @@ export const DateDetails = ({ initDate, endDate }) => {
 };
 
 const styles = DynamicStyleSheet.create((theme) => ({
-  dateDetails: {},
+  dateDetails: { marginTop: 10 },
   date: {
     color: theme.colors.text,
     fontSize: RFValue(15),

@@ -1,21 +1,21 @@
 import { Stepper } from "@/shared/ui";
 import { StepClient } from "./steps/StepClient";
 import { StepServiceProfessional } from "./steps/StepServiceProfessional";
-import { StepRequestProvider, useStepRequest } from "./context/StepRequest.context";
 import { StepDate } from "./steps/StepDate";
 import { useSteps } from "@/shared/ui/templates/Stepper/useSteps.hook";
+import { CreateRequestProvider, useCreateRequest } from "./context/CreateRequest.context";
 
 export const FullCreateRequest = () => {
   return (
     <>
-      <StepRequestProvider>
+      <CreateRequestProvider>
         <FullCreateRequestForm />
-      </StepRequestProvider>
+      </CreateRequestProvider>
     </>
   );
 };
 export const FullCreateRequestForm = () => {
-  const { owners, clients } = useStepRequest();
+  const { owner, clients } = useCreateRequest();
   const stepProps = useSteps();
   const { nextStep, activeStep, onStepPress } = stepProps;
 
@@ -31,15 +31,14 @@ export const FullCreateRequestForm = () => {
       component: (
         <StepServiceProfessional
           nextStep={nextStep}
-          ownerSelected={owners?.[0]?._id}
-          ownerSelectedUserId={owners?.[0]?.createdById}
+          ownerSelectedUserId={owner?.createdById}
         />
       ),
     },
     {
       title: "Data",
       description: "Selecione dia e horário",
-      component: <StepDate currentOwner={owners?.[0]} />,
+      component: <StepDate currentOwner={owner} />,
     },
   ];
   return (

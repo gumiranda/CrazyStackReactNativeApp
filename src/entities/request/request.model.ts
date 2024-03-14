@@ -1,4 +1,4 @@
-import { startOfDay, subHours } from "date-fns";
+import { startOfDay } from "date-fns";
 
 export type RequestProps = {
   _id: string;
@@ -153,11 +153,11 @@ class Request {
   }
 }
 export const requestModel = (props: RequestProps) => Request.build(props);
-const statusMap: any = {
-  0: "Solicitado",
-  1: "Confirmado",
-  2: "Cancelado pelo prestador",
-  3: "Cancelado pelo cliente",
+export const statusMap: any = {
+  0: "Agendamento Solicitado",
+  1: "Agendamento Confirmado",
+  2: "Agendamento Cancelado pelo prestador",
+  3: "Agendamento Cancelado pelo cliente",
   4: "Reagendamento pendente por conflito de agenda",
   5: "Reagendamento solicitado pelo prestador",
   6: "Reagendamento solicitado pelo cliente",

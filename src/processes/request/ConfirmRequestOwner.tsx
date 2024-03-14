@@ -14,7 +14,7 @@ const content = "Verifique os dados abaixo para confirmar o agendamento:";
 export const ConfirmRequestOwner = ({
   route: {
     params: {
-      request: { requestCreated, currentService, clientCreated },
+      request: { requestCreated, currentService, clientCreated, newStatus },
     },
   },
 }) => {
@@ -26,7 +26,7 @@ export const ConfirmRequestOwner = ({
     await editRequest.mutateAsync({
       ...requestCreated,
       date: startOfDay(initDate),
-      status: 1,
+      status: newStatus,
     } as any);
   };
   const editRequest = editRequestMutation({

@@ -1,7 +1,7 @@
 import { DynamicStyleSheet } from "@/shared/libs/utils";
 import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { FullCreateRequest } from "@/processes/full-create-request/FullCreateRequest";
+import { FullCreateRequest } from "@/processes/request/create/FullCreateRequest";
 
 export const CreateRequestOwner = () => {
   return (

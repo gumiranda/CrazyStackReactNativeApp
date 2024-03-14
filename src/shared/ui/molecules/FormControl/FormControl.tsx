@@ -17,6 +17,7 @@ export const FormControl = ({
   ...extraProps
 }) => {
   const theme = useTheme();
+
   return (
     <>
       {!!label && <TextAtom style={styles.label}>{label}</TextAtom>}

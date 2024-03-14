@@ -1,12 +1,15 @@
 import React, { forwardRef, useState } from "react";
-import { View, TextInput, TextInputProps } from "react-native";
+import { View, TextInputProps } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { MaterialIcon } from "../MaterialIcon";
 import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
-
+import { TextInput } from "./TextInput";
 interface Props extends TextInputProps {
   iconName: string;
   value?: string;
+  mask?: string;
+  options?: any;
+  type?: string;
 }
 const Input_ = ({ iconName, value, onBlur, ...props }: Props, ref) => {
   const [isFocused, setIsFocused] = useState(false);

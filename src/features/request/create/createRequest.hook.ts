@@ -2,7 +2,7 @@
 import { CreateRequestFormData } from "./createRequest.lib";
 import { api } from "@/shared/api";
 import { useMutation } from "@tanstack/react-query";
-export function createRequestMutation(showModal: Function, router) {
+export function createRequestMutation(showModal: Function, navigation) {
   return useMutation({
     mutationFn: async (request: CreateRequestFormData) => {
       try {
@@ -24,8 +24,8 @@ export function createRequestMutation(showModal: Function, router) {
           title: "Sucesso",
           type: "success",
         });
-        if (router) {
-          router.push("/requests/edit/" + data?._id);
+        if (navigation) {
+          navigation.navigate("MyRequestsDetailsOwner", { item: data });
         }
         return data;
       } catch (error) {

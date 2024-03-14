@@ -7,7 +7,7 @@ import { CommonActions } from "@react-navigation/native";
 
 export const useAuthByEmail = () => {
   const navigation = useNavigation();
-  const { setLoading } = useUi();
+  const { setLoading, showModal } = useUi();
   const { setUser } = useAuth();
   const { control, handleSubmit, formState, setFocus } = useAuthByEmailLib();
 
@@ -34,10 +34,19 @@ export const useAuthByEmail = () => {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
-          routes: [{ name: "HomePage" }],
+          routes: [
+            {
+              name: response?.data?.user?.role === "owner" ? "HomePage" : "HomeClient",
+            },
+          ],
         })
       );
     } catch (error) {
+      showModal({
+        content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+        title: "Erro no servidor",
+        type: "error",
+      });
       // Lide com erros de autenticação aqui
       console.error("Erro de autenticação:", error);
     } finally {

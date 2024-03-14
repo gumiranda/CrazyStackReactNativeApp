@@ -1,23 +1,18 @@
-import { useUsersSelect } from "@/features/user/userList.hook";
-import { useStepRequest } from "../context/StepRequest.context";
 import { ScrollView } from "react-native";
 import { Button, SelectHookForm } from "@/shared/ui";
 import { useServicesSelect } from "@/entities/service/serviceList.hook";
-import { useStepServiceProfessional } from "./StepServiceProfessional.lib";
 import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
 import appMetrics from "@/shared/libs/functions/metrics";
+import { useStepServiceProfessional } from "./SelectServiceProfessional.lib";
 
-export const StepServiceProfessional = ({
-  ownerSelected,
+export const ServiceProfessionalSelect = ({
   ownerSelectedUserId,
-  nextStep,
+  externalOnSubmit,
+  buttonTitle = "PRÓXIMO",
+  propsProfessional,
 }) => {
   const theme = useTheme();
-  const { setRequest } = useStepRequest();
-
-  const { userSelected, handleChangeUserSelected, users } = useUsersSelect({
-    ownerSelected,
-  });
+  const { userSelected, handleChangeUserSelected, users } = propsProfessional || {};
   const { serviceSelected, handleChangeServiceSelected, services } = useServicesSelect({
     ownerSelected: ownerSelectedUserId,
     userSelected,
@@ -28,9 +23,9 @@ export const StepServiceProfessional = ({
       serviceId: serviceSelected,
       professionalId: userSelected,
       services,
+      users,
     };
-    setRequest((prev) => ({ ...prev, ...payload, users }));
-    nextStep();
+    externalOnSubmit(payload);
   };
   const {
     control,
@@ -69,7 +64,7 @@ export const StepServiceProfessional = ({
       <Button
         style={styles.button}
         onPress={handleSubmit(onSubmit)}
-        title={"PRÓXIMO"}
+        title={buttonTitle}
         backgroundColor={theme.colors.tertiary[300]}
         color={theme.colors.black}
       />

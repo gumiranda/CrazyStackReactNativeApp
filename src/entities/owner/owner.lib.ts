@@ -1,4 +1,4 @@
-import { getOwners, getInfiniteOwners } from "./owner.api";
+import { getOwners, getInfiniteOwners, getOwnerByUserId } from "./owner.api";
 import {
   useQuery,
   UseQueryOptions,
@@ -22,6 +22,13 @@ export const useGetInfiniteOwners = (
     queryFn: ({ pageParam = 1, queryKey }: any) => {
       return getInfiniteOwners(pageParam, queryKey?.[1]);
     },
+    ...options,
+  });
+};
+export const useGetOwnerByUserId = (id: string, options?: UseQueryOptions) => {
+  return useQuery({
+    queryKey: ["owner", id],
+    queryFn: () => getOwnerByUserId(id),
     ...options,
   });
 };

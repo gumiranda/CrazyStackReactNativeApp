@@ -64,7 +64,7 @@ export const StackNavigator = () => {
   if (!verifyIsAuthenticated) return null;
   return (
     <Stack.Navigator
-      initialRouteName={user ? "HomePage" : "Initial"}
+      initialRouteName={user?.role === "owner" ? "HomePage" : "Initial"}
       screenOptions={{
         header: headerConfig,
       }}

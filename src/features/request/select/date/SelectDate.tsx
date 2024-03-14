@@ -1,5 +1,4 @@
 import { ScrollView } from "react-native";
-import { useStepRequest } from "../context/StepRequest.context";
 import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
 import appMetrics from "@/shared/libs/functions/metrics";
 import {
@@ -8,22 +7,24 @@ import {
   DayProps,
   MarkedDateProps,
   SelectHookForm,
+  ViewField,
   generateInterval,
 } from "@/shared/ui";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getPlatformDate } from "@/shared/libs/functions/getPlatformDate";
 import { addMinutes, format } from "date-fns";
 import { useTimeAvailable } from "@/features/appointment/timeAvailable.hook";
-import { useStepDate } from "./StepDate.lib";
-import { createRequestMutation } from "@/features/request/create/createRequest.hook";
-import { useNavigation } from "@react-navigation/native";
+import { useSelectDate } from "./SelectDate.lib";
 
-export const StepDate = ({ currentOwner }) => {
-  const navigation = useNavigation();
-  const { request, setRequest } = useStepRequest() || {};
+export const SelectDate = ({
+  currentOwner,
+  externalOnSubmit,
+  request,
+  buttonTitle = "CONFIRMAR",
+}) => {
   const theme = useTheme();
   const [dateSelectedString, setDateSelectedString] = useState<string | null>(
-    format(getPlatformDate(new Date()), "dd/MM/yyyy")
+    format(new Date(), "dd/MM/yyyy")
   );
   const [markedDates, setMarkedDates] = useState<MarkedDateProps>({} as MarkedDateProps);
   const { timeAvailable, timeSelected, handleChangeTimeSelected } = useTimeAvailable({
@@ -67,34 +68,7 @@ export const StepDate = ({ currentOwner }) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useStepDate();
-
-  const createRequest = createRequestMutation(() => {}, null);
-
-  const handleCreateRequest = async (values: any) => {
-    setRequest((prev) => ({
-      ...prev,
-      requestToSend: { ...values, ...requestObjectIds },
-      currentService,
-    }));
-
-    await createRequest.mutateAsync({
-      ...values,
-      ...requestObjectIds,
-    });
-  };
-  const confirmRequest = (createRequest) => {
-    navigation.navigate("ConfirmRequestOwner", {
-      request: { ...request, requestCreated: createRequest },
-    });
-  };
-  useEffect(() => {
-    if (createRequest?.data) {
-      setRequest((prev) => ({ ...prev, requestCreated: createRequest?.data }));
-      confirmRequest(createRequest?.data);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [createRequest?.data]);
+  } = useSelectDate();
 
   const handleChangeDate = (date: DayProps) => {
     let start = date;
@@ -109,6 +83,12 @@ export const StepDate = ({ currentOwner }) => {
     const interval = generateInterval(start, end, theme);
     setMarkedDates(interval);
   };
+  const onSubmit = (values: any) => {
+    externalOnSubmit({
+      requestToSend: { ...values, ...requestObjectIds },
+      currentService,
+    });
+  };
   return (
     <>
       <ScrollView
@@ -121,30 +101,40 @@ export const StepDate = ({ currentOwner }) => {
         style={styles.content}
       >
         <Calendar markedDates={markedDates} onDayPress={handleChangeDate} />
-        <SelectHookForm
-          list={timeAvailable?.timeAvailable ?? []}
-          keyValue={"value"}
-          keyLabel={"label"}
-          defaultValue={timeSelected}
-          placeholder={"Selecione um horário"}
-          control={control}
-          errors={errors}
-          name={"timeAvailable"}
-          label={"Horário disponível"}
-          extraOnChange={handleChangeTimeSelected}
-          haveLoadMore={false}
-        />
+        {timeAvailable?.timeAvailable?.length === 0 && (
+          <ViewField>
+            <ViewField.Description>
+              Não existem horários disponíveis para a data selecionada.
+            </ViewField.Description>
+          </ViewField>
+        )}
+        {timeAvailable?.timeAvailable?.length > 0 && (
+          <SelectHookForm
+            list={timeAvailable?.timeAvailable ?? []}
+            keyValue={"value"}
+            keyLabel={"label"}
+            defaultValue={timeSelected}
+            placeholder={"Selecione um horário"}
+            control={control}
+            errors={errors}
+            name={"timeAvailable"}
+            label={"Horário disponível"}
+            extraOnChange={handleChangeTimeSelected}
+            haveLoadMore={false}
+          />
+        )}
       </ScrollView>
       <Button
         style={styles.button}
-        onPress={handleSubmit(handleCreateRequest)}
-        title={"CONFIRMAR"}
+        onPress={handleSubmit(onSubmit)}
+        title={buttonTitle}
         backgroundColor={theme.colors.tertiary[300]}
         color={theme.colors.black}
       />
     </>
   );
 };
+
 const styles = DynamicStyleSheet.create((theme) => ({
   container: {
     backgroundColor: theme.colors.white,
