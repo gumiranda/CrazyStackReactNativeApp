@@ -6,8 +6,14 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "web":{
-      "bundler":"metro"
+    "web": {
+      "bundler": "metro"
+    },
+    "android": {
+      "package": "br.com.crazystack"
+    },
+    "ios": {
+      "bundleIdentifier": "br.com.crazystack"
     }
   }
 }
