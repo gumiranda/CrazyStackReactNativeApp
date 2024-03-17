@@ -1,13 +1,19 @@
-import Arrow from "@/assets/arrow.svg";
-import { useEffect } from "react";
+import Splash from "@/assets/splash.jpg";
+import { ImageBackground } from "react-native";
+import appMetrics from "@/shared/libs/functions/metrics";
 
-export const Test = () => {
-  useEffect(() => {
-    console.tron.log(process.env.BASE_URL);
-  }, []);
+export const Test = ({ style, children }) => {
   return (
-    <>
-      <Arrow />
-    </>
+    <ImageBackground
+      resizeMode="cover"
+      style={{
+        ...style,
+        width: appMetrics.SCREEN_WIDTH,
+        height: appMetrics.SCREEN_HEIGHT,
+      }}
+      source={Splash}
+    >
+      {children}
+    </ImageBackground>
   );
 };
