@@ -16,6 +16,15 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import {
+  Spartan_400Regular,
+  Spartan_500Medium,
+  Spartan_700Bold,
+  Spartan_600SemiBold,
+  Spartan_800ExtraBold,
+} from "@expo-google-fonts/spartan";
+import { UiProvider, useUi } from "./providers";
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     Inter_400Regular,
@@ -26,6 +35,11 @@ export default function App() {
     Poppins_400Regular,
     Poppins_500Medium,
     Poppins_700Bold,
+    Spartan_400Regular,
+    Spartan_500Medium,
+    Spartan_700Bold,
+    Spartan_600SemiBold,
+    Spartan_800ExtraBold,
   });
   useEffect(() => {
     async function init() {
@@ -47,15 +61,39 @@ export default function App() {
   }
   return (
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <View style={styles.container}>
-        <Text>eee FAdddLA DEVDOIDO Open up App.js to start working on your app!</Text>
-        <StatusBar style="auto" />
-        <Test />
-      </View>
+      <UiProvider>
+        <Page />
+      </UiProvider>
     </GestureHandlerRootView>
   );
 }
-
+const Page = () => {
+  const { setLoading, setDialog, setIsOpen } = useUi();
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setDialog({
+        mainButton: "Ok",
+        colorScheme: "default",
+        title: "Title",
+        dismissButton: "Cancel",
+        body: "Body",
+        onPress: () => console.log("pressed"),
+      });
+      setIsOpen(true);
+    }, 3000);
+  }, []);
+  return (
+    <View style={styles.container}>
+      <Text style={{ fontFamily: "Spartan_700Bold", fontSize: 58, color: "#7159c1" }}>
+        belezix
+      </Text>
+      <StatusBar style="auto" />
+      <Test />
+    </View>
+  );
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,

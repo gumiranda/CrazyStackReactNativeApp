@@ -22,6 +22,7 @@
     "@expo-google-fonts/archivo": "^0.2.3",
     "@expo-google-fonts/inter": "^0.2.3",
     "@expo-google-fonts/poppins": "^0.2.3",
+    "@expo-google-fonts/spartan": "^0.2.2",
     "@expo/webpack-config": "^19.0.1",
     "@react-native-async-storage/async-storage": "1.21.0",
     "@types/react": "~18.2.66",
@@ -39,7 +40,6 @@
     "url": "^0.11.3"
   },
   "devDependencies": {
-    "babel-plugin-module-resolver": "^5.0.0",
     "@babel/core": "^7.24.0",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^12.4.3",
@@ -48,6 +48,7 @@
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "babel-plugin-inline-dotenv": "^1.7.0",
+    "babel-plugin-module-resolver": "^5.0.0",
     "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
