@@ -25,6 +25,7 @@ import {
 } from "@expo-google-fonts/spartan";
 import { UiProvider, useUi } from "./providers";
 import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
+import { Initial } from "@/screens/Initial";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -63,7 +64,7 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <UiProvider>
-        <Page />
+        <Initial />
       </UiProvider>
     </GestureHandlerRootView>
   );
