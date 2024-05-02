@@ -10,13 +10,13 @@ import { useNavigation } from "@react-navigation/native";
 import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
 
 export const Initial = () => {
-  // const navigation = useNavigation();
-  // function handleNewAccount() {
-  //   navigation.navigate("RegisterPage", {
-  //     name: "Nome do estabelecimento",
-  //     role: "owner",
-  //   });
-  // }
+  const navigation = useNavigation();
+  function handleNewAccount() {
+    navigation.navigate("SignUpPage", {
+      name: "Nome do estabelecimento",
+      role: "owner",
+    });
+  }
   const theme = useTheme();
   return (
     <FullImageBackground style={styles.container} source={Splash}>
@@ -32,6 +32,7 @@ export const Initial = () => {
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.8}
+        onPress={() => handleNewAccount()}
         style={[
           styles.button,
           { backgroundColor: theme.colors.primary[600], marginBottom: 30 },
