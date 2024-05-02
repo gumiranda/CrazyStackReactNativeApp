@@ -21,7 +21,7 @@ import {
   Spartan_600SemiBold,
   Spartan_800ExtraBold,
 } from "@expo-google-fonts/spartan";
-import { UiProvider } from "./providers";
+import { SignUpProvider, UiProvider } from "./providers";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import moment from "moment";
 import { MainNavigator } from "@/shared/libs/navigation";
@@ -123,7 +123,9 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <QueryClientProvider client={queryClient}>
         <UiProvider>
-          <MainNavigator />
+          <SignUpProvider>
+            <MainNavigator />
+          </SignUpProvider>
         </UiProvider>
       </QueryClientProvider>
     </GestureHandlerRootView>
