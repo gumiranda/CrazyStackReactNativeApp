@@ -22,9 +22,9 @@ import {
   Spartan_800ExtraBold,
 } from "@expo-google-fonts/spartan";
 import { UiProvider } from "./providers";
-import { Initial } from "@/screens/Initial";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import moment from "moment";
+import { MainNavigator } from "@/shared/libs/navigation";
 
 moment.updateLocale("pt-br", {
   months:
@@ -123,7 +123,7 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <QueryClientProvider client={queryClient}>
         <UiProvider>
-          <Initial />
+          <MainNavigator />
         </UiProvider>
       </QueryClientProvider>
     </GestureHandlerRootView>
