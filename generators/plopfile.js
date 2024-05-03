@@ -53,11 +53,6 @@ module.exports = function (plop) {
 const entities = [
   {
     type: "add",
-    path: "../src/entities/{{camelCase name}}/{{camelCase name}}.ui.tsx",
-    templateFile: "templates/crud/entidades/domain.ui.tsx.hbs",
-  },
-  {
-    type: "add",
     path: "../src/entities/{{camelCase name}}/{{camelCase name}}.model.ts",
     templateFile: "templates/crud/entidades/domain.model.ts.hbs",
   },
