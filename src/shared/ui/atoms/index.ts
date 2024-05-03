@@ -5,3 +5,5 @@ export * from "./BackButton";
 export * from "./MaterialIcon";
 export * from "./FullImageBackground";
 export * from "./KeyboardAvoidingView";
+export * from "./Button";
+// IMPORT MODULE FILES
