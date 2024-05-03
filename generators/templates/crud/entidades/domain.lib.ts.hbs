@@ -7,10 +7,9 @@ import {
 } from "@tanstack/react-query";
 export const useGet{{pascalCase name}}s = (
   page: number,
-  options?: UseQueryOptions,
-  ctx?: any
+  options?: UseQueryOptions
 ): any => {
-  return useQuery(["{{camelCase name}}s", page], () => get{{pascalCase name}}s(page, ctx), {
+  return useQuery(["{{camelCase name}}s", page], () => get{{pascalCase name}}s(page), {
     staleTime: 1000 * 5,
     ...options,
   } as any);

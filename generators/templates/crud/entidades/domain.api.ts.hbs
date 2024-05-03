@@ -9,7 +9,6 @@ export type Get{{pascalCase name}}sResponse = {
 const registerByPage = 10;
 export const get{{pascalCase name}}s = async (
   page: number,
-  ctx: any,
   params: any = {}
 ): Promise<Get{{pascalCase name}}sResponse> => {
   const { data } = await api.get("/{{camelCase name}}/loadByPage", {
@@ -34,17 +33,14 @@ export const get{{pascalCase name}}s = async (
 };
 type InfiniteProps = {
   pageParam: number;
-  ctx: any;
 };
 export const getInfinite{{pascalCase name}}s = async ({
   pageParam = 1,
-  ctx,
 }: InfiniteProps): Promise<Get{{pascalCase name}}sResponse> => {
-  return get{{pascalCase name}}s(pageParam, ctx);
+  return get{{pascalCase name}}s(pageParam);
 };
 export const get{{pascalCase name}}ById = async (
   id: string,
-  ctx: any
 ): Promise<{{pascalCase name}}Props | null> => {
   try {
     const { data } = await api.get("/{{camelCase name}}/load", {
