@@ -62,7 +62,6 @@ export const FormControl = ({
                 onBlur={onBlur}
                 onChangeText={(value) => onChange(value)}
                 defaultValue={value}
-                style={styles.input}
                 value={value}
                 iconName={iconName}
               />

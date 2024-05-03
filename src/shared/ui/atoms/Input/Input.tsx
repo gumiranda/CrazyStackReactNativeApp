@@ -4,7 +4,6 @@ import { forwardRef, useState } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import { TextInput } from "./TextInput";
 import { MaterialIcon } from "../MaterialIcon";
-import appMetrics from "@/shared/libs/functions/metrics";
 interface Props extends TextInputProps {
   iconName: string;
   value?: string;
@@ -79,15 +78,14 @@ const styles = DynamicStyleSheet.create((theme) => ({
   viewBaseInput: {
     flexDirection: "row",
     alignItems: "center",
-    maxWidth: appMetrics.SCREEN_WIDTH - 90,
     marginVertical: 8,
   },
   baseStyle: {
     flex: 1,
     backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[800],
     color: theme.colors.text,
-    fontFamily: fonts.secondary_500,
-    fontSize: RFValue(15),
+    fontFamily: fonts.primary_400,
+    fontSize: RFValue(14),
     paddingVertical: 0,
     paddingHorizontal: 0,
   },
@@ -97,7 +95,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[800],
-    borderRadius: 8,
+    borderRadius: 2,
     marginRight: 1,
   },
   isFocused: { borderBottomWidth: 2, borderBottomColor: theme.colors.text },

@@ -26,11 +26,11 @@ export const TextInputAux = ({ style = {}, ...rest }: any, ref) => {
 };
 const styles = DynamicStyleSheet.create(() => ({
   baseStyle: {
-    fontSize: RFValue(16),
-    paddingLeft: RFValue(48),
+    fontSize: RFValue(14),
+    paddingLeft: RFValue(28),
     paddingRight: RFValue(12),
-    height: RFValue(48),
-    borderRadius: RFValue(12),
+    height: 56,
+    borderRadius: RFValue(2),
     width: "100%",
     fontFamily: fonts.primary_400,
   },
