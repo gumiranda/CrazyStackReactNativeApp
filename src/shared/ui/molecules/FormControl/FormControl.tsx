@@ -85,19 +85,14 @@ export const FormControl = ({
   );
 };
 const styles = DynamicStyleSheet.create((theme) => ({
-  baseStyle: {
-    backgroundColor: theme.colors.primary[500],
-  },
   input: {
     backgroundColor: theme.colors.grey[300],
-    fontSize: RFValue(16),
+    fontSize: RFValue(14),
     fontFamily: fonts.primary_500,
     color: theme.colors.text,
-    paddingLeft: RFValue(48),
+    paddingLeft: RFValue(15),
     paddingRight: RFValue(12),
     height: RFValue(48),
-    borderRadius: RFValue(12),
-    width: "100%",
   },
   label: {
     color: theme.colors.text,

@@ -4,6 +4,7 @@ import { forwardRef, useState } from "react";
 import { RFValue } from "react-native-responsive-fontsize";
 import { TextInput } from "./TextInput";
 import { MaterialIcon } from "../MaterialIcon";
+import appMetrics from "@/shared/libs/functions/metrics";
 interface Props extends TextInputProps {
   iconName: string;
   value?: string;
@@ -43,7 +44,7 @@ export const BaseInput_ = (
 ) => {
   const theme = useTheme();
   return (
-    <>
+    <View style={styles.viewBaseInput}>
       <View style={[styles.iconContainer, isFocused ? styles.isFocused : {}]}>
         <MaterialIcon
           type="Feather"
@@ -60,13 +61,18 @@ export const BaseInput_ = (
         onBlur={handleInputBlur}
         {...props}
       />
-    </>
+    </View>
   );
 };
 const styles = DynamicStyleSheet.create((theme) => ({
   container: {
     flexDirection: "row",
     marginBottom: 8,
+  },
+  viewBaseInput: {
+    flexDirection: "row",
+    alignItems: "center",
+    maxWidth: appMetrics.SCREEN_WIDTH - 90,
   },
   baseStyle: {
     flex: 1,
@@ -75,7 +81,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     fontFamily: fonts.secondary_500,
     fontSize: RFValue(15),
     paddingVertical: 0,
-    paddingHorizontal: 23,
+    paddingHorizontal: 0,
   },
   iconContainer: {
     height: 56,
