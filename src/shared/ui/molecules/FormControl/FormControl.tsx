@@ -37,6 +37,7 @@ export const FormControl = ({
                   defaultValue={value}
                   style={styles.input}
                   value={value}
+                  iconName={iconName}
                 />
               );
             } else if (password === true) {
@@ -63,6 +64,7 @@ export const FormControl = ({
                 defaultValue={value}
                 style={styles.input}
                 value={value}
+                iconName={iconName}
               />
             );
           }}

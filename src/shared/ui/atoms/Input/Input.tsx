@@ -83,7 +83,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[800],
-    borderRadius: 4,
+    borderRadius: 8,
     marginRight: 1,
   },
   isFocused: { borderBottomWidth: 2, borderBottomColor: theme.colors.text },
