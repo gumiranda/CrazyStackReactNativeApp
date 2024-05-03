@@ -7,3 +7,4 @@ export * from "./FullImageBackground";
 export * from "./KeyboardAvoidingView";
 export * from "./Button";
 // IMPORT MODULE FILES
+export * from "./Input";

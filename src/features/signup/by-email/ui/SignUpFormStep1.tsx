@@ -2,6 +2,7 @@ import { DynamicStyleSheet } from "@/shared/libs/utils";
 import { useSignUpByEmail } from "../model/signup-by-email.hook";
 import { View } from "react-native";
 import { SignUpFooterStep } from "./SignUpFooterStep";
+import { Form } from "@/shared/ui";
 
 export const SignUpFormStep1 = ({ nextStep, goToLogin, name, role }) => {
   const { step1FormProps, step1Submit } = useSignUpByEmail({ nextStep, role });
