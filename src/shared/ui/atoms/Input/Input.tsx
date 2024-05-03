@@ -25,21 +25,27 @@ export const Input_ = ({ iconName, value, onBlur, ...props }: Props, ref) => {
     onBlur(e);
   }
   return (
-    <View style={styles.container}>
-      <BaseInput
-        ref={ref}
-        isFocused={isFocused}
-        iconName={iconName}
-        handleInputBlur={handleInputBlur}
-        handleInputFocus={handleInputFocus}
-        isFilled={isFilled}
-        {...props}
-      />
-    </View>
+    <BaseInput
+      ref={ref}
+      isFocused={isFocused}
+      iconName={iconName}
+      handleInputBlur={handleInputBlur}
+      handleInputFocus={handleInputFocus}
+      isFilled={isFilled}
+      {...props}
+    />
   );
 };
 export const BaseInput_ = (
-  { isFocused, iconName, isFilled, handleInputFocus, handleInputBlur, ...props },
+  {
+    isFocused,
+    children,
+    iconName,
+    isFilled,
+    handleInputFocus,
+    handleInputBlur,
+    ...props
+  },
   ref
 ) => {
   const theme = useTheme();
@@ -61,6 +67,7 @@ export const BaseInput_ = (
         onBlur={handleInputBlur}
         {...props}
       />
+      {children}
     </View>
   );
 };
@@ -73,6 +80,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     flexDirection: "row",
     alignItems: "center",
     maxWidth: appMetrics.SCREEN_WIDTH - 90,
+    marginVertical: 8,
   },
   baseStyle: {
     flex: 1,

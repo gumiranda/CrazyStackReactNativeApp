@@ -52,6 +52,7 @@ export const SignUpPage = ({
               role,
               goToLogin,
               nextStep,
+              currentStep: step,
             }}
           />
         </ScrollView>

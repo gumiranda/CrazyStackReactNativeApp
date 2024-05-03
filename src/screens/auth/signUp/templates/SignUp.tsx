@@ -1,21 +1,30 @@
-import { SignUpFormStep1 } from "@/features/signup/by-email/ui";
+/* eslint-disable indent */
+import { SignUpFormStep1, SignUpFormStep2 } from "@/features/signup/by-email/ui";
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import { BackButton, TextAtom } from "@/shared/ui";
 import { View } from "react-native";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const SignUp = ({ props: { name, role, goToLogin, nextStep } }) => {
-  return (
-    <>
-      <SignUpFormStep1
-        name={name}
-        role={role}
-        goToLogin={goToLogin}
-        nextStep={nextStep}
-      />
-    </>
-  );
+export const SignUp = ({ props: { currentStep, name, role, goToLogin, nextStep } }) => {
+  return <>{renderStep({ currentStep, name, role, goToLogin, nextStep })}</>;
+};
+const renderStep = ({ currentStep, name, role, goToLogin, nextStep }) => {
+  switch (currentStep) {
+    case 1:
+      return (
+        <SignUpFormStep1
+          name={name}
+          role={role}
+          goToLogin={goToLogin}
+          nextStep={nextStep}
+        />
+      );
+    case 2:
+      return <SignUpFormStep2 role={role} goToLogin={goToLogin} />;
+    default:
+      return null;
+  }
 };
 const Header = ({ props: { handleBack, title, subtitle, children = null } }) => {
   return (
@@ -31,7 +40,7 @@ SignUp.Header = Header;
 const styles = DynamicStyleSheet.create((theme) => ({
   header: {
     width: "100%",
-    marginTop: getStatusBarHeight() + 105,
+    marginTop: getStatusBarHeight() + 80,
   },
   title: {
     color: theme.colors.text,

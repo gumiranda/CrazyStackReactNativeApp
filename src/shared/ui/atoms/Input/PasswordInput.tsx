@@ -29,7 +29,7 @@ export const PasswordInput_ = ({ iconName, value, onBlur, ...rest }: Props, ref)
     setIsPasswordVisible((prevState) => !prevState);
   }
   return (
-    <View style={styles.container}>
+    <>
       <BaseInput
         ref={ref}
         isFocused={isFocused}
@@ -41,18 +41,19 @@ export const PasswordInput_ = ({ iconName, value, onBlur, ...rest }: Props, ref)
         placeholderTextColor={theme.colors.text}
         {...rest}
         secureTextEntry={isPasswordVisible}
-      />
-      <BorderlessButton onPress={handlePasswordVisibilityChange}>
-        <View style={[styles.iconContainer, isFocused ? styles.isFocused : {}]}>
-          <MaterialIcon
-            type="Feather"
-            name={isPasswordVisible ? "eye" : "eye-off"}
-            color={theme.colors.text}
-            size={24}
-          />
-        </View>
-      </BorderlessButton>
-    </View>
+      >
+        <BorderlessButton onPress={handlePasswordVisibilityChange}>
+          <View style={[styles.iconContainer, isFocused ? styles.isFocused : {}]}>
+            <MaterialIcon
+              type="Feather"
+              name={isPasswordVisible ? "eye" : "eye-off"}
+              color={theme.colors.text}
+              size={24}
+            />
+          </View>
+        </BorderlessButton>
+      </BaseInput>
+    </>
   );
 };
 
