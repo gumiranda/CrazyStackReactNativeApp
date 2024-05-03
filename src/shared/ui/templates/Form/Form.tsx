@@ -1,14 +1,23 @@
-import { View } from "react-native";
-import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
-import { TextAtom } from "../../atoms";
+import { FormControlGroup } from "../../organisms";
 
-export const Form = ({ style = {}, ...rest }) => {
-  const theme = useTheme();
-  return <View {...rest} style={[styles.baseStyle, style]} data-testid="FormTestId" />;
+export const Form = ({
+  formState,
+  control,
+  formControls,
+  children = null,
+  defaultFormControl = true,
+  ...rest
+}) => {
+  return (
+    <>
+      <FormControlGroup
+        formControls={formControls}
+        formState={formState}
+        control={control}
+        defaultFormControl={defaultFormControl}
+        {...rest}
+      />
+      {children}
+    </>
+  );
 };
-const styles = DynamicStyleSheet.create((theme) => ({
-  baseStyle: {
-    backgroundColor: theme.colors.primary[500],
-    height: 100,
-  },
-}));
