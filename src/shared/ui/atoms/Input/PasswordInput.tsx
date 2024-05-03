@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
 
-export const Test = ({ children, style = {}, ...rest }) => {
+export const PasswordInput = ({ children, style = {}, ...rest }) => {
   const theme = useTheme();
   return (
     <View {...rest} style={[styles.baseStyle, style]} data-testid="InputTestId">

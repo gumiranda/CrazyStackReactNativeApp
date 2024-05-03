@@ -11,7 +11,7 @@ interface TextProps {
 
 export const TextAtom: React.FC<TextProps> = ({ style, children, ...rest }) => {
   return (
-    <RNText {...rest} style={[style, styles.baseText]}>
+    <RNText {...rest} style={[styles.baseText, style]}>
       {children}
     </RNText>
   );

@@ -31,6 +31,7 @@ export const Input_ = ({ iconName, value, onBlur, ...props }: Props, ref) => {
         iconName={iconName}
         handleInputBlur={handleInputBlur}
         handleInputFocus={handleInputFocus}
+        isFilled={isFilled}
         {...props}
       />
     </View>
