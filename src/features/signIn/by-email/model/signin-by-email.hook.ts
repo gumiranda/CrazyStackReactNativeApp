@@ -1,4 +1,4 @@
-import { useSignIn, useUi } from "@/app/providers";
+import { useUi } from "@/app/providers";
 import {
   SignInStep1ByEmailFormData,
   useSignInStep1ByEmailLib,
@@ -7,8 +7,7 @@ import { api } from "@/shared/api";
 
 export const useSignInByEmail = ({ goToHome }) => {
   const { setLoading, showModal } = useUi();
-  const { email } = useSignIn();
-  const step1FormProps = useSignInStep1ByEmailLib({ email, password: "" });
+  const step1FormProps = useSignInStep1ByEmailLib({ email: "", password: "" });
 
   const step1Submit = async (values: SignInStep1ByEmailFormData) => {
     const { password, email } = values;

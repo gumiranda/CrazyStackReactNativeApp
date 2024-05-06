@@ -25,7 +25,7 @@ import { SignUpProvider, UiProvider } from "./providers";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import moment from "moment";
 import { MainNavigator } from "@/shared/libs/navigation";
-import { SignInProvider } from "./providers/SignInContext";
+import { AuthProvider } from "./providers/AuthContext";
 
 moment.updateLocale("pt-br", {
   months:
@@ -124,11 +124,11 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }} onLayout={onLayoutRootView}>
       <QueryClientProvider client={queryClient}>
         <UiProvider>
-          <SignInProvider>
+          <AuthProvider>
             <SignUpProvider>
               <MainNavigator />
             </SignUpProvider>
-          </SignInProvider>
+          </AuthProvider>
         </UiProvider>
       </QueryClientProvider>
     </GestureHandlerRootView>

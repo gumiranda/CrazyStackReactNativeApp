@@ -1,10 +1,10 @@
 import React, { ReactNode, createContext, useState, useMemo, useContext } from "react";
-type SignInProviderProps = {
+type AuthProviderProps = {
   children: ReactNode;
 };
-const SignInContext = createContext({} as any);
+const AuthContext = createContext({} as any);
 
-export function SignInProvider({ children }: SignInProviderProps) {
+export function AuthProvider({ children }: AuthProviderProps) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -19,6 +19,6 @@ export function SignInProvider({ children }: SignInProviderProps) {
     }),
     [name, email, phone]
   );
-  return <SignInContext.Provider value={contextValue}>{children}</SignInContext.Provider>;
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }
-export const useSignIn = () => useContext(SignInContext);
+export const useAuth = () => useContext(AuthContext);

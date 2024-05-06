@@ -1,3 +1,3 @@
 export * from "./UiContext";
-export * from "./SignInContext";
+export * from "./AuthContext";
 export * from "./SignUpContext";
