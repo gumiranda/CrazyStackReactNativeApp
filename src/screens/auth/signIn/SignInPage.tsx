@@ -2,14 +2,23 @@ import { KeyboardAvoidingView } from "@/shared/ui";
 import { SignIn } from "./templates/SignIn";
 import { ScrollView } from "react-native";
 import { DynamicStyleSheet } from "@/shared/libs/utils";
-import { useNavigation } from "@react-navigation/native";
+import { CommonActions, useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 
 export const SignInPage = () => {
   const navigation = useNavigation();
 
-  const goToHome = () => {
-    navigation.navigate("HomePage");
+  const goToHome = ({ role }) => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [
+          {
+            name: role === "owner" ? "HomePage" : "HomeClient",
+          },
+        ],
+      })
+    );
   };
 
   return (

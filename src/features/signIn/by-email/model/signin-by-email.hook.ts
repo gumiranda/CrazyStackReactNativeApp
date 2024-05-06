@@ -4,10 +4,9 @@ import {
   useSignInStep1ByEmailLib,
 } from "./step1-signin-by-email.lib";
 import { api } from "@/shared/api";
-import { Alert } from "react-native";
 
-export const useSignInByEmail = ({ goToHome = () => {} }) => {
-  const { setLoading } = useUi();
+export const useSignInByEmail = ({ goToHome }) => {
+  const { setLoading, showModal } = useUi();
   const { email } = useSignIn();
   const step1FormProps = useSignInStep1ByEmailLib({ email, password: "" });
 
@@ -19,15 +18,24 @@ export const useSignInByEmail = ({ goToHome = () => {} }) => {
         password,
         email,
         passwordConfirmation: password,
-        coord: {},
       });
       if (response.status === 200) {
-        goToHome();
+        goToHome({ role: response?.data?.user?.role });
       } else {
-        Alert.alert("Erro", "Erro ao entrar com usuário");
+        showModal({
+          content: "Usuário ou senha inválidos, tente novamente.",
+          title: "Erro",
+          type: "error",
+          mainButton: "Ok, entendi",
+        });
       }
     } catch (error) {
-      Alert.alert("Erro", "Erro ao cadastrar usuário");
+      showModal({
+        content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+        title: "Erro no servidor",
+        type: "error",
+        mainButton: "Ok, entendi",
+      });
     } finally {
       setLoading(false);
     }
