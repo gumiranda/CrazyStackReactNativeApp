@@ -10,13 +10,17 @@ import { TouchableOpacity, View } from "react-native";
 import { config } from "@/app/config/whiteLabelConfig";
 import { RFValue } from "react-native-responsive-fontsize";
 import React from "react";
+import { useAuth } from "@/app/providers";
 
 const Stack = createNativeStackNavigator();
 
 const headerConfig = ({ navigation, route, options }) => {
+  const { user, verifyIsAuthenticated } = useAuth();
   if (routesWithoutHeader.includes(route.name)) {
     return null;
   }
+  if (!verifyIsAuthenticated) return null;
+
   const theme = useTheme();
   const title = getHeaderTitle(options, route.name);
   const insets = useSafeAreaInsets();
@@ -26,7 +30,9 @@ const headerConfig = ({ navigation, route, options }) => {
       navigation.goBack();
       return;
     }
-    navigation.dispatch(CommonActions.reset({ index: 0, routes: [{ name: "Initial" }] }));
+    navigation.dispatch(
+      CommonActions.reset({ index: 0, routes: [{ name: user ? "HomePage" : "Initial" }] })
+    );
   };
   const isInitPage = title === "Início";
   return (
@@ -53,8 +59,14 @@ const headerConfig = ({ navigation, route, options }) => {
   );
 };
 export const StackNavigator = () => {
+  const { user, verifyIsAuthenticated } = useAuth();
+  if (!verifyIsAuthenticated) return null;
+
   return (
-    <Stack.Navigator initialRouteName="Initial" screenOptions={{ header: headerConfig }}>
+    <Stack.Navigator
+      initialRouteName={user?.role === "owner" ? "HomePage" : "Initial"}
+      screenOptions={{ header: headerConfig }}
+    >
       {stackRoutes.map((route, index) => (
         <React.Fragment key={index}>
           <Stack.Screen

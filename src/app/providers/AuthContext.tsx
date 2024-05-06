@@ -1,23 +1,51 @@
-import React, { ReactNode, createContext, useState, useMemo, useContext } from "react";
+import { saveToken } from "@/shared/api";
+import { getItemFromAsyncStorage } from "@/shared/libs/functions";
+import React, {
+  ReactNode,
+  createContext,
+  useState,
+  useMemo,
+  useContext,
+  useLayoutEffect,
+} from "react";
 type AuthProviderProps = {
   children: ReactNode;
 };
 const AuthContext = createContext({} as any);
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [user, setUser] = useState(null);
+  const [verifyIsAuthenticated, setVerifyIsAuthenticated] = useState(false);
+  const logout = async () => {
+    setUser(null);
+    setVerifyIsAuthenticated(false);
+  };
+  useLayoutEffect(() => {
+    async function init() {
+      const [currentUser, accessToken, refreshToken] = await Promise.all([
+        getItemFromAsyncStorage("user"),
+        getItemFromAsyncStorage("authorization"),
+        getItemFromAsyncStorage("refreshtoken"),
+      ]);
+      if (currentUser) {
+        setUser(currentUser);
+      }
+      saveToken({ token: accessToken, type: "authorization", persist: false });
+      saveToken({ token: refreshToken, type: "refreshtoken", persist: false });
+      setVerifyIsAuthenticated(true);
+    }
+    if (!user && !verifyIsAuthenticated) {
+      init();
+    }
+  }, [user, verifyIsAuthenticated]);
   const contextValue = useMemo(
     () => ({
-      setEmail,
-      email,
-      name,
-      setName,
-      phone,
-      setPhone,
+      user,
+      setUser,
+      logout,
+      verifyIsAuthenticated,
     }),
-    [name, email, phone]
+    [user, verifyIsAuthenticated]
   );
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }

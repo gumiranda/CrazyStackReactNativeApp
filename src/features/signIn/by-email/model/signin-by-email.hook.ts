@@ -1,12 +1,15 @@
-import { useUi } from "@/app/providers";
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useAuth, useUi } from "@/app/providers";
 import {
   SignInStep1ByEmailFormData,
   useSignInStep1ByEmailLib,
 } from "./step1-signin-by-email.lib";
-import { api } from "@/shared/api";
+import { api, saveToken } from "@/shared/api";
+import { setItemInAsyncStorage } from "@/shared/libs/functions";
 
 export const useSignInByEmail = ({ goToHome }) => {
   const { setLoading, showModal } = useUi();
+  const { setUser } = useAuth();
   const step1FormProps = useSignInStep1ByEmailLib({ email: "", password: "" });
 
   const step1Submit = async (values: SignInStep1ByEmailFormData) => {
@@ -19,6 +22,14 @@ export const useSignInByEmail = ({ goToHome }) => {
         passwordConfirmation: password,
       });
       if (response.status === 200) {
+        const accessToken = response?.data?.accessToken;
+        const refreshToken = response?.data?.refreshToken;
+        await Promise.all([
+          saveToken({ token: accessToken, type: "authorization", persist: true }),
+          saveToken({ token: refreshToken, type: "refreshtoken", persist: true }),
+          setItemInAsyncStorage("user", response?.data?.user),
+        ]);
+        setUser(response?.data?.user);
         goToHome({ role: response?.data?.user?.role });
       } else {
         showModal({
