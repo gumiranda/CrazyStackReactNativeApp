@@ -17,6 +17,9 @@ export const Initial = () => {
       role: "owner",
     });
   }
+  function handleSignIn() {
+    navigation.navigate("SignInPage");
+  }
   const theme = useTheme();
   return (
     <FullImageBackground style={styles.container} source={Splash}>
@@ -27,7 +30,11 @@ export const Initial = () => {
           {"Agende horários em salões de beleza. \nComece já a explorar!"}
         </Text>
       </View>
-      <TouchableOpacity activeOpacity={0.8} style={styles.button}>
+      <TouchableOpacity
+        onPress={() => handleSignIn()}
+        activeOpacity={0.8}
+        style={styles.button}
+      >
         <Text style={styles.textButton}>ENTRAR</Text>
       </TouchableOpacity>
       <TouchableOpacity
