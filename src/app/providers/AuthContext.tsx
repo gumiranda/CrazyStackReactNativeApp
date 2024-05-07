@@ -1,5 +1,5 @@
 import { saveToken } from "@/shared/api";
-import { getItemFromAsyncStorage } from "@/shared/libs/functions";
+import { getItemFromAsyncStorage, setItemInAsyncStorage } from "@/shared/libs/functions";
 import React, {
   ReactNode,
   createContext,
@@ -17,6 +17,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState(null);
   const [verifyIsAuthenticated, setVerifyIsAuthenticated] = useState(false);
   const logout = async () => {
+    await Promise.all([
+      setItemInAsyncStorage("user", null),
+      setItemInAsyncStorage("authorization", null),
+      setItemInAsyncStorage("refreshtoken", null),
+    ]);
     setUser(null);
     setVerifyIsAuthenticated(false);
   };
