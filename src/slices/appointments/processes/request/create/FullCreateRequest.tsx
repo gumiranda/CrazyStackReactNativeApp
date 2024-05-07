@@ -1,4 +1,4 @@
-import { CreateRequestProvider } from "./context/CreateRequest.context";
+import { CreateRequestProvider, useCreateRequest } from "./context/CreateRequest.context";
 
 export const FullCreateRequest = () => {
   return (
@@ -8,5 +8,7 @@ export const FullCreateRequest = () => {
   );
 };
 export const FullCreateRequestForm = () => {
+  const { owner, clients } = useCreateRequest();
+  //const stepProps = useSteps();
   return <></>;
 };

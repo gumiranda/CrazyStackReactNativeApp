@@ -63,3 +63,16 @@ export const deleteOwnerById = async (id: string): Promise<OwnerProps | null> =>
     return null;
   }
 };
+export const getOwnerByUserId = async (id: string): Promise<OwnerProps | null> => {
+  try {
+    const { data } = await api.get("/owner/load", {
+      params: { createdById: id },
+    });
+    if (!data) {
+      return null;
+    }
+    return ownerModel(data).format();
+  } catch (error) {
+    return null;
+  }
+};
