@@ -27,7 +27,7 @@ export const HomePage = () => {
   }, [isFetching]);
   const buttonProps = {
     backgroundColor: theme.colors.primary[500],
-    title: "NOVO AGENDAMENTO",
+    title: "CRIAR AGENDAMENTO",
     color: theme.colors.text,
     onPress: () => navigation.navigate("CreateRequestOwner"),
     isFetching,
