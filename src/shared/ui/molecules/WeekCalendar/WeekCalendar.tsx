@@ -1,5 +1,5 @@
 import { ScrollView, View } from "react-native";
-import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
+import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
 import { Calendar } from "react-native-big-calendar";
 import CalendarStrip from "react-native-calendar-strip";
 import { addDays } from "date-fns";
