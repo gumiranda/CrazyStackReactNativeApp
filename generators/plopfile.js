@@ -58,126 +58,126 @@ module.exports = function (plop) {
 const entities = [
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/entities/{{camelCase name}}/{{camelCase name}}.model.ts",
+    path: "../src/slices/{{camelCase slice}}/entities/{{camelCase name}}/{{camelCase name}}.model.ts",
     templateFile: "templates/crud/entidades/domain.model.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/entities/{{camelCase name}}/{{camelCase name}}.lib.ts",
+    path: "../src/slices/{{camelCase slice}}/entities/{{camelCase name}}/{{camelCase name}}.lib.ts",
     templateFile: "templates/crud/entidades/domain.lib.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/entities/{{camelCase name}}/{{camelCase name}}.api.ts",
+    path: "../src/slices/{{camelCase slice}}/entities/{{camelCase name}}/{{camelCase name}}.api.ts",
     templateFile: "templates/crud/entidades/domain.api.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/entities/{{camelCase name}}/index.ts",
+    path: "../src/slices/{{camelCase slice}}/entities/{{camelCase name}}/index.ts",
     templateFile: "templates/crud/entidades/index.ts.hbs",
   },
 ];
 const features = [
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/features/{{camelCase name}}/create/create{{pascalCase name}}.hook.ts",
+    path: "../src/slices/{{camelCase slice}}/features/{{camelCase name}}/create/create{{pascalCase name}}.hook.ts",
     templateFile: "templates/crud/features/create/createDomain.hook.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/features/{{camelCase name}}/edit/edit{{pascalCase name}}.hook.ts",
+    path: "../src/slices/{{camelCase slice}}/features/{{camelCase name}}/edit/edit{{pascalCase name}}.hook.ts",
     templateFile: "templates/crud/features/edit/editDomain.hook.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/features/{{camelCase name}}/create/create{{pascalCase name}}.lib.ts",
+    path: "../src/slices/{{camelCase slice}}/features/{{camelCase name}}/create/create{{pascalCase name}}.lib.ts",
     templateFile: "templates/crud/features/create/createDomain.lib.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/features/{{camelCase name}}/edit/edit{{pascalCase name}}.lib.ts",
+    path: "../src/slices/{{camelCase slice}}/features/{{camelCase name}}/edit/edit{{pascalCase name}}.lib.ts",
     templateFile: "templates/crud/features/edit/editDomain.lib.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/features/{{camelCase name}}/edit/Edit{{pascalCase name}}Form.tsx",
+    path: "../src/slices/{{camelCase slice}}/features/{{camelCase name}}/edit/Edit{{pascalCase name}}Form.tsx",
     templateFile: "templates/crud/features/edit/EditDomainForm.tsx.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/features/{{camelCase name}}/create/Create{{pascalCase name}}Form.tsx",
+    path: "../src/slices/{{camelCase slice}}/features/{{camelCase name}}/create/Create{{pascalCase name}}Form.tsx",
     templateFile: "templates/crud/features/create/CreateDomainForm.tsx.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/features/{{camelCase name}}/create/index.ts",
+    path: "../src/slices/{{camelCase slice}}/features/{{camelCase name}}/create/index.ts",
     templateFile: "templates/crud/features/create/index.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/features/{{camelCase name}}/edit/index.ts",
+    path: "../src/slices/{{camelCase slice}}/features/{{camelCase name}}/edit/index.ts",
     templateFile: "templates/crud/features/edit/index.ts.hbs",
   },
 ];
 const screens = [
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/screens/{{camelCase name}}/edit/{{pascalCase name}}EditPage.tsx",
+    path: "../src/slices/{{camelCase slice}}/screens/{{camelCase name}}/edit/{{pascalCase name}}EditPage.tsx",
     templateFile: "templates/crud/screens/edit/DomainEditPage.tsx.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/screens/{{camelCase name}}/create/{{pascalCase name}}CreatePage.tsx",
+    path: "../src/slices/{{camelCase slice}}/screens/{{camelCase name}}/create/{{pascalCase name}}CreatePage.tsx",
     templateFile: "templates/crud/screens/create/DomainCreatePage.tsx.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/screens/{{camelCase name}}/create/index.ts",
+    path: "../src/slices/{{camelCase slice}}/screens/{{camelCase name}}/create/index.ts",
     templateFile: "templates/crud/screens/create/index.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/screens/{{camelCase name}}/edit/index.ts",
+    path: "../src/slices/{{camelCase slice}}/screens/{{camelCase name}}/edit/index.ts",
     templateFile: "templates/crud/screens/edit/index.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/screens/{{camelCase name}}/details/{{pascalCase name}}DetailsPage.tsx",
+    path: "../src/slices/{{camelCase slice}}/screens/{{camelCase name}}/details/{{pascalCase name}}DetailsPage.tsx",
     templateFile: "templates/crud/screens/details/DomainDetailsPage.tsx.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/screens/{{camelCase name}}/details/index.ts",
+    path: "../src/slices/{{camelCase slice}}/screens/{{camelCase name}}/details/index.ts",
     templateFile: "templates/crud/screens/details/index.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/screens/{{camelCase name}}/list/grid/index.ts",
+    path: "../src/slices/{{camelCase slice}}/screens/{{camelCase name}}/list/grid/index.ts",
     templateFile: "templates/crud/screens/list/grid/index.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/screens/{{camelCase name}}/list/table/index.ts",
+    path: "../src/slices/{{camelCase slice}}/screens/{{camelCase name}}/list/table/index.ts",
     templateFile: "templates/crud/screens/list/table/index.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/screens/{{camelCase name}}/list/grid/{{pascalCase name}}ListGridPage.tsx",
+    path: "../src/slices/{{camelCase slice}}/screens/{{camelCase name}}/list/grid/{{pascalCase name}}ListGridPage.tsx",
     templateFile: "templates/crud/screens/list/grid/DomainListGridPage.tsx.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/screens/{{camelCase name}}/list/table/{{pascalCase name}}ListTablePage.tsx",
+    path: "../src/slices/{{camelCase slice}}/screens/{{camelCase name}}/list/table/{{pascalCase name}}ListTablePage.tsx",
     templateFile: "templates/crud/screens/list/table/DomainListTablePage.tsx.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/screens/{{camelCase name}}/list/{{camelCase name}}InfiniteList.hook.ts",
+    path: "../src/slices/{{camelCase slice}}/screens/{{camelCase name}}/list/{{camelCase name}}InfiniteList.hook.ts",
     templateFile: "templates/crud/screens/list/domainInfiniteList.hook.ts.hbs",
   },
   {
     type: "add",
-    path: "../src/{{camelCase slice}}/screens/{{camelCase name}}/list/{{camelCase name}}List.hook.ts",
+    path: "../src/slices/{{camelCase slice}}/screens/{{camelCase name}}/list/{{camelCase name}}List.hook.ts",
     templateFile: "templates/crud/screens/list/domainList.hook.ts.hbs",
   },
 ];
