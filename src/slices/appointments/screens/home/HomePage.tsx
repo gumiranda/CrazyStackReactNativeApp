@@ -1,3 +1,11 @@
+import { Footer } from "@/shared/ui";
+
 export const HomePage = () => {
-  return <></>;
+  return (
+    <>
+      <Footer>
+        <></>
+      </Footer>
+    </>
+  );
 };
