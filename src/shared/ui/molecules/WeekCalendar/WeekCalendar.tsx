@@ -10,6 +10,7 @@ export const WeekCalendar = ({
   onDateSelected,
   onPressEvent,
   events = [],
+  children,
 }) => {
   const theme = useTheme();
   const datesBlacklist = [];
@@ -17,7 +18,7 @@ export const WeekCalendar = ({
     { start: addDays(new Date(), -365) as any, end: addDays(new Date(), 365) as any },
   ];
   return (
-    <View data-testid="WeekCalendarTestId">
+    <View style={styles.container} data-testid="WeekCalendarTestId">
       <View style={styles.baseStyle}>
         <CalendarStrip
           scrollable
@@ -60,6 +61,7 @@ export const WeekCalendar = ({
           events={events}
         />
       </ScrollView>
+      {children}
     </View>
   );
 };
@@ -91,4 +93,5 @@ const styles = DynamicStyleSheet.create((theme) => ({
     zIndex: 1,
     backgroundColor: theme.colors.background,
   },
+  container: { flex: 1 },
 }));
