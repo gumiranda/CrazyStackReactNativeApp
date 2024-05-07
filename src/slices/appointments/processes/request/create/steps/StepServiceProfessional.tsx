@@ -1,1 +1,3 @@
-export const StepServiceProfessional = () => {};
+export const StepServiceProfessional = () => {
+  return <></>;
+};

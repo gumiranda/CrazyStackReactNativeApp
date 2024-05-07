@@ -1,1 +1,3 @@
-export const StepDate = () => {};
+export const StepDate = () => {
+  return <></>;
+};

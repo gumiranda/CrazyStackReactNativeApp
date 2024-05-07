@@ -1,1 +1,3 @@
-export const StepClient = () => {};
+export const StepClient = () => {
+  return <></>;
+};
