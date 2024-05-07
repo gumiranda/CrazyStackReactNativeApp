@@ -16,7 +16,7 @@ export const stackRoutes = [
   {
     name: "HomePage",
     component: HomePage,
-    title: "HomePage",
+    title: "Início",
   },
   {
     name: "HomeClient",
