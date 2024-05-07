@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { SignInFormStep1 } from "@/features/signIn/by-email/ui";
+import { SignInFormStep1 } from "@/slices/general/features/signIn/by-email/ui";
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import { BackButton, TextAtom } from "@/shared/ui";
 import { View } from "react-native";

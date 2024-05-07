@@ -1,5 +1,8 @@
 /* eslint-disable indent */
-import { SignUpFormStep1, SignUpFormStep2 } from "@/features/signup/by-email/ui";
+import {
+  SignUpFormStep1,
+  SignUpFormStep2,
+} from "@/slices/general/features/signup/by-email/ui";
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import { BackButton, TextAtom } from "@/shared/ui";
 import { View } from "react-native";
