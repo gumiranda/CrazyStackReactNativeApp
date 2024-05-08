@@ -3,12 +3,21 @@ import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
 import { Button } from "@/shared/ui";
 import { ClientForm } from "@/slices/appointments/features/request/client/create/ClientForm";
 import { useCreateClient } from "@/slices/appointments/features/request/client/create/createClient.hook";
+import { useEffect } from "react";
 import { ScrollView } from "react-native";
+import { useCreateRequest } from "../context/CreateRequest.context";
 
 export const StepClient = ({ userList, nextStep }) => {
   const theme = useTheme();
+  const { setRequest } = useCreateRequest();
   const { formState, control, handleSubmit, handleCreateClient, setFocus, createClient } =
     useCreateClient({ userList });
+  useEffect(() => {
+    if (createClient?.data) {
+      setRequest((prev) => ({ ...prev, clientCreated: createClient.data }));
+      nextStep();
+    }
+  }, [createClient?.data]);
   return (
     <>
       <ScrollView contentContainerStyle={styles.scrollView}>
@@ -19,7 +28,7 @@ export const StepClient = ({ userList, nextStep }) => {
       <Button
         style={styles.button}
         title="PRÓXIMO"
-        onPress={nextStep}
+        onPress={handleSubmit(handleCreateClient)}
         backgroundColor={theme.colors.tertiary[300]}
         color={theme.colors.black}
       />
