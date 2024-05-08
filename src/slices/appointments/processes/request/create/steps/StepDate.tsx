@@ -1,3 +1,3 @@
-export const StepDate = () => {
+export const StepDate = ({ currentOwner }) => {
   return <></>;
 };

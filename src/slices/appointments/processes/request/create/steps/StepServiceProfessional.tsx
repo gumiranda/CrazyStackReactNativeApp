@@ -1,3 +1,3 @@
-export const StepServiceProfessional = () => {
+export const StepServiceProfessional = ({ ownerSelectedUserId, nextStep }) => {
   return <></>;
 };
