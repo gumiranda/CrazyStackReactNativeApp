@@ -7,6 +7,7 @@ import appMetrics from "@/shared/libs/functions/metrics";
 import { Button, MaterialIcon, TextAtom } from "@/shared/ui";
 import { RFValue } from "react-native-responsive-fontsize";
 import { editRequestMutation } from "../../features/request/edit/editRequest.hook";
+import { RequestDetails } from "../../entities/request/components";
 
 export const ConfirmRequestOwner = ({
   route: {
@@ -46,6 +47,15 @@ export const ConfirmRequestOwner = ({
           style={styles.icon}
         />
         <TextAtom style={styles.message}>{content}</TextAtom>
+        {!!requestCreated && (
+          <RequestDetails
+            props={{
+              request: requestCreated,
+              service: currentService,
+              client: clientCreated,
+            }}
+          />
+        )}
       </ScrollView>
       <Button
         style={styles.button}
