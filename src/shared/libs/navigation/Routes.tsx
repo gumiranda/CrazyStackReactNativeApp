@@ -4,6 +4,7 @@ import { HomeClient } from "@/slices/appointments/screens/home/HomeClient";
 import { HomePage } from "@/slices/appointments/screens/home/HomePage";
 import { Initial } from "@/slices/appointments/screens/Initial";
 import { CreateRequestOwner } from "@/slices/appointments/screens/request/create/CreateRequestOwner";
+import { ConfirmRequestOwner } from "@/slices/appointments/processes/request/ConfirmRequestOwner";
 
 export const stackRoutes = [
   { name: "Initial", component: Initial, title: "Início" },
@@ -27,6 +28,11 @@ export const stackRoutes = [
     name: "CreateRequestOwner",
     component: CreateRequestOwner,
     title: "Criar agendamento",
+  },
+  {
+    name: "ConfirmRequestOwner",
+    component: ConfirmRequestOwner,
+    title: "Confirmar agendamento",
   },
 ];
 export const routesWithoutHeader = ["Initial", "SignUpPage", "SignInPage"];
