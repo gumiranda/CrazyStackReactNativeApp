@@ -7,6 +7,7 @@ export * from "./FullImageBackground";
 export * from "./KeyboardAvoidingView";
 export * from "./Button";
 // IMPORT MODULE FILES
+export * from "./Calendar";
 export * from "./Select";
 export * from "./RetangleBorded";
 export * from "./Footer";

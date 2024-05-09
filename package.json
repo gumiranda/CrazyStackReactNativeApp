@@ -45,6 +45,7 @@
     "react-native": "0.73.4",
     "react-native-big-calendar": "^4.12.0",
     "react-native-calendar-strip": "^2.2.6",
+    "react-native-calendars": "^1.1304.1",
     "react-native-gesture-handler": "~2.14.0",
     "react-native-iphone-x-helper": "^1.3.1",
     "react-native-mask-text": "^0.14.2",
