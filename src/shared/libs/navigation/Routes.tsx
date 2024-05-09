@@ -5,6 +5,7 @@ import { HomePage } from "@/slices/appointments/screens/home/HomePage";
 import { Initial } from "@/slices/appointments/screens/Initial";
 import { CreateRequestOwner } from "@/slices/appointments/screens/request/create/CreateRequestOwner";
 import { ConfirmRequestOwner } from "@/slices/appointments/processes/request/ConfirmRequestOwner";
+import { MyRequestsDetailsOwner } from "@/slices/appointments/screens/request/details/MyRequestsDetailsOwner";
 
 export const stackRoutes = [
   { name: "Initial", component: Initial, title: "Início" },
@@ -18,6 +19,11 @@ export const stackRoutes = [
     name: "HomePage",
     component: HomePage,
     title: "Início",
+  },
+  {
+    name: "MyRequestsDetailsOwner",
+    component: MyRequestsDetailsOwner,
+    title: "Detalhes",
   },
   {
     name: "HomeClient",
