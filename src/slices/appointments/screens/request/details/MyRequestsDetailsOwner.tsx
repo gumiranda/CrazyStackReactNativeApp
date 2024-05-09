@@ -29,7 +29,7 @@ export const MyRequestsDetailsOwner = ({
       <ScrollView contentContainerStyle={styles.scrollView}>
         <RequestDetails props={{ request: item, service, client }} />
       </ScrollView>
-      {[2, 3, 4, 5, 6, 8].includes(item?.status) && (
+      {[1, 7, 4, 5, 6, 8].includes(item?.status) && (
         <Button
           style={styles.button}
           title={"REAGENDAR"}

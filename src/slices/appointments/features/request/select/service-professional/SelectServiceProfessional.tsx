@@ -3,6 +3,7 @@ import { useStepServiceProfessional } from "./SelectServiceProfessional.lib";
 import { ScrollView } from "react-native";
 import { Button, SelectHookForm } from "@/shared/ui";
 import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
+import appMetrics from "@/shared/libs/functions/metrics";
 
 export const ServiceProfessionalSelect = ({
   ownerSelectedUserId,
@@ -77,7 +78,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     margin: 20,
   },
   button: {
-    width: "90%",
+    width: appMetrics.SCREEN_WIDTH * 0.9,
     alignSelf: "center",
   },
 }));
