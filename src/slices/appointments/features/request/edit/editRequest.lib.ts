@@ -1,42 +1,43 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-export type ExternalProps = {
-  serviceId?: string;
-  professionalId?: string;
-  ownerId?: string;
+import { RequestProps } from "@/slices/appointments/entities/request";
+export type EditRequestFormData = {
+  message?: string;
+  status?: number;
   clientId?: string;
-  clientUserId?: string;
-  editdForId?: string;
+  professionalId?: string;
+  serviceId?: string;
+  ownerId?: string;
+  createdForId?: string;
   initDate?: string;
   endDate?: string;
-  haveDelivery?: boolean;
+  date?: string;
   haveRecurrence?: boolean;
-  haveFidelity?: boolean;
   haveRide?: boolean;
-  type?: string;
-  status?: number;
-};
-export type EditRequestFormData = ExternalProps & {
-  message: string;
-  userId?: string;
-  active?: boolean;
+  haveFidelity?: boolean;
+  haveDelivery?: boolean;
 };
 
 export type SubmitEditRequestHandler = SubmitHandler<EditRequestFormData>;
 
-export const editRequestFormSchema = yup.object({
+export const createRequestFormSchema = yup.object({
   message: yup.string(),
 });
-export type YupSchema = yup.InferType<typeof editRequestFormSchema>;
+export type YupSchema = yup.InferType<typeof createRequestFormSchema>;
 
-export const useEditRequestLib = (props: ExternalProps) => {
+export const useEditRequestLib = (props: EditRequestFormProps) => {
+  const { request: currentRequest } = props;
+
   const formProps = useForm<YupSchema>({
-    resolver: yupResolver(editRequestFormSchema),
+    resolver: yupResolver(createRequestFormSchema),
     defaultValues: {
-      message: "",
+      message: currentRequest?.message ?? "",
       ...props,
     },
   });
   return { ...formProps };
 };
+export interface EditRequestFormProps {
+  request: RequestProps;
+}
