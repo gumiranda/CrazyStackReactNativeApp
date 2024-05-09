@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { Alert } from "react-native";
-
 export const Dialog = ({
-  mainButton,
+  mainButton = "Ok, entendi",
   colorScheme,
   isOpen,
   setIsOpen,
@@ -10,16 +9,19 @@ export const Dialog = ({
   dismissButton,
   body,
   onPress,
+  content,
 }) => {
   useEffect(() => {
     if (isOpen) {
       showConfirmationDialog();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
+
   const showConfirmationDialog = () => {
     Alert.alert(
       title,
-      body,
+      body ?? content,
       [
         {
           text: dismissButton,
@@ -32,11 +34,12 @@ export const Dialog = ({
             setIsOpen(false);
             onPress?.();
           },
-          style: colorScheme ?? "default",
+          style: colorScheme ? colorScheme : "default",
         },
       ],
       { cancelable: false }
     );
   };
+
   return null;
 };
