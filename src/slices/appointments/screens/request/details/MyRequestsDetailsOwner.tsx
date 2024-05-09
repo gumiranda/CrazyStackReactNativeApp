@@ -29,15 +29,18 @@ export const MyRequestsDetailsOwner = ({
       <ScrollView contentContainerStyle={styles.scrollView}>
         <RequestDetails props={{ request: item, service, client }} />
       </ScrollView>
-      <Button
-        style={styles.button}
-        title={"REAGENDAR"}
-        color={theme.colors.black}
-        backgroundColor={theme.colors.primary[400]}
-        onPress={() => {
-          navigation.navigate("EditRequest", { item, user, client });
-        }}
-      />
+      {[2, 3, 4, 5, 6, 8].includes(item?.status) && (
+        <Button
+          style={styles.button}
+          title={"REAGENDAR"}
+          color={theme.colors.black}
+          backgroundColor={theme.colors.primary[400]}
+          onPress={() => {
+            navigation.navigate("EditRequest", { item, user, client });
+          }}
+        />
+      )}
+
       {[1, 7].includes(item?.status) && (
         <Button
           style={styles.buttonError}

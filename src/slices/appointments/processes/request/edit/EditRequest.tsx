@@ -1,32 +1,26 @@
 import { useSteps } from "@/shared/ui/templates/Stepper/useSteps.hook";
 import { EditRequestProvider, useEditRequest } from "./context/EditRequest.context";
-import { StepClient } from "./steps/StepClient";
 import { Stepper } from "@/shared/ui";
-import { StepServiceProfessional } from "./steps/StepServiceProfessional";
-import { StepDate } from "./steps/StepDate";
+import { EditStepServiceProfessional } from "./steps/EditStepServiceProfessional";
+import { EditStepDate } from "./steps/EditStepDate";
 
-export const EditRequest = () => {
+export const EditRequest = ({ route: { params } }) => {
   return (
-    <EditRequestProvider>
+    <EditRequestProvider {...params}>
       <EditRequestForm />
     </EditRequestProvider>
   );
 };
 export const EditRequestForm = () => {
-  const { owner, clients } = useEditRequest();
+  const { owner } = useEditRequest();
   const stepProps = useSteps();
   const { nextStep, activeStep, onStepPress } = stepProps;
   const steps = [
     {
-      title: "Cliente",
-      description: "Nome e telefone",
-      component: <StepClient userList={clients} nextStep={nextStep} />,
-    },
-    {
       title: "Profissional e Serviço",
       description: "Selecione o prestador e o serviço",
       component: (
-        <StepServiceProfessional
+        <EditStepServiceProfessional
           nextStep={nextStep}
           ownerSelectedUserId={owner?.editdById}
         />
@@ -35,7 +29,7 @@ export const EditRequestForm = () => {
     {
       title: "Data",
       description: "Selecione dia e horário",
-      component: <StepDate currentOwner={owner} />,
+      component: <EditStepDate currentOwner={owner} />,
     },
   ];
   return (

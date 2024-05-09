@@ -1,8 +1,8 @@
-import { useCreateRequest } from "../context/CreateRequest.context";
+import { useEditRequest } from "../context/EditRequest.context";
 import { ServiceProfessionalSelect } from "@/slices/appointments/features/request/select/service-professional";
 
-export const StepServiceProfessional = ({ ownerSelectedUserId, nextStep }) => {
-  const { setRequest, propsProfessional } = useCreateRequest();
+export const EditStepServiceProfessional = ({ ownerSelectedUserId, nextStep }) => {
+  const { setRequest, propsProfessional } = useEditRequest();
 
   const onSubmit = (payload) => {
     setRequest((prev) => ({ ...prev, ...payload }));
