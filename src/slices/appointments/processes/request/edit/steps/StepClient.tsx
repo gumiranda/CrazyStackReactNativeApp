@@ -5,11 +5,11 @@ import { ClientForm } from "@/slices/appointments/features/request/client/create
 import { useCreateClient } from "@/slices/appointments/features/request/client/create/createClient.hook";
 import { useEffect } from "react";
 import { ScrollView } from "react-native";
-import { useCreateRequest } from "../context/CreateRequest.context";
+import { useEditRequest } from "../context/EditRequest.context";
 
 export const StepClient = ({ userList, nextStep }) => {
   const theme = useTheme();
-  const { setRequest } = useCreateRequest();
+  const { setRequest } = useEditRequest();
   const { formState, control, handleSubmit, handleCreateClient, setFocus, createClient } =
     useCreateClient({ userList });
   useEffect(() => {
