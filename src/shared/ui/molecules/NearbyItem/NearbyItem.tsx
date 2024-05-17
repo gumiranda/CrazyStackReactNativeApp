@@ -41,8 +41,8 @@ const styles = DynamicStyleSheet.create((theme) => ({
     flex: 1,
   },
   name: {
-    fontSize: RFValue(14),
-    fontFamily: fonts.primary_600,
+    fontSize: RFValue(13),
+    fontFamily: fonts.primary_400,
     color: theme.colors.text,
   },
   details: {
@@ -52,7 +52,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
   },
   rating: {
     fontSize: RFValue(12),
-    fontFamily: fonts.primary_500,
+    fontFamily: fonts.primary_400,
     color: theme.colors.primary[500],
   },
 }));
