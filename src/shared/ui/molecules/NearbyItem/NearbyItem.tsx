@@ -1,19 +1,20 @@
 import React from "react";
-import { View, Image } from "react-native";
-import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
+import { View, Image, TouchableOpacity } from "react-native";
 import { TextAtom } from "../../atoms";
+import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import { RFValue } from "react-native-responsive-fontsize";
 
 const NearbyItem = ({ name, distance, rating, image }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <Image source={image} style={styles.image} />
       <View style={styles.info}>
         <TextAtom style={styles.name}>{name}</TextAtom>
-        <TextAtom style={styles.distance}>{distance}</TextAtom>
-        <TextAtom style={styles.rating}>Rating: {rating}★</TextAtom>
+        <TextAtom style={styles.details}>
+          {distance} • {rating}★
+        </TextAtom>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -22,7 +23,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: theme.colors.background,
-    marginVertical: 10,
+    marginVertical: 5,
     padding: 10,
     borderRadius: 10,
     shadowColor: theme.colors.secondary[500],
@@ -32,9 +33,9 @@ const styles = DynamicStyleSheet.create((theme) => ({
     elevation: 2,
   },
   image: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
+    width: 50,
+    height: 50,
+    borderRadius: 10,
     marginRight: 10,
   },
   info: {
@@ -45,15 +46,10 @@ const styles = DynamicStyleSheet.create((theme) => ({
     fontFamily: fonts.primary_600,
     color: theme.colors.text,
   },
-  distance: {
+  details: {
     fontSize: RFValue(12),
     fontFamily: fonts.primary_400,
-    color: theme.colors.background,
-  },
-  rating: {
-    fontSize: RFValue(12),
-    fontFamily: fonts.primary_400,
-    color: theme.colors.background,
+    color: theme.colors.text,
   },
 }));
 
