@@ -10,10 +10,9 @@ const NearbyItem = ({ name, distance, rating, image }) => {
       <Image source={image} style={styles.image} />
       <View style={styles.info}>
         <TextAtom style={styles.name}>{name}</TextAtom>
-        <TextAtom style={styles.details}>
-          {distance} • {rating}★
-        </TextAtom>
+        <TextAtom style={styles.details}>{distance}</TextAtom>
       </View>
+      <TextAtom style={styles.rating}>{rating}★</TextAtom>
     </TouchableOpacity>
   );
 };
@@ -26,7 +25,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     marginVertical: 5,
     padding: 10,
     borderRadius: 10,
-    shadowColor: theme.colors.secondary[500],
+    shadowColor: theme.colors.shadow,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
@@ -50,6 +49,11 @@ const styles = DynamicStyleSheet.create((theme) => ({
     fontSize: RFValue(12),
     fontFamily: fonts.primary_400,
     color: theme.colors.text,
+  },
+  rating: {
+    fontSize: RFValue(12),
+    fontFamily: fonts.primary_500,
+    color: theme.colors.primary[500],
   },
 }));
 
