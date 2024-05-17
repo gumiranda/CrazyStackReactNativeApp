@@ -14,7 +14,7 @@ export const SignInPage = () => {
         index: 0,
         routes: [
           {
-            name: role === "owner" ? "HomePage" : "HomeClient",
+            name: role === "owner" ? "HomeClient" : "HomeClient",
           },
         ],
       })
