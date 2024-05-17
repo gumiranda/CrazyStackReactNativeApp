@@ -1,5 +1,6 @@
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import { NavigationButton, ProfileHeader, TextAtom, ViewField } from "@/shared/ui";
+import NearbyItem from "@/shared/ui/molecules/NearbyItem/NearbyItem";
 import { ScrollView, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 
@@ -37,7 +38,7 @@ export const HomeClient = () => {
             />
           </ScrollView>
         </View>
-        <View style={styles.navigationSection}>
+        <View style={styles.favoritesSection}>
           <TextAtom style={styles.sectionTitle}>Meus favoritos</TextAtom>
           <ScrollView horizontal contentContainerStyle={styles.navigationButtons}>
             <NavigationButton
@@ -62,7 +63,7 @@ export const HomeClient = () => {
             />
           </ScrollView>
         </View>
-        {/* <View style={styles.nearbySection}>
+        <View style={styles.nearbySection}>
           <TextAtom style={styles.sectionTitle}>Espaços perto de você</TextAtom>
           <NearbyItem
             name="Espaço Bem Me Quero"
@@ -76,11 +77,12 @@ export const HomeClient = () => {
             rating={3.5}
             image={require("@/assets/barbearia.png")}
           />
-        </View> */}
+        </View>
       </ScrollView>
     </View>
   );
 };
+
 const styles = DynamicStyleSheet.create((theme) => ({
   container: {
     flex: 1,
@@ -109,3 +111,5 @@ const styles = DynamicStyleSheet.create((theme) => ({
     marginLeft: 10,
   },
 }));
+
+export default HomeClient;

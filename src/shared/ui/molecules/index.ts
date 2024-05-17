@@ -1,4 +1,5 @@
 // IMPORT MODULE FILES
+export * from "./NearbyItem";
 export * from "./ProfileHeader";
 export * from "./DateDetails";
 export * from "./ViewField";
