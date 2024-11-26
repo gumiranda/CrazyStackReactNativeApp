@@ -19,6 +19,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@babel/runtime": "^7.26.0",
     "@expo-google-fonts/archivo": "^0.2.3",
     "@expo-google-fonts/inter": "^0.2.3",
     "@expo-google-fonts/poppins": "^0.2.3",
