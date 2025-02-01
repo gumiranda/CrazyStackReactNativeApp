@@ -6,6 +6,8 @@ describe("Button", () => {
   const defaultProps: ButtonProps = {
     title: "Test Button",
     onPress: jest.fn(),
+    color: "",
+    backgroundColor: "",
   };
 
   it("renders correctly", () => {
@@ -20,6 +22,4 @@ describe("Button", () => {
     fireEvent.press(buttonElement);
     expect(defaultProps.onPress).toHaveBeenCalled();
   });
-
 });
-

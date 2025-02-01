@@ -1,4 +1,3 @@
-import React from "react";
 import { FormControl } from "../../molecules";
 
 export const FormControlGroup = ({
@@ -9,7 +8,7 @@ export const FormControlGroup = ({
 }) => {
   return (
     <>
-      {formControls?.map?.(
+      {formControls.map(
         (
           {
             label = "",
@@ -19,19 +18,21 @@ export const FormControlGroup = ({
             password = false,
           },
           index: number
-        ) => (
-          <FormControl
-            key={index}
-            name={name}
-            iconName={iconName}
-            label={label}
-            inputProps={inputProps}
-            error={formState?.errors?.[name]}
-            control={control}
-            defaultFormControl={defaultFormControl}
-            password={password}
-          />
-        )
+        ) => {
+          return (
+            <FormControl
+              key={index}
+              name={name}
+              iconName={iconName}
+              label={label}
+              inputProps={inputProps}
+              error={formState?.errors?.[name]}
+              control={control}
+              defaultFormControl={defaultFormControl}
+              password={password}
+            />
+          );
+        }
       )}
     </>
   );

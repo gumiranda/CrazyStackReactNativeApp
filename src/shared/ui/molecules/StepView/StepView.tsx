@@ -1,17 +1,14 @@
-import React, { ReactNode } from "react";
 import { View } from "react-native";
+import { DynamicStyleSheet } from "@/shared/libs/utils";
 import { useStepView } from "./StepView.hook";
 import StepIndicator from "react-native-step-indicator";
 import appMetrics from "@/shared/libs/functions/metrics";
-import { DynamicStyleSheet } from "@/shared/libs/utils";
-
 type StepViewProps = {
-  header?: ReactNode;
+  header?: React.ReactNode;
   currentPosition: number;
   onStepPress: (position: number) => void;
   stepCount: number;
 };
-
 export const StepView = ({
   stepCount,
   header,
@@ -20,21 +17,20 @@ export const StepView = ({
 }: StepViewProps) => {
   const { customStyles } = useStepView();
   return (
-    <View style={styles.container}>
+    <View style={styles.baseStyle} data-testid="StepViewTestId">
       <StepIndicator
         customStyles={customStyles}
         currentPosition={currentPosition}
-        stepCount={stepCount}
         labels={null}
+        stepCount={stepCount}
         onPress={onStepPress}
       />
       {header}
     </View>
   );
 };
-
 const styles = DynamicStyleSheet.create(() => ({
-  container: {
+  baseStyle: {
     flex: 1,
     width: appMetrics.SCREEN_WIDTH * 0.9,
     marginTop: 16,

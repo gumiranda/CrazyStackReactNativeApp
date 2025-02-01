@@ -1,13 +1,12 @@
-import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import { View } from "react-native";
-import appMetrics from "@/shared/libs/functions/metrics";
-import { RetangleBorded, TextAtom } from "../../atoms";
+import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import { StepView } from "../../molecules";
+import { RetangleBorded, TextAtom } from "../../atoms";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export const Stepper = ({ steps, activeStep, onStepPress }) => {
+export const Stepper = ({ steps, activeStep, onStepPress, style = {} }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.baseStyle, style]} data-testid="StepperTestId">
       <RetangleBorded style={styles.image}>
         <StepView
           header={
@@ -27,19 +26,12 @@ export const Stepper = ({ steps, activeStep, onStepPress }) => {
     </View>
   );
 };
-
 const styles = DynamicStyleSheet.create((theme) => ({
-  image: { minHeight: 150 },
-
-  container: {
+  baseStyle: {
     backgroundColor: theme.colors.background,
     flex: 1,
     justifyContent: "space-between",
     marginBottom: 32,
-  },
-  button: {
-    width: appMetrics.SCREEN_WIDTH * 0.9,
-    alignSelf: "center",
   },
   title: {
     color: theme.colors.white,
@@ -51,6 +43,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     color: theme.colors.white,
     fontFamily: fonts.primary_400,
     fontSize: RFValue(14),
-    marginTop: 16,
+    marginTop: 4,
   },
+  image: { minHeight: 150 },
 }));

@@ -1,23 +1,26 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import * as React from "react";
-import { getHeaderTitle } from "@react-navigation/elements";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { routesWithoutHeader, stackRoutes } from "./Routes";
-import { TouchableOpacity, View } from "react-native";
-import { useAuth } from "@/app/providers";
-import { BackButton, MaterialIcon, TextAtom } from "@/shared/ui";
 import { DynamicStyleSheet, fonts, useTheme } from "../utils";
-import { RFValue } from "react-native-responsive-fontsize";
-import { CommonActions } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { getHeaderTitle } from "@react-navigation/elements";
+import { CommonActions } from "@react-navigation/native";
+import { BackButton, MaterialIcon, TextAtom } from "@/shared/ui";
+import { TouchableOpacity, View } from "react-native";
+import { config } from "@/app/config/whiteLabelConfig";
+import { RFValue } from "react-native-responsive-fontsize";
+import React from "react";
+import { useAuth } from "@/app/providers";
 
 const Stack = createNativeStackNavigator();
+
 const headerConfig = ({ navigation, route, options }) => {
   const { user, verifyIsAuthenticated } = useAuth();
-  if (!verifyIsAuthenticated) return null;
   if (routesWithoutHeader.includes(route.name)) {
     return null;
   }
+  if (!verifyIsAuthenticated) return null;
+
   const theme = useTheme();
   const title = getHeaderTitle(options, route.name);
   const insets = useSafeAreaInsets();
@@ -28,12 +31,10 @@ const headerConfig = ({ navigation, route, options }) => {
       return;
     }
     navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: user ? "HomePage" : "Initial" }],
-      })
+      CommonActions.reset({ index: 0, routes: [{ name: user ? "HomePage" : "Initial" }] })
     );
   };
+  const isInitPage = title === "Início";
   return (
     <View style={[{ paddingTop: insets.top }, styles.container]}>
       {canGoBack && <BackButton onPress={goToBack} />}
@@ -51,37 +52,27 @@ const headerConfig = ({ navigation, route, options }) => {
           />
         </TouchableOpacity>
       )}
-
-      <TextAtom style={title === "Início" ? styles.title : styles.subtitle}>
-        {title === "Início" ? "belezix" : title}
+      <TextAtom style={isInitPage ? styles.title : styles.subtitle}>
+        {isInitPage ? config.systemName : title}
       </TextAtom>
     </View>
   );
 };
-
 export const StackNavigator = () => {
   const { user, verifyIsAuthenticated } = useAuth();
   if (!verifyIsAuthenticated) return null;
+
   return (
     <Stack.Navigator
       initialRouteName={user?.role === "owner" ? "HomePage" : "Initial"}
-      screenOptions={{
-        header: headerConfig,
-      }}
+      screenOptions={{ header: headerConfig }}
     >
-      {/* <Stack.Screen
-        name="Home"
-        options={{ headerTitle: (props) => <Text {...props} /> }}
-        component={TabNavigator}
-      /> */}
-      {stackRoutes?.map?.((route, index) => (
+      {stackRoutes.map((route, index) => (
         <React.Fragment key={index}>
           <Stack.Screen
-            name={route?.name}
-            component={route?.component}
-            options={{
-              title: route?.title,
-            }}
+            name={route.name}
+            component={route.component}
+            options={{ title: route?.title }}
           />
         </React.Fragment>
       ))}
@@ -90,15 +81,15 @@ export const StackNavigator = () => {
 };
 const styles = DynamicStyleSheet.create((theme) => ({
   title: {
-    fontFamily: fonts.primary_700,
     fontSize: RFValue(38),
     color: theme.colors.primary[500],
+    fontFamily: fonts.primary_700,
     marginLeft: 16,
   },
   subtitle: {
-    fontFamily: fonts.primary_700,
     fontSize: RFValue(18),
     color: theme.colors.primary[500],
+    fontFamily: fonts.primary_400,
     marginLeft: 16,
     marginTop: 5,
   },
@@ -106,7 +97,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     paddingBottom: 8,
     paddingHorizontal: 16,
     flexDirection: "row",
-    justifyContent: "flex-start", //"space-between",
+    justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: theme.colors.background,
   },

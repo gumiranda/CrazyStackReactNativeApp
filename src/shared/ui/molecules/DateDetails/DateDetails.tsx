@@ -1,11 +1,10 @@
-/* eslint-disable react/display-name */
 import { View } from "react-native";
 import { DynamicStyleSheet, fonts, formatDate } from "@/shared/libs/utils";
-import { RFValue } from "react-native-responsive-fontsize";
 import { useMemo } from "react";
-import { format } from "date-fns";
+import { TextAtom } from "../../atoms";
 import { ptBR } from "date-fns/locale";
-import { TextAtom } from "../../atoms/TextAtom";
+import { format } from "date-fns";
+import { RFValue } from "react-native-responsive-fontsize";
 
 export const DateDetails = ({ initDate, endDate }) => {
   const dateFormatted = useMemo(() => formatDate(new Date(initDate)), [initDate]);
@@ -19,15 +18,16 @@ export const DateDetails = ({ initDate, endDate }) => {
     return `${formattedInitDate} - ${formattedEndDate}`;
   }, [initDate, endDate]);
   return (
-    <View style={styles.dateDetails}>
+    <View style={styles.dateDetails} data-testid="DateDetailsTestId">
       <TextAtom style={styles.date}>{dateFormatted}</TextAtom>
       <TextAtom style={styles.hour}>{hour}</TextAtom>
     </View>
   );
 };
-
 const styles = DynamicStyleSheet.create((theme) => ({
-  dateDetails: { marginTop: 10 },
+  dateDetails: {
+    marginTop: 15,
+  },
   date: {
     color: theme.colors.text,
     fontSize: RFValue(15),

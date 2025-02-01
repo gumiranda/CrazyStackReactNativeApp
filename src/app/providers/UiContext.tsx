@@ -4,27 +4,20 @@ import { Dialog, Loading } from "@/shared/ui";
 type UiProviderProps = {
   children: ReactNode;
 };
+
 const UiContext = createContext({} as any);
 
 export function UiProvider({ children }: UiProviderProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [dialog, setDialog] = useState(null);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
   const showModal = (props) => {
     setDialog(props);
     setIsOpen(true);
   };
   const contextValue = useMemo(
-    () => ({
-      loading,
-      setLoading,
-      setDialog,
-      dialog,
-      isOpen,
-      setIsOpen,
-      showModal,
-    }),
-    [loading, isOpen, dialog]
+    () => ({ loading, setLoading, dialog, setDialog, isOpen, setIsOpen, showModal }),
+    [loading, dialog, isOpen]
   );
   return (
     <UiContext.Provider value={contextValue}>
@@ -34,4 +27,11 @@ export function UiProvider({ children }: UiProviderProps) {
     </UiContext.Provider>
   );
 }
-export const useUi = () => useContext(UiContext);
+
+export const useUi = () => {
+  const context = useContext(UiContext);
+  if (!context) {
+    throw new Error("useUi must be used within a UiProvider");
+  }
+  return context;
+};

@@ -1,30 +1,20 @@
-import { ConfirmRequestOwner } from "@/processes/request/ConfirmRequestOwner";
-import { EditRequest } from "@/processes/request/edit/EditRequest";
-import { Initial } from "@/screens/Initial";
-import { RegisterPage } from "@/screens/auth/RegisterPage";
-import { SignInPage } from "@/screens/auth/SignInPage";
-import { HomePage } from "@/screens/home";
-import { HomeClient } from "@/screens/home/HomeClient";
-import { CreateRequestOwner } from "@/screens/request/create/CreateRequestOwner";
-import { MyRequestsDetailsOwner } from "@/screens/request/details/MyRequestsDetailsOwner";
-
-import { ListService } from "@/screens/service/list/ListService";
+import { SignInPage } from "@/slices/general/screens/auth/signIn";
+import { SignUpPage } from "@/slices/general/screens/auth/signUp";
+import { HomeClient } from "@/slices/appointments/screens/home/HomeClient";
+import { HomePage } from "@/slices/appointments/screens/home/HomePage";
+import { Initial } from "@/slices/appointments/screens/Initial";
+import { CreateRequestOwner } from "@/slices/appointments/screens/request/create/CreateRequestOwner";
+import { ConfirmRequestOwner } from "@/slices/appointments/processes/request/ConfirmRequestOwner";
+import { MyRequestsDetailsOwner } from "@/slices/appointments/screens/request/details/MyRequestsDetailsOwner";
+import { EditRequest } from "@/slices/appointments/processes/request/edit/EditRequest";
 
 export const stackRoutes = [
-  {
-    name: "Initial",
-    component: Initial,
-    title: "Início",
-  },
+  { name: "Initial", component: Initial, title: "Início" },
+  { name: "SignUpPage", component: SignUpPage, title: "SignUpPage" },
   {
     name: "SignInPage",
     component: SignInPage,
     title: "SignInPage",
-  },
-  {
-    name: "RegisterPage",
-    component: RegisterPage,
-    title: "RegisterPage",
   },
   {
     name: "HomePage",
@@ -37,9 +27,14 @@ export const stackRoutes = [
     title: "Detalhes",
   },
   {
+    name: "HomeClient",
+    component: HomeClient,
+    title: "HomeClient",
+  },
+  {
     name: "CreateRequestOwner",
     component: CreateRequestOwner,
-    title: "Novo agendamento",
+    title: "Criar agendamento",
   },
   {
     name: "ConfirmRequestOwner",
@@ -51,18 +46,8 @@ export const stackRoutes = [
     component: EditRequest,
     title: "Editar agendamento",
   },
-  {
-    name: "ListService",
-    component: ListService,
-    title: "Serviços",
-  },
-  {
-    name: "HomeClient",
-    component: HomeClient,
-    title: "Belezix",
-  },
 ];
-export const routesWithoutHeader = ["Initial", "SignInPage", "RegisterPage"];
+export const routesWithoutHeader = ["Initial", "SignUpPage", "SignInPage"];
 export const drawerRoutes = [
   {
     name: "HomePage",
@@ -70,9 +55,9 @@ export const drawerRoutes = [
     title: "Início",
   },
   {
-    name: "ListService",
-    component: ListService,
-    title: "Serviços",
+    name: "CreateRequestOwner",
+    component: CreateRequestOwner,
+    title: "Criar agendamento",
   },
   { name: "Logout", component: null, title: "Sair" },
 ];

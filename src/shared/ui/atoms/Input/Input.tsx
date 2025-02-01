@@ -1,9 +1,9 @@
-import React, { forwardRef, useState } from "react";
-import { View, TextInputProps } from "react-native";
-import { RFValue } from "react-native-responsive-fontsize";
-import { MaterialIcon } from "../MaterialIcon";
+import { TextInputProps, View } from "react-native";
 import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
+import { forwardRef, useState } from "react";
+import { RFValue } from "react-native-responsive-fontsize";
 import { TextInput } from "./TextInput";
+import { MaterialIcon } from "../MaterialIcon";
 interface Props extends TextInputProps {
   iconName: string;
   value?: string;
@@ -11,39 +11,45 @@ interface Props extends TextInputProps {
   options?: any;
   type?: string;
 }
-const Input_ = ({ iconName, value, onBlur, ...props }: Props, ref) => {
+
+export const Input_ = ({ iconName, value, onBlur, ...props }: Props, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
   function handleInputFocus() {
     setIsFocused(true);
   }
-
   function handleInputBlur(e) {
     setIsFocused(false);
     setIsFilled(!!value);
     onBlur(e);
   }
   return (
-    <View style={styles.container}>
-      <BaseInput
-        ref={ref}
-        isFocused={isFocused}
-        iconName={iconName}
-        isFilled={isFilled}
-        handleInputBlur={handleInputBlur}
-        handleInputFocus={handleInputFocus}
-        {...props}
-      />
-    </View>
+    <BaseInput
+      ref={ref}
+      isFocused={isFocused}
+      iconName={iconName}
+      handleInputBlur={handleInputBlur}
+      handleInputFocus={handleInputFocus}
+      isFilled={isFilled}
+      {...props}
+    />
   );
 };
-const BaseInput_ = (
-  { isFocused, iconName, isFilled, handleInputFocus, handleInputBlur, ...props },
+export const BaseInput_ = (
+  {
+    isFocused,
+    children,
+    iconName,
+    isFilled,
+    handleInputFocus,
+    handleInputBlur,
+    ...props
+  },
   ref
 ) => {
   const theme = useTheme();
   return (
-    <>
+    <View style={styles.viewBaseInput}>
       <View style={[styles.iconContainer, isFocused ? styles.isFocused : {}]}>
         <MaterialIcon
           type="Feather"
@@ -54,39 +60,45 @@ const BaseInput_ = (
       </View>
       <TextInput
         ref={ref}
-        style={[styles.inputText, isFocused ? styles.isFocused : {}]}
+        style={[styles.baseStyle, isFocused ? styles.isFocused : {}]}
         onFocus={handleInputFocus}
         placeholderTextColor={theme.colors.text}
-        {...props}
         onBlur={handleInputBlur}
+        {...props}
       />
-    </>
+      {children}
+    </View>
   );
 };
-export const BaseInput = forwardRef(BaseInput_);
-export const Input = forwardRef(Input_);
 const styles = DynamicStyleSheet.create((theme) => ({
   container: {
     flexDirection: "row",
     marginBottom: 8,
+  },
+  viewBaseInput: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 8,
+  },
+  baseStyle: {
+    flex: 1,
+    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[800],
+    color: theme.colors.text,
+    fontFamily: fonts.primary_400,
+    fontSize: RFValue(14),
+    paddingVertical: 0,
+    paddingHorizontal: 0,
   },
   iconContainer: {
     height: 56,
     width: 55,
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 1,
     backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[800],
-    borderRadius: 4,
+    borderRadius: 2,
+    marginRight: 1,
   },
   isFocused: { borderBottomWidth: 2, borderBottomColor: theme.colors.text },
-  inputText: {
-    flex: 1,
-    backgroundColor: !theme.dark ? theme.colors.grey[200] : theme.colors.grey[800],
-    color: theme.colors.text,
-    fontFamily: fonts.secondary_500,
-    fontSize: RFValue(15),
-    paddingVertical: 0,
-    paddingHorizontal: 23,
-  },
 }));
+export const Input = forwardRef(Input_);
+export const BaseInput = forwardRef(BaseInput_);

@@ -1,6 +1,7 @@
 import "./config/reactotronConfig";
 import React, { useCallback, useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts, Inter_400Regular, Inter_500Medium } from "@expo-google-fonts/inter";
 import {
@@ -20,10 +21,11 @@ import {
   Spartan_600SemiBold,
   Spartan_800ExtraBold,
 } from "@expo-google-fonts/spartan";
-import { AuthProvider, SignUpProvider, UiProvider } from "./providers";
-import MainNavigator from "@/shared/libs/navigation/MainNavigator";
+import { SignUpProvider, UiProvider } from "./providers";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import moment from "moment";
+import { MainNavigator } from "@/shared/libs/navigation";
+import { AuthProvider } from "./providers/AuthContext";
 
 moment.updateLocale("pt-br", {
   months:

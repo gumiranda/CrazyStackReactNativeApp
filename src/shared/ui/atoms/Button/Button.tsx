@@ -4,6 +4,7 @@ import { TextAtom } from "@/shared/ui/atoms/TextAtom";
 import { RFValue } from "react-native-responsive-fontsize";
 import { RectButtonProps, RectButton } from "react-native-gesture-handler";
 import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
+
 export interface ButtonProps extends RectButtonProps {
   title: string;
   color: string;

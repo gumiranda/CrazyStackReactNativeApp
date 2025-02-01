@@ -4,24 +4,26 @@ export async function setItemInAsyncStorage<T>(key: string, value: T): Promise<v
   try {
     await AsyncStorage.setItem(key, JSON.stringify(value));
   } catch (error) {
-    console.error("Error saving item in AsyncStorage:", error);
+    console.error(error);
   }
 }
-const parseJson = (json: string) => {
+
+export const parseJson = <T>(value: string | null): T | null => {
   try {
-    const item = JSON.parse(json);
+    const item = JSON.parse(value || "");
     return item;
   } catch (error) {
     return null;
   }
 };
+
 export async function getItemFromAsyncStorage<T>(key: string): Promise<T | null> {
   try {
-    const item = await AsyncStorage.getItem(key);
-    if (!item || item === "") {
+    const value = await AsyncStorage.getItem(key);
+    if (!value || value === "") {
       return null;
     }
-    return parseJson(item) as T;
+    return parseJson<T>(value);
   } catch (error) {
     console.error("Error getting item from AsyncStorage:", error);
     return null;

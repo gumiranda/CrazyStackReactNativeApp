@@ -1,8 +1,5 @@
 import { saveToken } from "@/shared/api";
-import {
-  getItemFromAsyncStorage,
-  setItemInAsyncStorage,
-} from "@/shared/libs/functions/storage";
+import { getItemFromAsyncStorage, setItemInAsyncStorage } from "@/shared/libs/functions";
 import React, {
   ReactNode,
   createContext,
@@ -11,7 +8,6 @@ import React, {
   useContext,
   useLayoutEffect,
 } from "react";
-
 type AuthProviderProps = {
   children: ReactNode;
 };
@@ -21,15 +17,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState(null);
   const [verifyIsAuthenticated, setVerifyIsAuthenticated] = useState(false);
   const logout = async () => {
-    setUser(null);
     await Promise.all([
       setItemInAsyncStorage("user", null),
       setItemInAsyncStorage("authorization", null),
       setItemInAsyncStorage("refreshtoken", null),
     ]);
+    setUser(null);
     setVerifyIsAuthenticated(false);
   };
-
   useLayoutEffect(() => {
     async function init() {
       const [currentUser, accessToken, refreshToken] = await Promise.all([
@@ -40,8 +35,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       if (currentUser) {
         setUser(currentUser);
       }
-      saveToken({ type: "authorization", token: accessToken, persist: false });
-      saveToken({ type: "refreshtoken", token: refreshToken, persist: false });
+      saveToken({ token: accessToken, type: "authorization", persist: false });
+      saveToken({ token: refreshToken, type: "refreshtoken", persist: false });
       setVerifyIsAuthenticated(true);
     }
     if (!user && !verifyIsAuthenticated) {

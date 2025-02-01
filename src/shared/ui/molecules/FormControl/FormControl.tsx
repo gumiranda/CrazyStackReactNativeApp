@@ -1,23 +1,21 @@
-import React from "react";
-import Animated, { FadeInDown } from "react-native-reanimated";
-import { useTheme } from "@react-navigation/native";
+import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
+import { Input, MaterialIcon, TextAtom, TextInput, PasswordInput } from "../../atoms";
 import { Controller } from "react-hook-form";
-import { DynamicStyleSheet } from "@/shared/libs/utils";
-import { Input, MaterialIcon, PasswordInput, TextAtom, TextInput } from "../../atoms";
+import { RFValue } from "react-native-responsive-fontsize";
+import Animated, { FadeInDown } from "react-native-reanimated";
 
 export const FormControl = ({
+  inputProps,
   control,
   name,
   iconName,
   label,
   error = null,
-  inputProps,
-  defaultFormControl = true,
-  password = false,
+  defaultFormControl,
+  password,
   ...extraProps
 }) => {
   const theme = useTheme();
-
   return (
     <>
       {!!label && <TextAtom style={styles.label}>{label}</TextAtom>}
@@ -33,12 +31,13 @@ export const FormControl = ({
                 <TextInput
                   {...inputProps}
                   {...extraProps}
+                  ref={ref}
                   onBlur={onBlur}
                   onChangeText={(value) => onChange(value)}
                   defaultValue={value}
-                  value={value}
-                  ref={ref}
                   style={styles.input}
+                  value={value}
+                  iconName={iconName}
                 />
               );
             } else if (password === true) {
@@ -59,12 +58,12 @@ export const FormControl = ({
               <Input
                 {...inputProps}
                 {...extraProps}
+                ref={ref}
                 onBlur={onBlur}
-                iconName={iconName}
                 onChangeText={(value) => onChange(value)}
                 defaultValue={value}
                 value={value}
-                ref={ref}
+                iconName={iconName}
               />
             );
           }}
@@ -79,39 +78,36 @@ export const FormControl = ({
             style={styles.inputIcon}
           />
         )}
-
         {!!error && <TextAtom style={styles.errorMessage}>{error?.message}</TextAtom>}
       </Animated.View>
     </>
   );
 };
 const styles = DynamicStyleSheet.create((theme) => ({
+  input: {
+    backgroundColor: theme.colors.grey[300],
+    fontSize: RFValue(14),
+    fontFamily: fonts.primary_500,
+    color: theme.colors.text,
+    paddingLeft: RFValue(15),
+    paddingRight: RFValue(12),
+    height: RFValue(48),
+  },
   label: {
     color: theme.colors.text,
-    fontSize: 14,
+    fontSize: RFValue(14),
     textAlign: "left",
     alignSelf: "flex-start",
     marginBottom: -2,
   },
   errorMessage: {
+    fontSize: RFValue(14),
     color: theme.colors.error[500],
-    fontSize: 14,
     textAlign: "left",
     alignSelf: "flex-start",
     marginBottom: 8,
   },
   inputView: { position: "relative", width: "100%" },
-  input: {
-    fontSize: 16,
-    fontWeight: "500",
-    color: theme.colors.text,
-    paddingLeft: 48,
-    paddingRight: 12,
-    height: 48,
-    borderRadius: 12,
-    backgroundColor: theme.colors.grey[300],
-    width: "100%",
-  },
   inputIcon: {
     position: "absolute",
     left: 12,

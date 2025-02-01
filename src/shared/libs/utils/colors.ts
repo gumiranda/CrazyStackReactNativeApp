@@ -64,8 +64,11 @@ export const colors = {
   white: "#ffffff",
   darkBlue: "#2d328a",
 };
+
 export const lightColors = {
   ...colors,
+  background: colors.white,
+  text: colors.black,
   error: {
     100: "#FFD7D7",
     200: "#FFBFBF",
@@ -86,11 +89,11 @@ export const lightColors = {
     700: "#0E7A1C",
     800: "#0A6618",
   },
-  background: colors.white,
-  text: colors.black,
 };
 export const darkColors = {
   ...colors,
+  background: colors.black,
+  text: colors.white,
   error: {
     100: "#FFD7D7",
     200: "#FFBFBF",
@@ -111,6 +114,4 @@ export const darkColors = {
     700: "#0E7A1C",
     800: "#0A6618",
   },
-  background: colors.black,
-  text: colors.white,
 };

@@ -1,9 +1,7 @@
-import React from "react";
-import { Calendar as CustomCalendar, LocaleConfig } from "react-native-calendars";
-import { ptBR } from "./localeConfig";
-import { MaterialIcon } from "../MaterialIcon";
 import { fonts, useTheme } from "@/shared/libs/utils";
-
+import { Calendar as CustomCalendar, LocaleConfig } from "react-native-calendars";
+import { MaterialIcon } from "../MaterialIcon";
+import { ptBR } from "./localeConfig";
 export const Calendar = ({ markedDates, onDayPress }: CalendarProps) => {
   const theme = useTheme();
   return (
@@ -59,8 +57,10 @@ export const Calendar = ({ markedDates, onDayPress }: CalendarProps) => {
     />
   );
 };
+
 LocaleConfig.locales["pt-br"] = ptBR;
 LocaleConfig.defaultLocale = "pt-br";
+
 export interface MarkedDateProps {
   [date: string]: {
     color: string;
@@ -69,7 +69,6 @@ export interface MarkedDateProps {
     disableTouchEvent?: boolean;
   };
 }
-
 export interface DayProps {
   dateString: string;
   day: number;
@@ -77,8 +76,7 @@ export interface DayProps {
   year: number;
   timestamp: number;
 }
-
 export interface CalendarProps {
   markedDates: MarkedDateProps;
-  onDayPress: any;
+  onDayPress: (day: DayProps) => void;
 }

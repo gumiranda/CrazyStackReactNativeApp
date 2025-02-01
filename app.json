@@ -1,19 +1,22 @@
 {
   "expo": {
-    "name": "belezix",
-    "slug": "belezix",
+    "name": "crazystack",
+    "slug": "crazystack",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ],
-    "web":{
-      "bundler":"metro"
+    "web": {
+      "bundler": "metro"
     },
     "packagerOpts": {
       "config": "metro.config.js"
     },
-    "experiments": {
-      "baseUrl": "/CrazyStackReactNativeApp"
+    "android": {
+      "package": "br.com.crazystack"
+    },
+    "ios": {
+      "bundleIdentifier": "br.com.crazystack"
     }
   }
 }

@@ -1,8 +1,12 @@
-import { View, Text } from "react-native";
+import { Modal, ScrollView, TouchableOpacity, View } from "react-native";
+import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { RFValue } from "react-native-responsive-fontsize";
 import { Controller } from "react-hook-form";
-import { DynamicStyleSheet } from "@/shared/libs/utils";
 import { Select } from "./Select";
+import { TextAtom } from "../TextAtom";
 import appMetrics from "@/shared/libs/functions/metrics";
+
 export const SelectHookForm = ({
   control,
   list,
@@ -17,41 +21,40 @@ export const SelectHookForm = ({
   haveLoadMore = true,
 }) => {
   return (
-    <View style={styles.containerSelect}>
+    <View style={styles.container} data-testid="SelectHookFormTestId">
       <Controller
         control={control}
         name={name}
         defaultValue={defaultValue}
-        render={({ field: { onChange, value } }) => (
-          <Select
-            options={list}
-            onSelect={onChange}
-            placeholder={placeholder}
-            selectedValue={value}
-            keyValue={keyValue}
-            keyLabel={keyLabel}
-            label={label}
-            extraOnChange={extraOnChange}
-            haveLoadMore={haveLoadMore}
-          />
-        )}
+        render={({ field: { onChange, value } }) => {
+          return (
+            <Select
+              options={list}
+              onSelect={onChange}
+              placeholder={placeholder}
+              selectedValue={value}
+              keyLabel={keyLabel}
+              keyValue={keyValue}
+              label={label}
+              extraOnChange={extraOnChange}
+              haveLoadMore={haveLoadMore}
+            />
+          );
+        }}
       />
-      {errors[name] && <Text style={styles.errorMessage}>{errors[name].message}</Text>}
+      {errors[name] && (
+        <TextAtom style={styles.errorMessage}>{errors[name].message}</TextAtom>
+      )}
     </View>
   );
 };
-
 const styles = DynamicStyleSheet.create((theme) => ({
   container: {
     flex: 1,
   },
-  button: {
-    width: appMetrics.SCREEN_WIDTH * 0.9,
-    alignSelf: "center",
-  },
   errorMessage: {
     color: theme.colors.error[500],
-    fontSize: 14,
+    fontSize: RFValue(12),
     textAlign: "left",
     alignSelf: "flex-start",
     marginBottom: 8,

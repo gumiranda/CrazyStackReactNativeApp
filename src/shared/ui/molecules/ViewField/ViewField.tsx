@@ -1,21 +1,24 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable react/display-name */
 import { View } from "react-native";
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
+import { TextAtom } from "../../atoms";
 import { RFValue } from "react-native-responsive-fontsize";
 import { useMemo } from "react";
-import { TextAtom } from "../../atoms/TextAtom";
 
-export const ViewField = ({ children }) => {
-  return <View style={styles.viewField}>{children}</View>;
+export const ViewField = ({ children, style = {}, ...rest }) => {
+  return (
+    <View {...rest} style={[styles.baseStyle, style]} data-testid="ViewFieldTestId">
+      {children}
+    </View>
+  );
 };
-export const Label = ({ children }) => {
-  return <TextAtom style={styles.label}>{children}</TextAtom>;
+export const Label = ({ children, style = {}, ...rest }) => {
+  return (
+    <TextAtom {...rest} style={[styles.label, style]} data-testid="LabelTestId">
+      {children}
+    </TextAtom>
+  );
 };
-export const Description = ({ children }) => {
-  return <TextAtom style={styles.description}>{children}</TextAtom>;
-};
-export const PriceText = ({ children }) => {
+export const PriceText = ({ children, style = {}, ...rest }) => {
   const priceText = useMemo(() => {
     return `${
       children?.toLocaleString?.("pt-BR", {
@@ -24,7 +27,22 @@ export const PriceText = ({ children }) => {
       }) ?? ""
     }`;
   }, [children]);
-  return <TextAtom style={styles.priceText}>{priceText}</TextAtom>;
+  return (
+    <TextAtom {...rest} style={[styles.priceText, style]} data-testid="PriceTextTestId">
+      {priceText}
+    </TextAtom>
+  );
+};
+export const Description = ({ children, style = {}, ...rest }) => {
+  return (
+    <TextAtom
+      {...rest}
+      style={[styles.description, style]}
+      data-testid="DescriptionTestId"
+    >
+      {children}
+    </TextAtom>
+  );
 };
 
 ViewField.Label = Label;
@@ -32,7 +50,7 @@ ViewField.Description = Description;
 ViewField.PriceText = PriceText;
 
 const styles = DynamicStyleSheet.create((theme) => ({
-  viewField: {
+  baseStyle: {
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
@@ -40,21 +58,21 @@ const styles = DynamicStyleSheet.create((theme) => ({
   },
   label: {
     color: theme.colors.text,
-    fontSize: RFValue(15),
+    fontSize: RFValue(16),
     fontFamily: fonts.primary_500,
     textAlign: "center",
     marginTop: 3,
   },
   description: {
     color: theme.colors.text,
-    fontSize: RFValue(15),
+    fontSize: RFValue(14),
     fontFamily: fonts.primary_400,
     textAlign: "center",
     marginTop: 3,
   },
   priceText: {
-    color: theme.colors.tertiary[500],
-    fontSize: RFValue(15),
+    color: theme.dark ? theme.colors.tertiary[300] : theme.colors.tertiary[500],
+    fontSize: RFValue(14),
     fontFamily: fonts.primary_600,
     textAlign: "center",
     marginTop: 3,

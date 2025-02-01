@@ -6,7 +6,9 @@ import {
   TextStyle,
   ImageStyle,
 } from "react-native";
-import { darkTheme, lightTheme } from "./theme";
+import { lightTheme, darkTheme } from "./theme";
+
+// From https://gist.github.com/necolas/5b421ca860ed98eabc5fd2b9bc6d1136
 
 export const DynamicStyleSheet = {
   create: <T extends NamedStyles<T> | NamedStyles<any>>(styles: Styles<T>): T => {
@@ -53,9 +55,12 @@ type NamedStyles<T> = {
   [P in keyof T]: ViewStyle | TextStyle | ImageStyle;
 };
 
-type Styles<T extends NamedStyles<T>> = ((theme: any) => T) | T;
+type Styles<T extends NamedStyles<T>> = ((theme: typeof lightTheme) => T) | T;
 
-function getStyles<T extends NamedStyles<T>>(styles: Styles<T>, theme: any): T {
+function getStyles<T extends NamedStyles<T>>(
+  styles: Styles<T>,
+  theme: typeof lightTheme
+): T {
   return StyleSheet.create(typeof styles === "function" ? styles(theme) : styles);
 }
 /*

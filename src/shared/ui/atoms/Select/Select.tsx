@@ -1,8 +1,10 @@
-import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, Modal, ScrollView } from "react-native";
-import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { Modal, ScrollView, TouchableOpacity, View } from "react-native";
+import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
+import { useState } from "react";
+import { TextAtom } from "../TextAtom";
 import { Ionicons } from "@expo/vector-icons"; // Importe o ícone do Expo
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { RFValue } from "react-native-responsive-fontsize";
 
 export const Select = ({
   options,
@@ -15,9 +17,9 @@ export const Select = ({
   extraOnChange,
   haveLoadMore = true,
 }) => {
+  const theme = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedOption, setSelectedOption] = useState(selectedValue);
-
   const handleSelect = (option) => {
     extraOnChange?.(option);
     if (option?.[keyValue] === "loadMore") {
@@ -27,36 +29,35 @@ export const Select = ({
     onSelect(option);
     setModalVisible(false);
   };
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.selectButtonText}>{label}</Text>
+    <View style={styles.baseStyle} data-testid="SelectTestId">
+      <TextAtom style={styles.selectButtonText}>{label}</TextAtom>
       <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.selectButton}>
-        <Text style={styles.selectButtonText}>
+        <TextAtom style={styles.selectButtonText}>
           {selectedOption?.[keyLabel] ?? placeholder}
-        </Text>
+        </TextAtom>
       </TouchableOpacity>
-
       <Modal
         animationType="slide"
-        transparent={true}
+        transparent
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalHeader}>
             <TouchableOpacity onPress={() => setModalVisible(false)}>
-              <Ionicons name="close" size={24} color="black" />
+              <Ionicons name="close" size={24} color={theme.colors.text} />
             </TouchableOpacity>
           </View>
           <ScrollView style={styles.modalContent}>
             {options?.map?.((option) => (
               <TouchableOpacity
                 key={option?.[keyValue]}
-                style={styles.option}
-                onPress={() => handleSelect(option)}
+                onPress={() => {
+                  handleSelect(option);
+                }}
               >
-                <Text style={styles.selectButtonText}>{option?.[keyLabel]}</Text>
+                <TextAtom style={styles.selectButtonText}>{option?.[keyLabel]}</TextAtom>
               </TouchableOpacity>
             ))}
             {haveLoadMore === true && (
@@ -64,7 +65,7 @@ export const Select = ({
                 style={styles.option}
                 onPress={() => handleSelect({ [keyValue]: "loadMore" })}
               >
-                <Text style={styles.selectButtonText}>Carregar mais...</Text>
+                <TextAtom style={styles.selectButtonText}>Carregar mais...</TextAtom>
               </TouchableOpacity>
             )}
           </ScrollView>
@@ -73,22 +74,22 @@ export const Select = ({
     </View>
   );
 };
-
 const styles = DynamicStyleSheet.create((theme) => ({
-  container: {
+  baseStyle: {
+    backgroundColor: theme.colors.background,
     marginVertical: 5,
+  },
+  selectButtonText: {
+    marginVertical: 8,
+    fontSize: RFValue(16),
+    fontFamily: fonts.primary_400,
+    color: theme.colors.text,
   },
   selectButton: {
     padding: 10,
     borderWidth: 1,
-    borderRadius: 5,
+    borderRadius: 4,
     borderColor: theme.colors.grey[300],
-  },
-  selectButtonText: {
-    marginVertical: 8,
-    fontSize: 16,
-    fontFamily: fonts.primary_400,
-    color: theme.colors.text,
   },
   modalContainer: {
     flex: 1,
@@ -98,13 +99,13 @@ const styles = DynamicStyleSheet.create((theme) => ({
   modalHeader: {
     flexDirection: "row",
     justifyContent: "flex-end",
-    paddingRight: 10,
-    marginTop: 40,
+    padding: 10,
+    marginTop: 4,
   },
   modalContent: {
     backgroundColor: theme.colors.background,
     padding: 20,
-    borderRadius: 5,
+    borderRadius: 4,
   },
   option: {
     paddingVertical: 10,
