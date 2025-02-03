@@ -31,7 +31,7 @@ export const stackRoutes = [
   {
     name: "HomeClient",
     component: HomeClient,
-    title: "HomeClient",
+    title: "Início",
   },
   {
     name: "CreateRequestOwner",
