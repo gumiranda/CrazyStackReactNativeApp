@@ -38,3 +38,6 @@ yarn.lock
 .env
 android/app/gradle.properties
 android/app/gustavo.keystore
+android/app/gustavo.keystore
+android/app/gradle.properties
+.vercel
