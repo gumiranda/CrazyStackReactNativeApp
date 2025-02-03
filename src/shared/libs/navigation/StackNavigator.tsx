@@ -14,7 +14,7 @@ import { useAuth } from "@/app/providers";
 
 const Stack = createNativeStackNavigator();
 
-export const FIRST_ROUTE_UNLOGGED = "Initial";
+export const FIRST_ROUTE_UNLOGGED = "GetStarted";
 
 const headerConfig = ({ navigation, route, options }) => {
   const { user, verifyIsAuthenticated } = useAuth();
