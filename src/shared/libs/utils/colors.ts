@@ -6,10 +6,10 @@ export const colors = {
     200: lighten(0.3, "#9f7aea"),
     300: lighten(0.1, "#9f7aea"),
     400: "#9f7aea",
-    500: "#7159c1",
+    500: "#8826d5",
     600: "#5f38e0",
-    700: darken(0.1, "#5f38e0"),
-    800: darken(0.2, "#5f38e0"),
+    700: darken(0.1, "#8826d5"),
+    800: darken(0.2, "#8826d5"),
   },
   secondary: {
     100: lighten(0.4, "#2e2e2e"),
