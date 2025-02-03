@@ -2,13 +2,13 @@ import React from "react";
 import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
-import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
+import { DynamicStyleSheet } from "@/shared/libs/utils";
 import { Welcome } from "./components/Welcome";
 import { Steps } from "./components/Steps";
+import { Button } from "@/shared/ui";
 
 export const GetStarted = () => {
   const navigation = useNavigation();
-  const theme = useTheme();
 
   function handleSignIn() {
     navigation.navigate("SignInPage");
@@ -17,6 +17,9 @@ export const GetStarted = () => {
     <View style={styles.container}>
       <Welcome />
       <Steps />
+      <Button onPress={() => handleSignIn()}>
+        <Button.Title>Começar</Button.Title>
+      </Button>
       <StatusBar style="auto" />
     </View>
   );

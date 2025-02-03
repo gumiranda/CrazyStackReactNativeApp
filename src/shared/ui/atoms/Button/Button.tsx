@@ -10,7 +10,7 @@ export interface ButtonProps extends RectButtonProps {
   loading?: boolean;
   enabled?: boolean;
   onPress: () => void;
-  backgroundColor: string;
+  backgroundColor?: string;
   style?: any;
 }
 export const Button = ({
@@ -29,15 +29,15 @@ export const Button = ({
       style={[
         { opacity: enabled === false || loading === true ? 0.5 : 1 },
         styles.container,
-        { backgroundColor, ...style },
+        { backgroundColor: backgroundColor ?? theme.colors.primary[500], ...style },
       ]}
     >
       {loading ? <ActivityIndicator color={theme.colors.primary[500]} /> : children}
     </RectButton>
   );
 };
-function Title({ children, color }: TextProps & { color: string }) {
-  return <TextAtom style={[styles.title, { color }]}>{children}</TextAtom>;
+function Title({ children, color = "#fff", style }: TextProps & { color?: string }) {
+  return <TextAtom style={[styles.title, { color }, style]}>{children}</TextAtom>;
 }
 type IconProps = {
   icon: React.ComponentType<TablerIconProps>;
@@ -62,5 +62,6 @@ const styles = DynamicStyleSheet.create((theme) => ({
   title: {
     fontFamily: fonts.secondary_600,
     fontSize: RFValue(15),
+    color: theme.colors.white,
   },
 }));
