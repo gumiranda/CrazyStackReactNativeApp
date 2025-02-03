@@ -100,10 +100,18 @@ export function editRequestMutation({
   return useMutation({
     mutationFn: async (request: EditRequestFormData) => {
       try {
-        const { data } = await api.patch(`/request/update?_id=${currentRequest._id}`, {
+        if (request?.timeAvailable) {
+          delete request.timeAvailable;
+          delete request.type;
+        }
+        const body = {
           ...request,
           updatedAt: new Date(),
-        });
+        };
+        const { data } = await api.patch(
+          `/request/update?_id=${currentRequest._id}`,
+          body
+        );
         if (!data) {
           showModal({
             content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",

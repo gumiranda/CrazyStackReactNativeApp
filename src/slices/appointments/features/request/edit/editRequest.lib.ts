@@ -17,6 +17,8 @@ export type EditRequestFormData = {
   haveRide?: boolean;
   haveFidelity?: boolean;
   haveDelivery?: boolean;
+  timeAvailable?: any;
+  type?: any;
 };
 
 export type SubmitEditRequestHandler = SubmitHandler<EditRequestFormData>;
