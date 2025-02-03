@@ -1,11 +1,10 @@
 import React from "react";
-import { getStatusBarHeight } from "react-native-iphone-x-helper";
-import { RFValue } from "react-native-responsive-fontsize";
 import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
-import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
+import { DynamicStyleSheet, useTheme } from "@/shared/libs/utils";
 import { Welcome } from "./components/Welcome";
+import { Steps } from "./components/Steps";
 
 export const GetStarted = () => {
   const navigation = useNavigation();
@@ -17,6 +16,7 @@ export const GetStarted = () => {
   return (
     <View style={styles.container}>
       <Welcome />
+      <Steps />
       <StatusBar style="auto" />
     </View>
   );
