@@ -10,14 +10,14 @@ import { Button } from "@/shared/ui";
 export const GetStarted = () => {
   const navigation = useNavigation();
 
-  function handleSignIn() {
+  function handleNextGetStarted() {
     navigation.navigate("SignInPage");
   }
   return (
     <View style={styles.container}>
       <Welcome />
       <Steps />
-      <Button onPress={() => handleSignIn()}>
+      <Button onPress={() => handleNextGetStarted()}>
         <Button.Title>Começar</Button.Title>
       </Button>
       <StatusBar style="auto" />

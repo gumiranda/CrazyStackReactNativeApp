@@ -3,7 +3,7 @@ import { SignUpPage } from "@/slices/general/screens/auth/signUp";
 import { HomeClient } from "@/slices/appointments/screens/home/HomeClient";
 import { HomePage } from "@/slices/appointments/screens/home/HomePage";
 import { Initial } from "@/slices/appointments/screens/Initial";
-import { GetStarted } from "@/slices/appointments/screens/GetStarted";
+import { GetStarted } from "@/slices/appointments/screens/getStarted";
 import { CreateRequestOwner } from "@/slices/appointments/screens/request/create/CreateRequestOwner";
 import { ConfirmRequestOwner } from "@/slices/appointments/processes/request/ConfirmRequestOwner";
 import { MyRequestsDetailsOwner } from "@/slices/appointments/screens/request/details/MyRequestsDetailsOwner";
