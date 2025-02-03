@@ -64,10 +64,10 @@ export const ServiceProfessionalSelect = ({
       <Button
         style={styles.button}
         onPress={handleSubmit(onSubmit)}
-        title={buttonTitle}
         backgroundColor={theme.colors.tertiary[300]}
-        color={theme.colors.black}
-      />
+      >
+        <Button.Title color={theme.colors.black}>{buttonTitle}</Button.Title>
+      </Button>
     </>
   );
 };

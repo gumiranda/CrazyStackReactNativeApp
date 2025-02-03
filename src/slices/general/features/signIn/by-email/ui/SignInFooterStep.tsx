@@ -12,20 +12,20 @@ export const SignInFooterStep = ({
   return (
     <View>
       <Button
-        title={buttonText}
-        color={theme.colors.white}
         onPress={nextStep}
         enabled={!isLogging}
         loading={isLogging}
         backgroundColor={theme.colors.primary[600]}
-      />
+      >
+        <Button.Title color={theme.colors.white}>{buttonText}</Button.Title>
+      </Button>
       <Button
-        title="Criar conta gratuita"
         onPress={handleNewAccount}
-        color={theme.colors.black}
         backgroundColor={theme.colors.tertiary[300]}
         style={{ marginTop: 12 }}
-      />
+      >
+        <Button.Title color={theme.colors.black}>Criar conta gratuita</Button.Title>
+      </Button>
     </View>
   );
 };

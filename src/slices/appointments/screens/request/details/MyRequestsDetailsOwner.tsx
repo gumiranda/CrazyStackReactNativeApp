@@ -32,20 +32,18 @@ export const MyRequestsDetailsOwner = ({
       {[1, 7, 4, 5, 6, 8].includes(item?.status) && (
         <Button
           style={styles.button}
-          title={"REAGENDAR"}
-          color={theme.colors.white}
           backgroundColor={theme.colors.primary[400]}
           onPress={() => {
             navigation.navigate("EditRequest", { item, user, client });
           }}
-        />
+        >
+          <Button.Title color={theme.colors.white}>REAGENDAR</Button.Title>
+        </Button>
       )}
 
       {[1, 7].includes(item?.status) && (
         <Button
           style={styles.buttonError}
-          title={"CANCELAR"}
-          color={theme.colors.white}
           backgroundColor={theme.colors.error[400]}
           onPress={() => {
             showModal({
@@ -59,7 +57,9 @@ export const MyRequestsDetailsOwner = ({
               },
             });
           }}
-        />
+        >
+          <Button.Title color={theme.colors.white}>CANCELAR</Button.Title>
+        </Button>
       )}
 
       <StatusBar style="auto" />
