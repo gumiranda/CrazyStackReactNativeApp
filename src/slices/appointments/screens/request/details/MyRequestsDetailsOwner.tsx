@@ -33,7 +33,7 @@ export const MyRequestsDetailsOwner = ({
         <Button
           style={styles.button}
           title={"REAGENDAR"}
-          color={theme.colors.black}
+          color={theme.colors.white}
           backgroundColor={theme.colors.primary[400]}
           onPress={() => {
             navigation.navigate("EditRequest", { item, user, client });
@@ -45,7 +45,7 @@ export const MyRequestsDetailsOwner = ({
         <Button
           style={styles.buttonError}
           title={"CANCELAR"}
-          color={theme.colors.black}
+          color={theme.colors.white}
           backgroundColor={theme.colors.error[400]}
           onPress={() => {
             showModal({

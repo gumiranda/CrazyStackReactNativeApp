@@ -14,6 +14,8 @@ import { useAuth } from "@/app/providers";
 
 const Stack = createNativeStackNavigator();
 
+export const FIRST_ROUTE_UNLOGGED = "Initial";
+
 const headerConfig = ({ navigation, route, options }) => {
   const { user, verifyIsAuthenticated } = useAuth();
   if (routesWithoutHeader.includes(route.name)) {
@@ -31,7 +33,10 @@ const headerConfig = ({ navigation, route, options }) => {
       return;
     }
     navigation.dispatch(
-      CommonActions.reset({ index: 0, routes: [{ name: user ? "HomePage" : "Initial" }] })
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: user ? "HomePage" : FIRST_ROUTE_UNLOGGED }],
+      })
     );
   };
   const isInitPage = title === "Início";
@@ -64,7 +69,7 @@ export const StackNavigator = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={user?.role === "owner" ? "HomePage" : "Initial"}
+      initialRouteName={user?.role === "owner" ? "HomePage" : FIRST_ROUTE_UNLOGGED}
       screenOptions={{ header: headerConfig }}
     >
       {stackRoutes.map((route, index) => (

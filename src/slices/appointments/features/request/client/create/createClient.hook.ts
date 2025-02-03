@@ -8,14 +8,19 @@ import {
 } from "./createClient.lib";
 import { api } from "@/shared/api";
 
-export const useCreateClient = ({ userList }) => {
+export const useCreateClient = ({ userList, owner }) => {
   const { showModal } = useUi();
   const createClient = createClientMutation(showModal, null);
   const { handleSubmit, formState, ...formProps } = useCreateClientLib();
   const handleCreateClient: SubmitCreateClientHandler = async (
     data: CreateClientFormData
   ) => {
-    await createClient.mutateAsync({ ...data, userId: userList?.[0]._id });
+    await createClient.mutateAsync({
+      ...data,
+      userId: userList?.[0]._id,
+      myOwnerId: owner?.createdById,
+      ownerId: owner?._id,
+    });
   };
   return {
     formState,
