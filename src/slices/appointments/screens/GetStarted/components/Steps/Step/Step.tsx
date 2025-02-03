@@ -31,12 +31,12 @@ const styles = DynamicStyleSheet.create((theme) => ({
   title: {
     fontSize: RFValue(14),
     fontFamily: fonts.poppins_500,
-    color: theme.colors.grey[600],
+    color: theme.colors.gray[700],
   },
   description: {
     fontSize: RFValue(12),
     fontFamily: fonts.poppins_400,
-    color: theme.colors.grey[500],
+    color: theme.colors.gray[600],
     marginTop: 4,
   },
 }));

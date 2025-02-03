@@ -23,12 +23,12 @@ const styles = DynamicStyleSheet.create((theme) => ({
   title: {
     fontSize: RFValue(18),
     fontFamily: fonts.poppins_700,
-    color: theme.colors.grey[700],
+    color: theme.colors.gray[700],
   },
   subtitle: {
     fontSize: RFValue(14),
     fontFamily: fonts.poppins_400,
-    color: theme.colors.grey[600],
+    color: theme.colors.gray[600],
     marginTop: 12,
   },
 }));

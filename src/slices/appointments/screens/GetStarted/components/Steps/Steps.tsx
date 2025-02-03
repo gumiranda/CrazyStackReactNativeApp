@@ -34,6 +34,6 @@ const styles = DynamicStyleSheet.create((theme) => ({
   title: {
     fontSize: RFValue(14),
     fontFamily: fonts.poppins_500,
-    color: theme.colors.grey[600],
+    color: theme.colors.gray[700],
   },
 }));
