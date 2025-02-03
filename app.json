@@ -22,7 +22,7 @@
     "splash": {
       "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#8826d5"
     },
     "android": {
       "package": "br.com.crazystack",
