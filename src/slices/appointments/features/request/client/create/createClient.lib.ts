@@ -4,10 +4,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export interface CreateClientFormData {
-  email: string;
   name: string;
+  active?: boolean;
+  userId?: string;
   phone: string;
-  userId: string;
+  _id?: string;
+  myOwnerId?: string;
+  ownerId?: string;
 }
 
 export type SubmitCreateClientHandler = SubmitHandler<CreateClientFormData>;

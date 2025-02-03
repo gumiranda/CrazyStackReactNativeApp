@@ -20,7 +20,7 @@ export const FullCreateRequestForm = () => {
     {
       title: "Cliente",
       description: "Nome e telefone",
-      component: <StepClient userList={clients} nextStep={nextStep} />,
+      component: <StepClient owner={owner} userList={clients} nextStep={nextStep} />,
     },
     {
       title: "Profissional e Serviço",

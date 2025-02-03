@@ -7,11 +7,11 @@ import { useEffect } from "react";
 import { ScrollView } from "react-native";
 import { useCreateRequest } from "../context/CreateRequest.context";
 
-export const StepClient = ({ userList, nextStep }) => {
+export const StepClient = ({ userList, owner, nextStep }) => {
   const theme = useTheme();
   const { setRequest } = useCreateRequest();
   const { formState, control, handleSubmit, handleCreateClient, setFocus, createClient } =
-    useCreateClient({ userList });
+    useCreateClient({ userList, owner });
   useEffect(() => {
     if (createClient?.data) {
       setRequest((prev) => ({ ...prev, clientCreated: createClient.data }));
