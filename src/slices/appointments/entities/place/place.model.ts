@@ -8,10 +8,9 @@ export type PlaceProps = {
   active?: boolean;
   description: string;
   cover: number;
-  latitude: number;
-  longitude: number;
+  coord: any;
   address: string;
-  coupons: string;
+  ownerId?: string;
 };
 
 class Place {
@@ -46,17 +45,14 @@ class Place {
   get cover(): number {
     return this.props.cover;
   }
-  get latitude(): number {
-    return this.props.latitude;
-  }
-  get longitude(): number {
-    return this.props.longitude;
-  }
   get address(): string {
     return this.props.address;
   }
-  get coupons(): string {
-    return this.props.coupons;
+  get coord(): any {
+    return this.props.coord;
+  }
+  get ownerId(): string | undefined {
+    return this.props.ownerId;
   }
 
   format(): PlaceProps {
