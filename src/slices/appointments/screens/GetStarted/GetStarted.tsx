@@ -11,7 +11,7 @@ export const GetStarted = () => {
   const navigation = useNavigation();
 
   function handleNextGetStarted() {
-    navigation.navigate("SignInPage");
+    navigation.navigate("HomeClient");
   }
   return (
     <View style={styles.container}>

@@ -13,6 +13,7 @@ export declare global {
         role: string;
       };
       ConfirmRequestOwner: { request: any };
+      HomeClient: undefined;
     }
   }
 }
