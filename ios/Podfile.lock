@@ -11,6 +11,8 @@ PODS:
     - ExpoModulesCore
   - ExpoFont (13.0.3):
     - ExpoModulesCore
+  - ExpoHead (4.0.17):
+    - ExpoModulesCore
   - ExpoKeepAwake (14.0.2):
     - ExpoModulesCore
   - ExpoLocation (18.0.6):
@@ -1697,6 +1699,7 @@ DEPENDENCIES:
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoFont (from `../node_modules/expo-font/ios`)
+  - ExpoHead (from `../node_modules/expo-router/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoLocation (from `../node_modules/expo-location/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
@@ -1791,6 +1794,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-file-system/ios"
   ExpoFont:
     :path: "../node_modules/expo-font/ios"
+  ExpoHead:
+    :path: "../node_modules/expo-router/ios"
   ExpoKeepAwake:
     :path: "../node_modules/expo-keep-awake/ios"
   ExpoLocation:
@@ -1945,6 +1950,7 @@ SPEC CHECKSUMS:
   ExpoAsset: 77e4579f19b48d6b3f4055c933e86ce45e80caeb
   ExpoFileSystem: dfca98dde30460788cb9f6f51f177888fa021934
   ExpoFont: 8b14db1afebf62e9774613a082e402985f4e747c
+  ExpoHead: 3d555eb5d0d68c478b9ea259337686c58de22c71
   ExpoKeepAwake: 1f74cdf53ab3b3aeb7110f18eb053c92e7c3e710
   ExpoLocation: d872aac36a8d5d23f1c7b90120c8fc5fec0aa9a8
   ExpoModulesCore: 0cdd8cd936fb309a81d37976a20e92e7111d9578
