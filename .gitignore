@@ -39,3 +39,4 @@ yarn.lock
 android/app/gustavo.keystore
 android/app/gradle.properties
 .vercel
+android/app/src/main/AndroidManifest copy.xml
