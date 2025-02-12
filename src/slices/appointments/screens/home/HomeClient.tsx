@@ -1,12 +1,13 @@
-import { api2 } from "@/shared/api";
+import { api } from "@/shared/api";
 import { useEffect, useState } from "react";
 import { Alert, View, Text } from "react-native";
 import MapView, { Callout, Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { fonts, useTheme } from "@/shared/libs/utils";
+import { Categories } from "./components/organisms/categories";
 
 export type CategoryProps = {
-  id: string;
+  _id: string;
   name: string;
 }[];
 export type PlaceProps = {
@@ -15,10 +16,6 @@ export type PlaceProps = {
   description: string;
   cover: string;
   address: string;
-};
-type MarketProps = PlaceProps & {
-  latitude: number;
-  longitude: number;
 };
 
 export const HomeClient = () => {
@@ -29,8 +26,10 @@ export const HomeClient = () => {
   const [currentLocation, setCurrentLocation] = useState<any>(null);
   async function fetchCategories() {
     try {
-      const { data } = await api2.get("/categories");
-      setCategories(data);
+      const { data } = await api.get(
+        "/categoryPlace/loadByPage?page=1&sortBy=name&typeSort=asc"
+      );
+      setCategories(data?.categoryPlaces);
     } catch (error) {
       console.log(error);
       Alert.alert("Erro", "Não foi possível carregar as categorias");
@@ -44,7 +43,6 @@ export const HomeClient = () => {
         return;
       }
       const location = await Location.getCurrentPositionAsync();
-      console.log(location);
       setCurrentLocation({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
@@ -65,8 +63,10 @@ export const HomeClient = () => {
   async function fetchMarkets() {
     try {
       if (!category) return;
-      const { data } = await api2.get(`/markets/category/${category}`);
-      setMarkets(data);
+      const { data } = await api.get(
+        `/place/loadByPage?page=1&categoryPlaceId=${category}`
+      );
+      setMarkets(data?.places);
     } catch (error) {
       console.log(error);
       Alert.alert("Erro", "Não foi possível carregar os mercados");
@@ -74,11 +74,11 @@ export const HomeClient = () => {
   }
   return (
     <View style={{ flex: 1, backgroundColor: "#cecece" }}>
-      {/* <Categories
+      <Categories
         data={categories}
         selected={category}
         onSelect={(id) => setCategory(id)}
-      /> */}
+      />
       {currentLocation && (
         <MapView
           style={{ flex: 1 }}
@@ -94,20 +94,20 @@ export const HomeClient = () => {
             coordinate={currentLocation}
             image={require("@/assets/location.png")}
           />
-          {markets.map((market) => (
+          {markets?.map?.((market) => (
             <Marker
-              key={market.id}
-              identifier={market.id}
+              key={market?._id}
+              identifier={market?._id}
               coordinate={{
-                latitude: market?.coord?.coordinates?.latitude,
-                longitude: market?.coord?.coordinates?.longitude,
+                latitude: market?.coord?.coordinates?.[0],
+                longitude: market?.coord?.coordinates?.[1],
               }}
               image={require("@/assets/pin.png")}
             >
               <Callout
                 onPress={() => {
                   // @ts-ignore
-                  router.navigate(`market/${market.id}`);
+                  //router.navigate(`market/${market._id}`);
                 }}
               >
                 <View>
@@ -118,7 +118,7 @@ export const HomeClient = () => {
                       fontFamily: fonts.poppins_500,
                     }}
                   >
-                    {market.name}
+                    {market?.name}
                   </Text>
                   <Text
                     style={{
@@ -127,7 +127,7 @@ export const HomeClient = () => {
                       fontFamily: fonts.poppins_400,
                     }}
                   >
-                    {market.address}
+                    {market?.address}
                   </Text>
                 </View>
               </Callout>
