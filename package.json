@@ -25,6 +25,7 @@
     "@expo-google-fonts/poppins": "^0.2.3",
     "@expo-google-fonts/spartan": "^0.2.2",
     "@expo/webpack-config": "^19.0.1",
+    "@gorhom/bottom-sheet": "^5.1.1",
     "@hookform/resolvers": "^3.3.4",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/bottom-tabs": "^6.5.19",

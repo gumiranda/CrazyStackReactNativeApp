@@ -5,6 +5,7 @@ import MapView, { Callout, Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { fonts, useTheme } from "@/shared/libs/utils";
 import { Categories } from "./components/organisms/categories";
+import { Places } from "./components/organisms/places";
 
 export type CategoryProps = {
   _id: string;
@@ -135,7 +136,7 @@ export const HomeClient = () => {
           ))}
         </MapView>
       )}
-      {/* <Places data={markets} /> */}
+      <Places data={markets} />
     </View>
   );
 };
