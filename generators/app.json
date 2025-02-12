@@ -34,9 +34,6 @@
     "ios": {
       "bundleIdentifier": "br.com.crazystack",
       "supportsTablet": true
-    },
-    "plugins": [
-      "expo-router"
-    ]
+    }
   }
 }
