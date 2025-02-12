@@ -13,7 +13,6 @@ export type PlaceProps = {
   id: string;
   name: string;
   description: string;
-  coupons: number;
   cover: string;
   address: string;
 };
@@ -26,7 +25,7 @@ export const HomeClient = () => {
   const theme = useTheme();
   const [categories, setCategories] = useState<CategoryProps>([]);
   const [category, setCategory] = useState<string>("");
-  const [markets, setMarkets] = useState<MarketProps[]>([]);
+  const [markets, setMarkets] = useState<any[]>([]);
   const [currentLocation, setCurrentLocation] = useState<any>(null);
   async function fetchCategories() {
     try {
@@ -100,8 +99,8 @@ export const HomeClient = () => {
               key={market.id}
               identifier={market.id}
               coordinate={{
-                latitude: market.latitude,
-                longitude: market.longitude,
+                latitude: market?.coord?.coordinates?.latitude,
+                longitude: market?.coord?.coordinates?.longitude,
               }}
               image={require("@/assets/pin.png")}
             >
