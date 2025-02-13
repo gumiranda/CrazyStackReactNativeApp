@@ -11,7 +11,7 @@ export const getCategoryPlaces = async (
   page: number,
   params: any = {}
 ): Promise<GetCategoryPlacesResponse> => {
-  const { data } = await api.get("/categoryplace/loadByPage", {
+  const { data } = await api.get("/categoryPlace/loadByPage", {
     params: { page, sortBy: "createdAt", typeSort: "desc", ...params },
   });
   const { categoryplaces = [], total } = data || {};
@@ -43,7 +43,7 @@ export const getCategoryPlaceById = async (
   id: string
 ): Promise<CategoryPlaceProps | null> => {
   try {
-    const { data } = await api.get("/categoryplace/load", {
+    const { data } = await api.get("/categoryPlace/load", {
       params: { _id: id },
     });
     if (!data) {

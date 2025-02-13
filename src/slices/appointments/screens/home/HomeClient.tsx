@@ -30,7 +30,7 @@ export const HomeClient = () => {
   async function fetchCategories() {
     try {
       const { data } = await api.get(
-        "/categoryPlace/loadByPage?page=1&sortBy=name&typeSort=asc"
+        "/public/categoryPlace/loadByPage?page=1&sortBy=name&typeSort=asc"
       );
       setCategories(data?.categoryPlaces);
     } catch (error) {
@@ -67,7 +67,7 @@ export const HomeClient = () => {
     try {
       if (!category) return;
       const { data } = await api.get(
-        `/place/loadByPage?page=1&categoryPlaceId=${category}`
+        `/public/place/loadByPage?page=1&categoryPlaceId=${category}`
       );
       setPlaces(data?.places);
     } catch (error) {
