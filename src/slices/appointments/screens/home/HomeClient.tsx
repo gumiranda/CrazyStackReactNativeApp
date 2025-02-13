@@ -109,7 +109,7 @@ export const HomeClient = () => {
             >
               <Callout
                 onPress={() => {
-                  navigation.navigate("PlaceDetails", { place });
+                  navigation.navigate("PlaceDetails", { place, name: place?.name });
                 }}
               >
                 <View>

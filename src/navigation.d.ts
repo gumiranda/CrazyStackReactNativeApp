@@ -14,7 +14,7 @@ export declare global {
       };
       ConfirmRequestOwner: { request: any };
       HomeClient: undefined;
-      PlaceDetails: { place: any };
+      PlaceDetails: { place: any; name: string };
     }
   }
 }

@@ -52,7 +52,7 @@ export const stackRoutes = [
   {
     name: "PlaceDetails",
     component: PlaceDetails,
-    title: "Detalhes do estabelecimento",
+    title: "Detalhes",
   },
 ];
 export const routesWithoutHeader = ["GetStarted", "Initial", "SignUpPage", "SignInPage"];

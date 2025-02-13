@@ -72,12 +72,14 @@ export const StackNavigator = () => {
       initialRouteName={user?.role === "owner" ? "HomePage" : FIRST_ROUTE_UNLOGGED}
       screenOptions={{ header: headerConfig }}
     >
-      {stackRoutes.map((route, index) => (
+      {stackRoutes.map((rota, index) => (
         <React.Fragment key={index}>
           <Stack.Screen
-            name={route.name}
-            component={route.component}
-            options={{ title: route?.title }}
+            name={rota.name}
+            component={rota.component}
+            options={({ route }: any) => ({
+              title: route?.params?.name ?? rota?.title,
+            })}
           />
         </React.Fragment>
       ))}

@@ -1,4 +1,6 @@
 export const PlaceDetails = ({ route }) => {
-  console.log(route.params);
+  const place = route?.params?.place;
+  if (!place) return null;
+
   return <></>;
 };

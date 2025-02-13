@@ -29,7 +29,7 @@ export function Places({ data }: PlacesProps) {
           <Place
             data={item}
             onPress={() => {
-              navigation.navigate("PlaceDetails", { place: item });
+              navigation.navigate("PlaceDetails", { place: item, name: item?.name });
             }}
           />
         )}
