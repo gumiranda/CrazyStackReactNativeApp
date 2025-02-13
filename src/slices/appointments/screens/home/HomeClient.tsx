@@ -6,6 +6,7 @@ import * as Location from "expo-location";
 import { fonts, useTheme } from "@/shared/libs/utils";
 import { Categories } from "./components/organisms/categories";
 import { Places } from "./components/organisms/places";
+import { useNavigation } from "@react-navigation/native";
 
 export type CategoryProps = {
   _id: string;
@@ -21,9 +22,10 @@ export type PlaceProps = {
 
 export const HomeClient = () => {
   const theme = useTheme();
+  const navigation = useNavigation();
   const [categories, setCategories] = useState<CategoryProps>([]);
   const [category, setCategory] = useState<string>("");
-  const [markets, setMarkets] = useState<any[]>([]);
+  const [places, setPlaces] = useState<any[]>([]);
   const [currentLocation, setCurrentLocation] = useState<any>(null);
   async function fetchCategories() {
     try {
@@ -58,16 +60,16 @@ export const HomeClient = () => {
     getCurrentLocation();
   }, []);
   useEffect(() => {
-    fetchMarkets();
+    fetchPlaces();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
-  async function fetchMarkets() {
+  async function fetchPlaces() {
     try {
       if (!category) return;
       const { data } = await api.get(
         `/place/loadByPage?page=1&categoryPlaceId=${category}`
       );
-      setMarkets(data?.places);
+      setPlaces(data?.places);
     } catch (error) {
       console.log(error);
       Alert.alert("Erro", "Não foi possível carregar os mercados");
@@ -95,20 +97,19 @@ export const HomeClient = () => {
             coordinate={currentLocation}
             image={require("@/assets/location.png")}
           />
-          {markets?.map?.((market) => (
+          {places?.map?.((place) => (
             <Marker
-              key={market?._id}
-              identifier={market?._id}
+              key={place?._id}
+              identifier={place?._id}
               coordinate={{
-                latitude: market?.coord?.coordinates?.[0],
-                longitude: market?.coord?.coordinates?.[1],
+                latitude: place?.coord?.coordinates?.[0],
+                longitude: place?.coord?.coordinates?.[1],
               }}
               image={require("@/assets/pin.png")}
             >
               <Callout
                 onPress={() => {
-                  // @ts-ignore
-                  //router.navigate(`market/${market._id}`);
+                  navigation.navigate("PlaceDetails", { place });
                 }}
               >
                 <View>
@@ -119,7 +120,7 @@ export const HomeClient = () => {
                       fontFamily: fonts.poppins_500,
                     }}
                   >
-                    {market?.name}
+                    {place?.name}
                   </Text>
                   <Text
                     style={{
@@ -128,7 +129,7 @@ export const HomeClient = () => {
                       fontFamily: fonts.poppins_400,
                     }}
                   >
-                    {market?.address}
+                    {place?.address}
                   </Text>
                 </View>
               </Callout>
@@ -136,7 +137,7 @@ export const HomeClient = () => {
           ))}
         </MapView>
       )}
-      <Places data={markets} />
+      <Places data={places} />
     </View>
   );
 };

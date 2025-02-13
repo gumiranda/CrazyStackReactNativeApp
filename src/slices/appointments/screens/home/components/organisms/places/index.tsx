@@ -4,11 +4,13 @@ import { useRef } from "react";
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import { RFValue } from "react-native-responsive-fontsize";
 import { Place, type PlaceProps } from "../../molecules/place";
+import { useNavigation } from "@react-navigation/native";
 interface PlacesProps {
   data: PlaceProps[];
 }
 
 export function Places({ data }: PlacesProps) {
+  const navigation = useNavigation();
   const dimensions = useWindowDimensions();
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = { min: 258, max: dimensions.height - 174 };
@@ -27,8 +29,7 @@ export function Places({ data }: PlacesProps) {
           <Place
             data={item}
             onPress={() => {
-              // @ts-ignore
-              // router.navigate(`market/${item._id}`);
+              navigation.navigate("PlaceDetails", { place: item });
             }}
           />
         )}

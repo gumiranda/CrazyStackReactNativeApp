@@ -8,6 +8,7 @@ import { CreateRequestOwner } from "@/slices/appointments/screens/request/create
 import { ConfirmRequestOwner } from "@/slices/appointments/processes/request/ConfirmRequestOwner";
 import { MyRequestsDetailsOwner } from "@/slices/appointments/screens/request/details/MyRequestsDetailsOwner";
 import { EditRequest } from "@/slices/appointments/processes/request/edit/EditRequest";
+import { PlaceDetails } from "@/slices/appointments/screens/placeDetails/PlaceDetails";
 
 export const stackRoutes = [
   { name: "GetStarted", component: GetStarted, title: "Início" },
@@ -47,6 +48,11 @@ export const stackRoutes = [
     name: "EditRequest",
     component: EditRequest,
     title: "Editar agendamento",
+  },
+  {
+    name: "PlaceDetails",
+    component: PlaceDetails,
+    title: "Detalhes do estabelecimento",
   },
 ];
 export const routesWithoutHeader = ["GetStarted", "Initial", "SignUpPage", "SignInPage"];

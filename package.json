@@ -38,6 +38,7 @@
     "axios": "^1.6.8",
     "date-fns": "^3.6.0",
     "expo": "^52.0.28",
+    "expo-camera": "~16.0.16",
     "expo-location": "~18.0.5",
     "expo-router": "^4.0.17",
     "expo-splash-screen": "~0.29.21",
