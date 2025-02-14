@@ -1,6 +1,85 @@
+import { api } from "@/shared/api";
+import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
+import { Loading } from "@/shared/ui";
+import { useCameraPermissions } from "expo-camera";
+import { useRef, useState } from "react";
+import { Alert, ScrollView, StatusBar } from "react-native";
+import { View } from "react-native";
+import { Cover } from "./components/cover";
+
 export const PlaceDetails = ({ route }) => {
   const place = route?.params?.place;
-  if (!place) return null;
+  const [coupon, setCoupon] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [couponIsFetching, setCouponIsFetching] = useState(false);
+  const [isVisibleCameraModal, setIsVisibleCameraModal] = useState(false);
 
-  return <></>;
+  const [_, requestPermission] = useCameraPermissions();
+
+  const qrLock = useRef(false);
+  async function handleOpenCamera() {
+    try {
+      const { granted } = await requestPermission();
+
+      if (!granted) {
+        return Alert.alert("Câmera", "Você precisa habilitar o uso da câmera");
+      }
+
+      qrLock.current = false;
+      setIsVisibleCameraModal(true);
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Câmera", "Não foi possível utilizar a câmera");
+    }
+  }
+  async function getCoupon(id: string) {
+    try {
+      setCouponIsFetching(true);
+
+      const { data } = await api.patch("/coupons/" + id);
+
+      Alert.alert("Cupom", data.coupon);
+      setCoupon(data.coupon);
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Erro", "Não foi possível utilizar o cupom");
+    } finally {
+      setCouponIsFetching(false);
+    }
+  }
+  function handleUseCoupon(id: string) {
+    setIsVisibleCameraModal(false);
+
+    Alert.alert(
+      "Cupom",
+      "Não é possível reutilizar um cupom resgatado. Deseja realmente resgatar o cupom?",
+      [
+        { style: "cancel", text: "Não" },
+        { text: "Sim", onPress: () => getCoupon(id) },
+      ]
+    );
+  }
+  if (isLoading) {
+    return <Loading />;
+  }
+  if (!place) return null;
+  console.log(place?.cover, place?.cover?.length > 0);
+  return (
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" hidden={isVisibleCameraModal} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Cover
+          uri={
+            place?.cover ??
+            "https://images.unsplash.com/photo-1619367901998-73b3a70b3898?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          }
+        />
+        {/* <Details data={data} />
+        {coupon && <Coupon code={coupon} />} */}
+      </ScrollView>
+    </View>
+  );
 };
+const styles = DynamicStyleSheet.create((theme) => ({
+  container: { flex: 1 },
+}));

@@ -9,7 +9,7 @@
     "i": "yarn c && yarn && cd ios && pod install && yarn ios",
     "and": "react-native run-android",
     "ios-expo": "expo run:ios",
-    "ios": "react-native run-ios --simulator='iPhone 15'",
+    "ios": "react-native run-ios --simulator='iPhone 15 Pro'",
     "generate": "yarn plop --plopfile ./generators/plopfile.js",
     "c": "react-native clean-project-auto",
     "adb": "cd android/app/build/outputs/apk/release && adb install -r app-release.apk",

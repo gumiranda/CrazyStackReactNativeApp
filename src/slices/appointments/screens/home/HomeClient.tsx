@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Alert, View, Text } from "react-native";
 import MapView, { Callout, Marker } from "react-native-maps";
 import * as Location from "expo-location";
-import { fonts, useTheme } from "@/shared/libs/utils";
+import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import { Categories } from "./components/organisms/categories";
 import { Places } from "./components/organisms/places";
 import { useNavigation } from "@react-navigation/native";
@@ -21,16 +21,21 @@ export type PlaceProps = {
 };
 
 export const HomeClient = () => {
-  const theme = useTheme();
   const navigation = useNavigation();
   const [categories, setCategories] = useState<CategoryProps>([]);
   const [category, setCategory] = useState<string>("");
   const [places, setPlaces] = useState<any[]>([]);
   const [currentLocation, setCurrentLocation] = useState<any>(null);
+  const token = " ";
   async function fetchCategories() {
     try {
       const { data } = await api.get(
-        "/public/categoryPlace/loadByPage?page=1&sortBy=name&typeSort=asc"
+        "/public/categoryPlace/loadByPage?page=1&sortBy=name&typeSort=asc",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setCategories(data?.categoryPlaces);
     } catch (error) {
@@ -67,7 +72,12 @@ export const HomeClient = () => {
     try {
       if (!category) return;
       const { data } = await api.get(
-        `/public/place/loadByPage?page=1&categoryPlaceId=${category}`
+        `/public/place/loadByPage?page=1&categoryPlaceId=${category}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setPlaces(data?.places);
     } catch (error) {
@@ -76,7 +86,7 @@ export const HomeClient = () => {
     }
   }
   return (
-    <View style={{ flex: 1, backgroundColor: "#cecece" }}>
+    <View style={styles.container}>
       <Categories
         data={categories}
         selected={category}
@@ -113,24 +123,8 @@ export const HomeClient = () => {
                 }}
               >
                 <View>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      color: theme.colors.gray[600],
-                      fontFamily: fonts.poppins_500,
-                    }}
-                  >
-                    {place?.name}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      color: theme.colors.gray[600],
-                      fontFamily: fonts.poppins_400,
-                    }}
-                  >
-                    {place?.address}
-                  </Text>
+                  <Text style={styles.placeName}>{place?.name}</Text>
+                  <Text style={styles.placeAddress}>{place?.address}</Text>
                 </View>
               </Callout>
             </Marker>
@@ -141,3 +135,16 @@ export const HomeClient = () => {
     </View>
   );
 };
+const styles = DynamicStyleSheet.create((theme) => ({
+  container: { flex: 1, backgroundColor: "#cecece" },
+  placeName: {
+    fontSize: 14,
+    color: theme.colors.gray[600],
+    fontFamily: fonts.poppins_500,
+  },
+  placeAddress: {
+    fontSize: 14,
+    color: theme.colors.gray[600],
+    fontFamily: fonts.poppins_400,
+  },
+}));
