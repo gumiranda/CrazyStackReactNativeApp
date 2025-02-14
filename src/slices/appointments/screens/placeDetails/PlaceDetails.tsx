@@ -1,9 +1,9 @@
 import { api } from "@/shared/api";
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
-import { Loading } from "@/shared/ui";
-import { useCameraPermissions } from "expo-camera";
+import { Button, Loading } from "@/shared/ui";
+import { CameraView, useCameraPermissions } from "expo-camera";
 import { useRef, useState } from "react";
-import { Alert, ScrollView, StatusBar } from "react-native";
+import { Alert, Modal, ScrollView, StatusBar } from "react-native";
 import { View } from "react-native";
 import { Cover } from "./components/cover";
 import { Details } from "./components/details";
@@ -12,6 +12,7 @@ import { Coupon } from "./components/coupon";
 export const PlaceDetails = ({ route }) => {
   const place = route?.params?.place;
   const [coupon, setCoupon] = useState<string | null>(null);
+  const [scannedQRCode, setScannedQRCode] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [couponIsFetching, setCouponIsFetching] = useState(false);
   const [isVisibleCameraModal, setIsVisibleCameraModal] = useState(false);
@@ -36,12 +37,13 @@ export const PlaceDetails = ({ route }) => {
   }
   async function getCoupon(id: string) {
     try {
+      setScannedQRCode(id);
       setCouponIsFetching(true);
 
       const { data } = await api.patch("/coupons/" + id);
 
       Alert.alert("Cupom", data.coupon);
-      setCoupon(data.coupon);
+      setCoupon(data?.coupon);
     } catch (error) {
       console.log(error);
       Alert.alert("Erro", "Não foi possível utilizar o cupom");
@@ -51,21 +53,23 @@ export const PlaceDetails = ({ route }) => {
   }
   function handleUseCoupon(id: string) {
     setIsVisibleCameraModal(false);
-
-    Alert.alert(
-      "Cupom",
-      "Não é possível reutilizar um cupom resgatado. Deseja realmente resgatar o cupom?",
-      [
-        { style: "cancel", text: "Não" },
-        { text: "Sim", onPress: () => getCoupon(id) },
-      ]
-    );
+    if (scannedQRCode === id) {
+      Alert.alert(
+        "Cupom",
+        "Não é possível reutilizar um cupom resgatado. Deseja realmente resgatar o cupom?",
+        [
+          { style: "cancel", text: "Não" },
+          { text: "Sim", onPress: () => getCoupon(id) },
+        ]
+      );
+    } else {
+      getCoupon(id);
+    }
   }
   if (isLoading) {
     return <Loading />;
   }
   if (!place) return null;
-  console.log(place?.cover, place?.cover?.length > 0);
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" hidden={isVisibleCameraModal} />
@@ -78,12 +82,38 @@ export const PlaceDetails = ({ route }) => {
         />
         <Details data={place} />
         {coupon && <Coupon code={coupon} />}
-        {/* <Details data={data} />
-        {coupon && <Coupon code={coupon} />} */}
       </ScrollView>
+      <View style={styles.buttonView}>
+        <Button onPress={handleOpenCamera}>
+          <Button.Title>Ler QR Code</Button.Title>
+        </Button>
+      </View>
+
+      <Modal style={{ flex: 1 }} visible={isVisibleCameraModal}>
+        <CameraView
+          style={{ flex: 1 }}
+          facing="back"
+          onBarcodeScanned={({ data }) => {
+            if (data && !qrLock.current) {
+              qrLock.current = true;
+              setTimeout(() => handleUseCoupon(data), 500);
+            }
+          }}
+        />
+
+        <View style={{ position: "absolute", bottom: 32, left: 32, right: 32 }}>
+          <Button
+            onPress={() => setIsVisibleCameraModal(false)}
+            loading={couponIsFetching}
+          >
+            <Button.Title>Voltar</Button.Title>
+          </Button>
+        </View>
+      </Modal>
     </View>
   );
 };
 const styles = DynamicStyleSheet.create((theme) => ({
   container: { flex: 1, backgroundColor: theme.colors.gray[100] },
+  buttonView: { padding: 32 },
 }));
