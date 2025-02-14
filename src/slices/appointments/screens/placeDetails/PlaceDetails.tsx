@@ -6,6 +6,8 @@ import { useRef, useState } from "react";
 import { Alert, ScrollView, StatusBar } from "react-native";
 import { View } from "react-native";
 import { Cover } from "./components/cover";
+import { Details } from "./components/details";
+import { Coupon } from "./components/coupon";
 
 export const PlaceDetails = ({ route }) => {
   const place = route?.params?.place;
@@ -74,6 +76,8 @@ export const PlaceDetails = ({ route }) => {
             "https://images.unsplash.com/photo-1619367901998-73b3a70b3898?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           }
         />
+        <Details data={place} />
+        {coupon && <Coupon code={coupon} />}
         {/* <Details data={data} />
         {coupon && <Coupon code={coupon} />} */}
       </ScrollView>
@@ -81,5 +85,5 @@ export const PlaceDetails = ({ route }) => {
   );
 };
 const styles = DynamicStyleSheet.create((theme) => ({
-  container: { flex: 1 },
+  container: { flex: 1, backgroundColor: theme.colors.gray[100] },
 }));
