@@ -6,7 +6,8 @@
     "start-expo": "expo start --dev-client",
     "android": "expo run:android",
     "ac": "yarn c && react-native run-android",
-    "i": "yarn c && yarn && cd ios && pod install && yarn ios",
+    "ii": "yarn c && yarn && cd ios && pod install && yarn ios",
+    "i": "yarn && cd ios && pod install && yarn ios",
     "and": "react-native run-android",
     "ios-expo": "expo run:ios",
     "ios": "react-native run-ios --simulator='iPhone 15'",
@@ -63,7 +64,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
-    "@react-native-community/cli": "16.0.0",
+    "@react-native-community/cli": "^16.0.0",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^12.4.3",
     "@types/jest": "^29.5.12",
