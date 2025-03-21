@@ -41,3 +41,4 @@ android/app/gustavo.keystore
 android/app/gustavo.keystore
 android/app/gradle.properties
 .vercel
+ios/Podfile.lock
