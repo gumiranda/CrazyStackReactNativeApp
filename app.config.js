@@ -41,6 +41,10 @@ export default {
     ios: {
       bundleIdentifier: "br.com.crazystack",
       supportsTablet: true,
+      infoPlist: {
+        NSCameraUsageDescription:
+          "We need access to your camera to allow you to take photos and videos within the app.",
+      },
     },
   },
 };
