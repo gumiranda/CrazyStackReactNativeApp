@@ -28,11 +28,11 @@ export const StepClient = ({ userList, owner, nextStep }) => {
       </ScrollView>
       <Button
         style={styles.button}
-        title="PRÓXIMO"
         onPress={handleSubmit(handleCreateClient)}
         backgroundColor={theme.colors.tertiary[300]}
-        color={theme.colors.black}
-      />
+      >
+        <Button.Title color={theme.colors.black}>PRÓXIMO</Button.Title>
+      </Button>
     </>
   );
 };

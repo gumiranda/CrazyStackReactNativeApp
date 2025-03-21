@@ -1,27 +1,25 @@
 import React from "react";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, type TextProps } from "react-native";
 import { TextAtom } from "@/shared/ui/atoms/TextAtom";
 import { RFValue } from "react-native-responsive-fontsize";
 import { RectButtonProps, RectButton } from "react-native-gesture-handler";
 import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
+import type { IconProps as TablerIconProps } from "@tabler/icons-react-native";
 
 export interface ButtonProps extends RectButtonProps {
-  title: string;
-  color: string;
   loading?: boolean;
   enabled?: boolean;
   onPress: () => void;
-  backgroundColor: string;
+  backgroundColor?: string;
   style?: any;
 }
 export const Button = ({
-  title,
   backgroundColor,
-  color,
   onPress,
   enabled = true,
   loading = false,
   style,
+  children,
 }: ButtonProps) => {
   const theme = useTheme();
   return (
@@ -31,29 +29,39 @@ export const Button = ({
       style={[
         { opacity: enabled === false || loading === true ? 0.5 : 1 },
         styles.container,
-        { backgroundColor, ...style },
+        { backgroundColor: backgroundColor ?? theme.colors.primary[500], ...style },
       ]}
     >
-      {loading ? (
-        <ActivityIndicator color={theme.colors.primary[500]} />
-      ) : (
-        <TextAtom style={[styles.title, { color }]}>{title}</TextAtom>
-      )}
+      {loading ? <ActivityIndicator color={theme.colors.primary[500]} /> : children}
     </RectButton>
   );
 };
-
-const styles = DynamicStyleSheet.create(() => ({
+function Title({ children, color = "#fff", style }: TextProps & { color?: string }) {
+  return <TextAtom style={[styles.title, { color }, style]}>{children}</TextAtom>;
+}
+function Icon({ icon: Icon }: IconProps) {
+  const theme = useTheme();
+  return <Icon size={24} color={theme.colors.grey[100]} />;
+}
+Button.Title = Title;
+Button.Icon = Icon;
+type IconProps = {
+  icon: React.ComponentType<TablerIconProps>;
+};
+const styles = DynamicStyleSheet.create((theme) => ({
   container: {
-    marginBottom: 8,
-    width: "100%",
-    padding: 19,
-    alignItems: "center",
+    height: 56,
+    maxHeight: 56,
+    backgroundColor: theme.colors.primary[500],
+    borderRadius: 10,
     justifyContent: "center",
-    borderRadius: 8,
+    alignItems: "center",
+    flexDirection: "row",
+    gap: 14,
   },
   title: {
     fontFamily: fonts.secondary_600,
     fontSize: RFValue(15),
+    color: theme.colors.white,
   },
 }));
