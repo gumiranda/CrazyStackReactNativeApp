@@ -6,6 +6,7 @@ import { Categories, type CategoryProps } from "./components/organisms/categorie
 import MapView, { Callout, Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { Places } from "./components/organisms/places";
+import { api } from "@/shared/api";
 
 export const HomeClient = () => {
   const navigation = useNavigation();
@@ -31,9 +32,47 @@ export const HomeClient = () => {
       Alert.alert("Erro", "Não foi possível obter a localização atual");
     }
   }
+  async function fetchCategories() {
+    try {
+      const response = await api.get(
+        "/public/categoryPlace/loadByPage?page=1&sortBy=name&typeSort=asc&limitPerPage=100",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setCategories(response?.data?.categoryPlaces);
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Erro", "Não foi possível obter as categorias");
+    }
+  }
   useEffect(() => {
     getCurrentLocation();
+    fetchCategories();
   }, []);
+  async function fetchPlaces() {
+    try {
+      if (!category) return;
+      const response = await api.get(
+        `/public/place/loadByPage?page=1&limitPerPage=100&categoryPlaceId=${category}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setPlaces(response?.data?.places);
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Erro", "Não foi possível obter as categorias");
+    }
+  }
+  useEffect(() => {
+    fetchPlaces();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [category]);
   return (
     <View style={styles.container}>
       <Categories
