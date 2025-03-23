@@ -27,8 +27,6 @@ export const HomePage = () => {
   }, [isFetching]);
   const buttonProps = {
     backgroundColor: theme.colors.primary[500],
-    title: "CRIAR AGENDAMENTO",
-    color: theme.colors.white,
     onPress: () => navigation.navigate("CreateRequestOwner"),
     isFetching,
   };
@@ -41,7 +39,9 @@ export const HomePage = () => {
         events={requestList}
       >
         <Footer>
-          <Button {...buttonProps} />
+          <Button {...buttonProps}>
+            <Button.Title color={theme.colors.white}>CRIAR AGENDAMENTO</Button.Title>
+          </Button>
         </Footer>
       </WeekCalendar>
 

@@ -4,6 +4,7 @@ require("dotenv").config(); // Carrega variáveis do .env
 
 export default {
   expo: {
+    plugins: ["expo-router"],
     name: "crazystack",
     slug: "crazystack",
     version: "1.0.0",

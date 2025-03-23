@@ -1,9 +1,17 @@
 import { NativeModules, Platform } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import url from "url";
 import Reactotron from "reactotron-react-native";
-const { hostname } = url.parse(NativeModules.SourceCode.scriptURL);
-
+const scriptURL = NativeModules.SourceCode ? NativeModules.SourceCode.scriptURL : "";
+let hostname = "localhost"; // Default to localhost
+if (scriptURL) {
+  try {
+    hostname = new URL(scriptURL).hostname;
+  } catch (error) {
+    console.warn("Invalid scriptURL, using default hostname");
+  }
+} else {
+  console.warn("scriptURL is not available, using default hostname");
+}
 declare global {
   export interface Console {
     tron: any;

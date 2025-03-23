@@ -57,13 +57,9 @@ export const ConfirmRequestOwner = ({
           />
         )}
       </ScrollView>
-      <Button
-        style={styles.button}
-        title="CONFIRMAR"
-        backgroundColor={theme.colors.tertiary[300]}
-        color={theme.colors.black}
-        onPress={confirmAppointment}
-      />
+      <Button style={styles.button} onPress={confirmAppointment}>
+        <Button.Title color={theme.colors.black}>CONFIRMAR</Button.Title>
+      </Button>
     </View>
   );
 };
@@ -77,6 +73,7 @@ const styles = DynamicStyleSheet.create((theme) => ({
     width: appMetrics.SCREEN_WIDTH * 0.9,
     alignSelf: "center",
     marginBottom: 60,
+    backgroundColor: theme.colors.tertiary[300],
   },
   content: {
     marginHorizontal: 16,

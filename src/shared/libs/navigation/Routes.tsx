@@ -3,12 +3,15 @@ import { SignUpPage } from "@/slices/general/screens/auth/signUp";
 import { HomeClient } from "@/slices/appointments/screens/home/HomeClient";
 import { HomePage } from "@/slices/appointments/screens/home/HomePage";
 import { Initial } from "@/slices/appointments/screens/Initial";
+import { GetStarted } from "@/slices/appointments/screens/getStarted";
 import { CreateRequestOwner } from "@/slices/appointments/screens/request/create/CreateRequestOwner";
 import { ConfirmRequestOwner } from "@/slices/appointments/processes/request/ConfirmRequestOwner";
 import { MyRequestsDetailsOwner } from "@/slices/appointments/screens/request/details/MyRequestsDetailsOwner";
 import { EditRequest } from "@/slices/appointments/processes/request/edit/EditRequest";
+import { PlaceDetails } from "@/slices/appointments/screens/placeDetails/PlaceDetails";
 
 export const stackRoutes = [
+  { name: "GetStarted", component: GetStarted, title: "Início" },
   { name: "Initial", component: Initial, title: "Início" },
   { name: "SignUpPage", component: SignUpPage, title: "SignUpPage" },
   {
@@ -29,7 +32,7 @@ export const stackRoutes = [
   {
     name: "HomeClient",
     component: HomeClient,
-    title: "HomeClient",
+    title: "Início",
   },
   {
     name: "CreateRequestOwner",
@@ -46,8 +49,19 @@ export const stackRoutes = [
     component: EditRequest,
     title: "Editar agendamento",
   },
+  {
+    name: "PlaceDetails",
+    component: PlaceDetails,
+    title: "Detalhes",
+  },
 ];
-export const routesWithoutHeader = ["Initial", "SignUpPage", "SignInPage"];
+export const routesWithoutHeader = [
+  "GetStarted",
+  "Initial",
+  "SignUpPage",
+  "SignInPage",
+  "PlaceDetails",
+];
 export const drawerRoutes = [
   {
     name: "HomePage",

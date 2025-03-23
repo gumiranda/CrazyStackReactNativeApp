@@ -108,14 +108,14 @@ export const SelectDate = ({
       <Button
         style={styles.button}
         onPress={handleSubmit(onSubmit)}
-        title={buttonTitle}
         backgroundColor={theme.colors.tertiary[300]}
-        color={theme.colors.black}
-      />
+      >
+        <Button.Title color={theme.colors.black}>{buttonTitle}</Button.Title>
+      </Button>
     </>
   );
 };
-const styles = DynamicStyleSheet.create((theme) => ({
+const styles = DynamicStyleSheet.create(() => ({
   scrollView: {
     paddingBottom: 24,
     paddingHorizontal: 10,
