@@ -55,7 +55,13 @@ export const stackRoutes = [
     title: "Detalhes",
   },
 ];
-export const routesWithoutHeader = ["GetStarted", "Initial", "SignUpPage", "SignInPage"];
+export const routesWithoutHeader = [
+  "GetStarted",
+  "Initial",
+  "SignUpPage",
+  "SignInPage",
+  "PlaceDetails",
+];
 export const drawerRoutes = [
   {
     name: "HomePage",
