@@ -79,17 +79,9 @@ export const useServiceInfiniteList = ({ defaultParams = {} }) => {
     retry: 3,
   } as any);
   const serviceList =
-    data?.pages
-      ?.map?.((page: any) => page?.services)
-      ?.reduce?.((a: any, b: any) => a.concat(b)) ??
-    data ??
-    [];
+    data?.pages?.map?.((page: any) => page?.services)?.flat() ?? [];
   const serviceListCount =
-    data?.pages
-      ?.map?.((page: any) => page?.totalCount)
-      ?.reduce?.((a: any, b: any) => a.concat(b)) ??
-    data ??
-    [];
+    data?.pages?.map?.((page: any) => page?.totalCount)?.flat() ?? [];
   return {
     deleteSelectedAction,
     isFetching,

@@ -33,16 +33,16 @@ export const PlaceDetails = ({ route }) => {
     }
   };
   async function getCoupon(id: string) {
+    const sanitizedId = encodeURIComponent(id);
     try {
       setScannedQRCode(id);
       setCouponIsFetching(true);
       setIsLoading(true);
-      const { data } = await api.patch("/coupons/" + id);
+      const { data } = await api.patch(`/coupons/${sanitizedId}`);
 
       Alert.alert("Cupom", data.coupon);
       setCoupon(data?.coupon);
     } catch (error) {
-      console.log(error);
       Alert.alert("Erro", "Não foi possível utilizar o cupom");
     } finally {
       setCouponIsFetching(false);

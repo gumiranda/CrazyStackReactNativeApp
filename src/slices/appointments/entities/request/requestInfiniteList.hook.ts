@@ -4,17 +4,20 @@ import { CommonActions, useNavigation } from "@react-navigation/native";
 import { useUi } from "@/app/providers";
 import { useGetInfiniteRequests } from "./request.lib";
 import { endOfDay, startOfDay } from "date-fns";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export const useRequestInfiniteList = () => {
   const queryClient = useQueryClient();
   const navigation = useNavigation();
   const { showModal, loading } = useUi();
   const [selectedDate, setSelectedDate] = useState<any>(new Date());
-  const query = {
-    initDate: startOfDay(new Date(selectedDate)),
-    endDate: endOfDay(new Date(selectedDate)),
-  };
+  const query = useMemo(
+    () => ({
+      initDate: startOfDay(new Date(selectedDate)),
+      endDate: endOfDay(new Date(selectedDate)),
+    }),
+    [selectedDate]
+  );
   const all = useGetInfiniteRequests(
     {
       getNextPageParam: (lastPage: any) => lastPage.nextPage,
@@ -83,7 +86,7 @@ export const useRequestInfiniteList = () => {
   const requestList =
     pages
       ?.map?.((page: any) => page?.requests)
-      ?.reduce?.((a: any, b: any) => a.concat(b))
+      ?.flat()
       ?.map?.((request) => {
         const title = `${request?.professionalName ?? "Profissional"} - ${request?.name ?? "Cliente"}`;
         const start = new Date(request?.initDate);

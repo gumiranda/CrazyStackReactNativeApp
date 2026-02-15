@@ -5,6 +5,7 @@ import React, {
   createContext,
   useState,
   useMemo,
+  useCallback,
   useContext,
   useLayoutEffect,
 } from "react";
@@ -16,7 +17,7 @@ const AuthContext = createContext({} as any);
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState(null);
   const [verifyIsAuthenticated, setVerifyIsAuthenticated] = useState(false);
-  const logout = async () => {
+  const logout = useCallback(async () => {
     await Promise.all([
       setItemInAsyncStorage("user", null),
       setItemInAsyncStorage("authorization", null),
@@ -24,7 +25,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     ]);
     setUser(null);
     setVerifyIsAuthenticated(false);
-  };
+  }, []);
   useLayoutEffect(() => {
     async function init() {
       const [currentUser, accessToken, refreshToken] = await Promise.all([
@@ -50,7 +51,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       logout,
       verifyIsAuthenticated,
     }),
-    [user, verifyIsAuthenticated]
+    [user, verifyIsAuthenticated, logout]
   );
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }

@@ -100,12 +100,9 @@ export function editRequestMutation({
   return useMutation({
     mutationFn: async (request: EditRequestFormData) => {
       try {
-        if (request?.timeAvailable) {
-          delete request.timeAvailable;
-          delete request.type;
-        }
+        const { timeAvailable: _ta, type: _type, ...requestData } = request ?? {};
         const body = {
-          ...request,
+          ...requestData,
           updatedAt: new Date(),
         };
         const { data } = await api.patch(

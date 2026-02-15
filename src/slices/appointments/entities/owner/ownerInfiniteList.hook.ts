@@ -79,7 +79,7 @@ export const useOwnerInfiniteList = ({ defaultParams = {} }) => {
   const ownerList =
     pages
       ?.map?.((page: any) => page?.owners)
-      ?.reduce?.((a: any, b: any) => a.concat(b)) ?? [];
+      ?.flat() ?? [];
   return {
     deleteSelectedAction,
     isFetching,

@@ -9,7 +9,7 @@ export function createRequestMutation(showModal: Function, navigation) {
       try {
         const { data } = await api.post("/request/add", {
           ...request,
-          message: request?.message + " " ?? " ",
+          message: (request?.message ?? "") + " ",
         });
         if (!data) {
           showModal({

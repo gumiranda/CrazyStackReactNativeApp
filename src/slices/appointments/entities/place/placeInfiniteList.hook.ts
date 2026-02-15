@@ -79,7 +79,7 @@ export const usePlaceInfiniteList = ({ defaultParams = {} }) => {
   const placeList =
     pages
       ?.map?.((page: any) => page?.places)
-      ?.reduce?.((a: any, b: any) => a.concat(b)) ?? [];
+      ?.flat() ?? [];
   return {
     deleteSelectedAction,
     isFetching,

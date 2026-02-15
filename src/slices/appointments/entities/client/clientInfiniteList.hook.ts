@@ -79,7 +79,7 @@ export const useClientInfiniteList = ({ defaultParams = {} }) => {
   const clientList =
     pages
       ?.map?.((page: any) => page?.clients)
-      ?.reduce?.((a: any, b: any) => a.concat(b)) ?? [];
+      ?.flat() ?? [];
   return {
     deleteSelectedAction,
     isFetching,
