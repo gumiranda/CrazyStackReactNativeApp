@@ -2,9 +2,10 @@ import { useUi } from "@/app/providers";
 import { useGetClientById } from "@/slices/appointments/entities/client/client.lib";
 import { useGetServiceById } from "@/slices/appointments/entities/service/service.lib";
 import { api } from "@/shared/api";
+import { SERVER_ERROR_MESSAGE } from "@/shared/libs/utils/constants";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { useMutation } from "@tanstack/react-query";
-import { editRequestMutation } from "@/slices/appointments/features/request/edit/editRequest.hook";
+import { useEditRequestMutation } from "@/slices/appointments/features/request/edit/editRequest.hook";
 
 export const useRequestDetailsOwner = ({ serviceId, clientId, currentRequest }) => {
   const { showModal } = useUi();
@@ -18,12 +19,12 @@ export const useRequestDetailsOwner = ({ serviceId, clientId, currentRequest }) 
   };
   const onError = () => {
     showModal({
-      content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+      content: SERVER_ERROR_MESSAGE,
       title: "Erro no servidor",
       type: "error",
     });
   };
-  const editRequest = editRequestMutation({
+  const editRequest = useEditRequestMutation({
     currentRequest,
     showModal,
     routeRedirect: "HomePage",
@@ -41,7 +42,7 @@ export const useRequestDetailsOwner = ({ serviceId, clientId, currentRequest }) 
         if (requestsToDelete.length > 0) {
           return Promise.all(
             requestsToDelete?.map?.((request: any) =>
-              Promise.all([api.delete(`/appointment/delete?requestId=${request._id}`)])
+              Promise.all([api.delete("/appointment/delete", { params: { requestId: request._id } })])
             )
           );
         }

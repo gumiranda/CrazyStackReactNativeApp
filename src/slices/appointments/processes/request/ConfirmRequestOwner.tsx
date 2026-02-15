@@ -6,7 +6,7 @@ import { DynamicStyleSheet, fonts, useTheme } from "@/shared/libs/utils";
 import appMetrics from "@/shared/libs/functions/metrics";
 import { Button, MaterialIcon, TextAtom } from "@/shared/ui";
 import { RFValue } from "react-native-responsive-fontsize";
-import { editRequestMutation } from "../../features/request/edit/editRequest.hook";
+import { useEditRequestMutation } from "../../features/request/edit/editRequest.hook";
 import { RequestDetails } from "../../entities/request/components";
 
 export const ConfirmRequestOwner = ({
@@ -22,7 +22,7 @@ export const ConfirmRequestOwner = ({
   const theme = useTheme();
   const navigation = useNavigation();
   const { showModal } = useUi();
-  const editRequest = editRequestMutation({
+  const editRequest = useEditRequestMutation({
     currentRequest: requestCreated,
     showModal,
     routeRedirect: "HomePage",

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import {
   EditRequestFormData,
   EditRequestFormProps,
@@ -6,6 +5,7 @@ import {
   useEditRequestLib,
 } from "./editRequest.lib";
 import { api } from "@/shared/api";
+import { SERVER_ERROR_MESSAGE } from "@/shared/libs/utils/constants";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { addMinutes } from "date-fns";
@@ -33,7 +33,7 @@ export const useEditRequest = (props: EditRequestFormProps) => {
   const handleChangeStatus = (event: React.ChangeEvent<{ value: unknown }>) => {
     setStatusSelected(event.target.value as number);
   };
-  const editRequest = editRequestMutation({
+  const editRequest = useEditRequestMutation({
     currentRequest,
     showModal,
     navigation,
@@ -84,7 +84,7 @@ export const useEditRequest = (props: EditRequestFormProps) => {
     setDateChanged,
   };
 };
-export function editRequestMutation({
+export function useEditRequestMutation({
   currentRequest,
   showModal,
   navigation = null,
@@ -111,7 +111,7 @@ export function editRequestMutation({
         );
         if (!data) {
           showModal({
-            content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+            content: SERVER_ERROR_MESSAGE,
             title: "Erro no servidor",
             type: "error",
           });
@@ -138,7 +138,7 @@ export function editRequestMutation({
         return data;
       } catch (error) {
         showModal({
-          content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+          content: SERVER_ERROR_MESSAGE,
           title: "Erro no servidor",
           type: "error",
         });

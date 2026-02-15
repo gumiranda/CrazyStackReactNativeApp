@@ -22,21 +22,24 @@ export const DrawerNavigator = () => {
   );
 };
 
+const ownerOnlyRoutes = new Set(["HomePage", "CreateRequestOwner"]);
+
 const DrawerContent = ({ navigation }) => {
   const insets = useSafeAreaInsets();
   const { logout, user } = useAuth();
+  const isClient = user?.role === "client";
+  const visibleRoutes = drawerRoutes.filter(
+    (route) => route.name === "Logout" || !isClient || !ownerOnlyRoutes.has(route.name)
+  );
   return (
     <View style={[{ paddingTop: insets.top }, styles.drawer]}>
-      {drawerRoutes.map((route, index) => (
+      {visibleRoutes.map((route) => (
         <TouchableOpacity
-          key={index}
+          key={route.name}
           onPress={async () => {
             if (route.name === "Logout") {
               await logout();
               navigation.closeDrawer();
-              return;
-            }
-            if (user?.role === "client") {
               return;
             }
             navigation.navigate(route.name);

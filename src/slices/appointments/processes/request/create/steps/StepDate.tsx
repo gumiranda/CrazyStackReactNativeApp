@@ -1,13 +1,13 @@
 import { SelectDate } from "@/slices/appointments/features/request/select";
 import { useCreateRequest } from "../context/CreateRequest.context";
 import { useNavigation } from "@react-navigation/native";
-import { createRequestMutation } from "@/slices/appointments/features/request/create/createRequest.hook";
+import { useCreateRequestMutation } from "@/slices/appointments/features/request/create/createRequest.hook";
 import { useEffect } from "react";
 
 export const StepDate = ({ currentOwner }) => {
   const navigation = useNavigation();
   const { request, setRequest } = useCreateRequest();
-  const createRequest = createRequestMutation(() => {}, null);
+  const createRequest = useCreateRequestMutation(() => {}, null);
   const handleCreateRequest = async ({ requestToSend, currentService }) => {
     setRequest((prev) => ({ ...prev, requestToSend, currentService }));
     await createRequest.mutateAsync(requestToSend);

@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/shared/api";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { useUi } from "@/app/providers";
+import { SERVER_ERROR_MESSAGE } from "@/shared/libs/utils/constants";
 import { useGetInfiniteOwners } from "./owner.lib";
 import { useEffect, useState } from "react";
 
@@ -36,7 +37,7 @@ export const useOwnerInfiniteList = ({ defaultParams = {} }) => {
   };
   const handleError = () => {
     showModal({
-      content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+      content: SERVER_ERROR_MESSAGE,
       title: "Erro no servidor",
       type: "error",
     });
@@ -49,7 +50,7 @@ export const useOwnerInfiniteList = ({ defaultParams = {} }) => {
     try {
       if (items?.length > 0) {
         return Promise.all(
-          items?.map?.((item: any) => api.delete(`/owner/delete?_id=${item._id}`))
+          items?.map?.((item: any) => api.delete("/owner/delete", { params: { _id: item._id } }))
         );
       }
       return null;

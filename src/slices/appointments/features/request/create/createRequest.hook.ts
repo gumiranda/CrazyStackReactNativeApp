@@ -1,9 +1,9 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { api } from "@/shared/api";
+import { SERVER_ERROR_MESSAGE } from "@/shared/libs/utils/constants";
 import { CreateRequestFormData } from "./createRequest.lib";
 import { useMutation } from "@tanstack/react-query";
 
-export function createRequestMutation(showModal: Function, navigation) {
+export function useCreateRequestMutation(showModal: Function, navigation) {
   return useMutation({
     mutationFn: async (request: CreateRequestFormData) => {
       try {
@@ -13,7 +13,7 @@ export function createRequestMutation(showModal: Function, navigation) {
         });
         if (!data) {
           showModal({
-            content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+            content: SERVER_ERROR_MESSAGE,
             title: "Erro no servidor",
             type: "error",
           });
@@ -31,7 +31,7 @@ export function createRequestMutation(showModal: Function, navigation) {
         return data;
       } catch (error) {
         showModal({
-          content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+          content: SERVER_ERROR_MESSAGE,
           title: "Erro no servidor",
           type: "error",
         });

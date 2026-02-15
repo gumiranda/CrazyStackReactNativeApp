@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useUi } from "@/app/providers";
 import { useMutation } from "@tanstack/react-query";
 import {
@@ -7,10 +6,11 @@ import {
   useCreateClientLib,
 } from "./createClient.lib";
 import { api } from "@/shared/api";
+import { SERVER_ERROR_MESSAGE } from "@/shared/libs/utils/constants";
 
 export const useCreateClient = ({ userList, owner }) => {
   const { showModal } = useUi();
-  const createClient = createClientMutation(showModal, null);
+  const createClient = useCreateClientMutation(showModal, null);
   const { handleSubmit, formState, ...formProps } = useCreateClientLib();
   const handleCreateClient: SubmitCreateClientHandler = async (
     data: CreateClientFormData
@@ -30,14 +30,14 @@ export const useCreateClient = ({ userList, owner }) => {
     ...formProps,
   };
 };
-export function createClientMutation(showModal, navigation) {
+export function useCreateClientMutation(showModal, navigation) {
   return useMutation({
     mutationFn: async (client: CreateClientFormData) => {
       try {
         const { data } = await api.post("/client/add", client);
         if (!data) {
           showModal({
-            content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+            content: SERVER_ERROR_MESSAGE,
             title: "Erro no servidor",
             type: "error",
           });
@@ -56,7 +56,7 @@ export function createClientMutation(showModal, navigation) {
         return data;
       } catch (error) {
         showModal({
-          content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+          content: SERVER_ERROR_MESSAGE,
           title: "Erro no servidor",
           type: "error",
         });

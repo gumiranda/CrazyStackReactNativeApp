@@ -1,10 +1,10 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useAuth, useUi } from "@/app/providers";
 import {
   SignInStep1ByEmailFormData,
   useSignInStep1ByEmailLib,
 } from "./step1-signin-by-email.lib";
 import { api, saveToken } from "@/shared/api";
+import { SERVER_ERROR_MESSAGE } from "@/shared/libs/utils/constants";
 import { setItemInAsyncStorage } from "@/shared/libs/functions";
 
 export const useSignInByEmail = ({ goToHome }) => {
@@ -41,7 +41,7 @@ export const useSignInByEmail = ({ goToHome }) => {
       }
     } catch (error) {
       showModal({
-        content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+        content: SERVER_ERROR_MESSAGE,
         title: "Erro no servidor",
         type: "error",
         mainButton: "Ok, entendi",

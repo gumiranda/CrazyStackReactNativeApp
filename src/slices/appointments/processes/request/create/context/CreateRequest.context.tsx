@@ -1,8 +1,9 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { useAuth, useUi } from "@/app/providers";
+import { createContext, useContext, useState, ReactNode } from "react";
+import { useAuth } from "@/app/providers";
 import { useClientUserList } from "@/slices/general/features/user/useClientUserList.hook";
 import { useGetOwnerByUserId } from "@/slices/appointments/entities/owner/owner.lib";
 import { useUsersSelect } from "@/slices/general/features/user/userList.hook";
+import { Loading } from "@/shared/ui";
 
 type CreateRequestProviderProps = {
   children: ReactNode;
@@ -14,7 +15,6 @@ const CreateRequestContext = createContext({} as CreateRequestContextData);
 
 export function CreateRequestProvider({ children }: CreateRequestProviderProps) {
   const [request, setRequest] = useState({});
-  const { setLoading } = useUi();
   const { user } = useAuth();
   const { isFetching: isFetchingClientUser, userList } = useClientUserList();
   const { data: owner } = useGetOwnerByUserId(user?._id) as any;
@@ -22,14 +22,11 @@ export function CreateRequestProvider({ children }: CreateRequestProviderProps) 
     ownerSelected: owner?._id,
     userDefaultSelected: null,
   });
-  useEffect(() => {
-    setLoading(isFetchingClientUser);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFetchingClientUser]);
   return (
     <CreateRequestContext.Provider
       value={{ request, setRequest, user, owner, propsProfessional, clients: userList }}
     >
+      {isFetchingClientUser && <Loading color="#fff" size={60} />}
       {children}
     </CreateRequestContext.Provider>
   );
