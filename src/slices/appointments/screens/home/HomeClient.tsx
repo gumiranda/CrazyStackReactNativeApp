@@ -1,6 +1,6 @@
 import { DynamicStyleSheet, fonts } from "@/shared/libs/utils";
 import { useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Alert, View, Text } from "react-native";
 import { Categories, type CategoryProps } from "./components/organisms/categories";
 import MapView, { Callout, Marker } from "react-native-maps";
@@ -14,8 +14,7 @@ export const HomeClient = () => {
   const [category, setCategory] = useState<string>("");
   const [places, setPlaces] = useState<any[]>([]);
   const [currentLocation, setCurrentLocation] = useState<any>(null);
-  const token = " ";
-  async function getCurrentLocation() {
+  const getCurrentLocation = useCallback(async () => {
     try {
       const { granted } = await Location.requestForegroundPermissionsAsync();
       if (!granted) {
@@ -28,51 +27,46 @@ export const HomeClient = () => {
         longitude: coords.longitude,
       });
     } catch (error) {
-      console.log(error);
       Alert.alert("Erro", "Não foi possível obter a localização atual");
     }
-  }
-  async function fetchCategories() {
+  }, []);
+  const fetchCategories = useCallback(async () => {
     try {
-      const response = await api.get(
-        "/public/categoryPlace/loadByPage?page=1&sortBy=name&typeSort=asc&limitPerPage=100",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await api.get("/public/categoryPlace/loadByPage", {
+        params: {
+          page: 1,
+          sortBy: "name",
+          typeSort: "asc",
+          limitPerPage: 100,
+        },
+      });
       setCategories(response?.data?.categoryPlaces);
     } catch (error) {
-      console.log(error);
       Alert.alert("Erro", "Não foi possível obter as categorias");
     }
-  }
+  }, []);
   useEffect(() => {
     getCurrentLocation();
     fetchCategories();
-  }, []);
-  async function fetchPlaces() {
+  }, [getCurrentLocation, fetchCategories]);
+  const fetchPlaces = useCallback(async () => {
     try {
       if (!category) return;
-      const response = await api.get(
-        `/public/place/loadByPage?page=1&limitPerPage=100&categoryPlaceId=${category}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await api.get("/public/place/loadByPage", {
+        params: {
+          page: 1,
+          limitPerPage: 100,
+          categoryPlaceId: category,
+        },
+      });
       setPlaces(response?.data?.places);
     } catch (error) {
-      console.log(error);
-      Alert.alert("Erro", "Não foi possível obter as categorias");
+      Alert.alert("Erro", "Não foi possível obter os estabelecimentos");
     }
-  }
+  }, [category]);
   useEffect(() => {
     fetchPlaces();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category]);
+  }, [fetchPlaces]);
   return (
     <View style={styles.container}>
       <Categories

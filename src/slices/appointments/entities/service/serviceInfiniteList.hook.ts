@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/shared/api";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { useUi } from "@/app/providers";
-
+import { SERVER_ERROR_MESSAGE } from "@/shared/libs/utils/constants";
 import { useEffect, useState } from "react";
 import { useGetInfiniteServices } from "./service.lib";
 
@@ -46,22 +46,23 @@ export const useServiceInfiniteList = ({ defaultParams = {} }) => {
         if (servicesToDelete?.length > 0) {
           return Promise.all(
             servicesToDelete?.map?.((service: any) =>
-              api.delete(`/service/delete?_id=${service._id}`)
+              api.delete("/service/delete", { params: { _id: service._id } })
             )
           );
         }
         return null;
       } catch (error) {
         showModal({
-          content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+          content: SERVER_ERROR_MESSAGE,
           title: "Erro no servidor",
           type: "error",
         });
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["servicesInfinite", data?.pages ?? 1] as any);
-      queryClient.refetchQueries(["servicesInfinite", data?.pages] as any);
+      queryClient.invalidateQueries({
+        queryKey: ["servicesInfinite", params],
+      });
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
@@ -71,7 +72,7 @@ export const useServiceInfiniteList = ({ defaultParams = {} }) => {
     },
     onError: () => {
       showModal({
-        content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+        content: SERVER_ERROR_MESSAGE,
         title: "Erro no servidor",
         type: "error",
       });
@@ -79,17 +80,9 @@ export const useServiceInfiniteList = ({ defaultParams = {} }) => {
     retry: 3,
   } as any);
   const serviceList =
-    data?.pages
-      ?.map?.((page: any) => page?.services)
-      ?.reduce?.((a: any, b: any) => a.concat(b)) ??
-    data ??
-    [];
+    data?.pages?.map?.((page: any) => page?.services)?.flat() ?? [];
   const serviceListCount =
-    data?.pages
-      ?.map?.((page: any) => page?.totalCount)
-      ?.reduce?.((a: any, b: any) => a.concat(b)) ??
-    data ??
-    [];
+    data?.pages?.map?.((page: any) => page?.totalCount)?.flat() ?? [];
   return {
     deleteSelectedAction,
     isFetching,

@@ -3,7 +3,7 @@ import { useEditRequest } from "../context/EditRequest.context";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 import { useUi } from "@/app/providers";
-import { editRequestMutation } from "@/slices/appointments/features/request/edit/editRequest.hook";
+import { useEditRequestMutation } from "@/slices/appointments/features/request/edit/editRequest.hook";
 import { startOfDay } from "date-fns";
 
 export const EditStepDate = ({ currentOwner }) => {
@@ -11,7 +11,7 @@ export const EditStepDate = ({ currentOwner }) => {
   const { request, setRequest } = useEditRequest();
   const { showModal } = useUi();
 
-  const editRequest = editRequestMutation({
+  const editRequest = useEditRequestMutation({
     currentRequest: request,
     showModal,
     routeRedirect: "HomePage",

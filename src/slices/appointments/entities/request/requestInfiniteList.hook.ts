@@ -2,19 +2,23 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/shared/api";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { useUi } from "@/app/providers";
+import { SERVER_ERROR_MESSAGE } from "@/shared/libs/utils/constants";
 import { useGetInfiniteRequests } from "./request.lib";
 import { endOfDay, startOfDay } from "date-fns";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export const useRequestInfiniteList = () => {
   const queryClient = useQueryClient();
   const navigation = useNavigation();
   const { showModal, loading } = useUi();
   const [selectedDate, setSelectedDate] = useState<any>(new Date());
-  const query = {
-    initDate: startOfDay(new Date(selectedDate)),
-    endDate: endOfDay(new Date(selectedDate)),
-  };
+  const query = useMemo(
+    () => ({
+      initDate: startOfDay(new Date(selectedDate)),
+      endDate: endOfDay(new Date(selectedDate)),
+    }),
+    [selectedDate]
+  );
   const all = useGetInfiniteRequests(
     {
       getNextPageParam: (lastPage: any) => lastPage.nextPage,
@@ -40,7 +44,7 @@ export const useRequestInfiniteList = () => {
   };
   const handleError = () => {
     showModal({
-      content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+      content: SERVER_ERROR_MESSAGE,
       title: "Erro no servidor",
       type: "error",
     });
@@ -53,7 +57,7 @@ export const useRequestInfiniteList = () => {
     try {
       if (items?.length > 0) {
         return Promise.all(
-          items?.map?.((item: any) => api.delete(`/request/delete?_id=${item._id}`))
+          items?.map?.((item: any) => api.delete("/request/delete", { params: { _id: item._id } }))
         );
       }
       return null;
@@ -83,7 +87,7 @@ export const useRequestInfiniteList = () => {
   const requestList =
     pages
       ?.map?.((page: any) => page?.requests)
-      ?.reduce?.((a: any, b: any) => a.concat(b))
+      ?.flat()
       ?.map?.((request) => {
         const title = `${request?.professionalName ?? "Profissional"} - ${request?.name ?? "Cliente"}`;
         const start = new Date(request?.initDate);

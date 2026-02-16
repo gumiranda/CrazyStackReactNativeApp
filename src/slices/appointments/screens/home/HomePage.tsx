@@ -1,10 +1,8 @@
-import { useUi } from "@/app/providers";
 import { useTheme } from "@/shared/libs/utils";
-import { Button, Footer, WeekCalendar } from "@/shared/ui";
+import { Button, Footer, Loading, WeekCalendar } from "@/shared/ui";
 import { useRequestInfiniteList } from "@/slices/appointments/entities/request/requestInfiniteList.hook";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
 
 export const HomePage = () => {
   const navigation = useNavigation();
@@ -19,12 +17,7 @@ export const HomePage = () => {
       },
     });
   };
-  const { setLoading } = useUi();
   const theme = useTheme();
-  useEffect(() => {
-    setLoading(isFetching);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFetching]);
   const buttonProps = {
     backgroundColor: theme.colors.primary[500],
     onPress: () => navigation.navigate("CreateRequestOwner"),
@@ -32,6 +25,7 @@ export const HomePage = () => {
   };
   return (
     <>
+      {isFetching && <Loading color="#fff" size={60} />}
       <WeekCalendar
         onDateSelected={setSelectedDate}
         selectedDate={selectedDate}

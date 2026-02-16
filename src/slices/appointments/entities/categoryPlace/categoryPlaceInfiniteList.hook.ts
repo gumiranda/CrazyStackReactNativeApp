@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/shared/api";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { useUi } from "@/app/providers";
+import { SERVER_ERROR_MESSAGE } from "@/shared/libs/utils/constants";
 import { useGetInfiniteCategoryPlaces } from "./categoryPlace.lib";
 import { useEffect, useState } from "react";
 
@@ -38,7 +39,7 @@ export const useCategoryPlaceInfiniteList = ({ defaultParams = {} }) => {
   };
   const handleError = () => {
     showModal({
-      content: "Ocorreu um erro inesperado no servidor, tente novamente mais tarde",
+      content: SERVER_ERROR_MESSAGE,
       title: "Erro no servidor",
       type: "error",
     });
@@ -51,7 +52,7 @@ export const useCategoryPlaceInfiniteList = ({ defaultParams = {} }) => {
     try {
       if (items?.length > 0) {
         return Promise.all(
-          items?.map?.((item: any) => api.delete(`/categoryplace/delete?_id=${item._id}`))
+          items?.map?.((item: any) => api.delete("/categoryplace/delete", { params: { _id: item._id } }))
         );
       }
       return null;
@@ -81,7 +82,7 @@ export const useCategoryPlaceInfiniteList = ({ defaultParams = {} }) => {
   const categoryplaceList =
     pages
       ?.map?.((page: any) => page?.categoryplaces)
-      ?.reduce?.((a: any, b: any) => a.concat(b)) ?? [];
+      ?.flat() ?? [];
   return {
     deleteSelectedAction,
     isFetching,

@@ -23,7 +23,6 @@ export const MyRequestsDetailsOwner = ({
     clientId,
     currentRequest: item,
   });
-  console.tron.log({ item });
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>

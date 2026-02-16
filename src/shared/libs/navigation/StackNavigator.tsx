@@ -18,14 +18,14 @@ export const FIRST_ROUTE_UNLOGGED = "GetStarted";
 
 const headerConfig = ({ navigation, route, options }) => {
   const { user, verifyIsAuthenticated } = useAuth();
+  const theme = useTheme();
+  const insets = useSafeAreaInsets();
   if (routesWithoutHeader.includes(route.name)) {
     return null;
   }
   if (!verifyIsAuthenticated) return null;
 
-  const theme = useTheme();
   const title = getHeaderTitle(options, route.name);
-  const insets = useSafeAreaInsets();
   const canGoBack = navigation.canGoBack();
   const goToBack = () => {
     if (canGoBack) {
